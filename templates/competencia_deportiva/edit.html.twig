@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CompetenciaDeportiva{% endblock %}
+
+{% block body %}
+    <h1>Edit CompetenciaDeportiva</h1>
+
+    {{ include('competencia_deportiva/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('competencia_deportiva_index') }}">back to list</a>
+
+    {{ include('competencia_deportiva/_delete_form.html.twig') }}
+{% endblock %}

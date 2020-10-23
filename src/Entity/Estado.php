@@ -22,6 +22,11 @@ class Estado
      */
     private $estado;
 
+    public function __toString()
+    {
+        return $this->getEstado();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

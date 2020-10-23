@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CompetenciaDeportiva index{% endblock %}
+
+{% block body %}
+    <h1>CompetenciaDeportiva index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Reglamento</th>
+                <th>PermiteEmpate</th>
+                <th>PuntosEmpate</th>
+                <th>PuntosPartidoGanado</th>
+                <th>PuntosPorPresentarse</th>
+                <th>CantidadMaximaSet</th>
+                <th>FechaBaja</th>
+                <th>HoraBaja</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for competencia_deportiva in competencia_deportivas %}
+            <tr>
+                <td>{{ competencia_deportiva.id }}</td>
+                <td>{{ competencia_deportiva.nombre }}</td>
+                <td>{{ competencia_deportiva.reglamento }}</td>
+                <td>{{ competencia_deportiva.permiteEmpate ? 'Yes' : 'No' }}</td>
+                <td>{{ competencia_deportiva.puntosEmpate }}</td>
+                <td>{{ competencia_deportiva.puntosPartidoGanado }}</td>
+                <td>{{ competencia_deportiva.puntosPorPresentarse }}</td>
+                <td>{{ competencia_deportiva.cantidadMaximaSet }}</td>
+                <td>{{ competencia_deportiva.fechaBaja ? competencia_deportiva.fechaBaja|date('Y-m-d') : '' }}</td>
+                <td>{{ competencia_deportiva.horaBaja ? competencia_deportiva.horaBaja|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('competencia_deportiva_show', {'id': competencia_deportiva.id}) }}">show</a>
+                    <a href="{{ path('competencia_deportiva_edit', {'id': competencia_deportiva.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('competencia_deportiva_new') }}">Create new</a>
+{% endblock %}

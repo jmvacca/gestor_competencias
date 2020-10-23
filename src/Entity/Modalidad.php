@@ -22,6 +22,11 @@ class Modalidad
      */
     private $modalidad;
 
+    public function __toString()
+    {
+        return $this->getModalidad();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

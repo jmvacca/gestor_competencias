@@ -29,6 +29,11 @@ class Deporte
      */
     private $lugares;
 
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
     public function __construct()
     {
         $this->lugares = new ArrayCollection();

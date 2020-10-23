@@ -72,6 +72,11 @@ class Usuario implements UserInterface
      */
     private $lugares;
 
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
     public function __construct()
     {
         $this->competencias = new ArrayCollection();
@@ -275,4 +280,6 @@ class Usuario implements UserInterface
 
         return $this;
     }
+
+
 }

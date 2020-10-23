@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CompetenciaDeportiva{% endblock %}
+
+{% block body %}
+    <h1>Create new CompetenciaDeportiva</h1>
+
+    {{ include('competencia_deportiva/_form.html.twig') }}
+
+    <a href="{{ path('competencia_deportiva_index') }}">back to list</a>
+{% endblock %}

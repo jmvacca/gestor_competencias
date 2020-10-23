@@ -15,4 +15,9 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], []],
+    'competencia_deportiva_index' => [[], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::index'], [], [['text', '/competencia/deportiva/']], [], []],
+    'competencia_deportiva_new' => [[], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::new'], [], [['text', '/competencia/deportiva/new']], [], []],
+    'competencia_deportiva_show' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/competencia/deportiva']], [], []],
+    'competencia_deportiva_edit' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/competencia/deportiva']], [], []],
+    'competencia_deportiva_delete' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/competencia/deportiva']], [], []],
 ];
