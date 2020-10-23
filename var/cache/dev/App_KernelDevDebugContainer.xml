@@ -324,6 +324,58 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Repository\CompetenciaDeportivaRepository" class="App\Repository\CompetenciaDeportivaRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\DeporteRepository" class="App\Repository\DeporteRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\DisponibilidadRepository" class="App\Repository\DisponibilidadRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\EstadoRepository" class="App\Repository\EstadoRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\FechaRepository" class="App\Repository\FechaRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\LugarDeRealizacionRepository" class="App\Repository\LugarDeRealizacionRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ModalidadRepository" class="App\Repository\ModalidadRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ParticipanteRepository" class="App\Repository\ParticipanteRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\PartidoRepository" class="App\Repository\PartidoRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\ResultadoRepository" class="App\Repository\ResultadoRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\SetRepository" class="App\Repository\SetRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TipoDocumentoRepository" class="App\Repository\TipoDocumentoRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\UsuarioRepository" class="App\Repository\UsuarioRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory" public="false"/>
     <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener" public="false">
       <tag name="kernel.event_subscriber"/>
@@ -3226,6 +3278,7 @@
         <argument key="password">null</argument>
         <argument key="driver">pdo_mysql</argument>
         <argument key="driverOptions" type="collection"/>
+        <argument key="serverVersion">10.4.14-MariaDB</argument>
         <argument key="defaultTableOptions" type="collection"/>
       </argument>
       <argument type="service" id="doctrine.dbal.default_connection.configuration"/>
@@ -3254,7 +3307,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.0yahJpG"/>
+      <argument type="service" id=".service_locator.6Kp9vvL"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3668,7 +3721,20 @@
       <argument>none</argument>
     </service>
     <service id="security.encoder_factory.generic" class="Symfony\Component\Security\Core\Encoder\EncoderFactory" public="false">
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="App\Entity\Usuario" type="collection">
+          <argument key="algorithm">auto</argument>
+          <argument key="migrate_from" type="collection"/>
+          <argument key="hash_algorithm">sha512</argument>
+          <argument key="key_length">40</argument>
+          <argument key="ignore_case">false</argument>
+          <argument key="encode_as_base64">true</argument>
+          <argument key="iterations">5000</argument>
+          <argument key="cost">null</argument>
+          <argument key="memory_cost">null</argument>
+          <argument key="time_cost">null</argument>
+        </argument>
+      </argument>
     </service>
     <service id="security.user_password_encoder.generic" class="Symfony\Component\Security\Core\Encoder\UserPasswordEncoder" public="false">
       <argument type="service" id="security.encoder_factory.generic"/>
@@ -3803,7 +3869,7 @@
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.untracked_token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.users_in_memory"/>
+        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       </argument>
       <argument></argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -4072,8 +4138,11 @@
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="security.logout_url_generator"/>
     </service>
-    <service id="security.user.provider.concrete.users_in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
-      <argument type="collection"/>
+    <service id="security.user.provider.concrete.app_user_provider" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
+      <argument type="service" id="doctrine"/>
+      <argument>App\Entity\Usuario</argument>
+      <argument>email</argument>
+      <argument>null</argument>
     </service>
     <service id="security.firewall.map.config.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
       <argument>dev</argument>
@@ -4104,7 +4173,7 @@
       <argument>null</argument>
       <argument>true</argument>
       <argument>false</argument>
-      <argument>security.user.provider.concrete.users_in_memory</argument>
+      <argument>security.user.provider.concrete.app_user_provider</argument>
       <argument>main</argument>
       <argument>null</argument>
       <argument>null</argument>
@@ -4127,7 +4196,7 @@
     <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <argument type="service" id="security.untracked_token_storage"/>
       <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.users_in_memory"/>
+        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       </argument>
       <argument>main</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -4181,7 +4250,9 @@
       <tag name="console.command" command="security:encode-password"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="security.encoder_factory.generic"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>App\Entity\Usuario</argument>
+      </argument>
       <call method="setName">
         <argument>security:encode-password</argument>
       </call>
@@ -4842,6 +4913,32 @@
       <tag name="maker.command"/>
       <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias</argument>
     </service>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CompetenciaDeportivaRepository" class="App\Repository\CompetenciaDeportivaRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CompetenciaDeportivaRepository" class="App\Repository\CompetenciaDeportivaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DeporteRepository" class="App\Repository\DeporteRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\DeporteRepository" class="App\Repository\DeporteRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DisponibilidadRepository" class="App\Repository\DisponibilidadRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\DisponibilidadRepository" class="App\Repository\DisponibilidadRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\EstadoRepository" class="App\Repository\EstadoRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\EstadoRepository" class="App\Repository\EstadoRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FechaRepository" class="App\Repository\FechaRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\FechaRepository" class="App\Repository\FechaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\LugarDeRealizacionRepository" class="App\Repository\LugarDeRealizacionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\LugarDeRealizacionRepository" class="App\Repository\LugarDeRealizacionRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ModalidadRepository" class="App\Repository\ModalidadRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ModalidadRepository" class="App\Repository\ModalidadRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ParticipanteRepository" class="App\Repository\ParticipanteRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ParticipanteRepository" class="App\Repository\ParticipanteRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\PartidoRepository" class="App\Repository\PartidoRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\PartidoRepository" class="App\Repository\PartidoRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ResultadoRepository" class="App\Repository\ResultadoRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ResultadoRepository" class="App\Repository\ResultadoRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\SetRepository" class="App\Repository\SetRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\SetRepository" class="App\Repository\SetRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TipoDocumentoRepository" class="App\Repository\TipoDocumentoRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TipoDocumentoRepository" class="App\Repository\TipoDocumentoRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsuarioRepository" class="App\Repository\UsuarioRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UsuarioRepository" class="App\Repository\UsuarioRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.WaGDpDt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5189,9 +5286,23 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.0yahJpG" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.6Kp9vvL" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="App\Repository\CompetenciaDeportivaRepository" type="service" id="App\Repository\CompetenciaDeportivaRepository"/>
+        <argument key="App\Repository\DeporteRepository" type="service" id="App\Repository\DeporteRepository"/>
+        <argument key="App\Repository\DisponibilidadRepository" type="service" id="App\Repository\DisponibilidadRepository"/>
+        <argument key="App\Repository\EstadoRepository" type="service" id="App\Repository\EstadoRepository"/>
+        <argument key="App\Repository\FechaRepository" type="service" id="App\Repository\FechaRepository"/>
+        <argument key="App\Repository\LugarDeRealizacionRepository" type="service" id="App\Repository\LugarDeRealizacionRepository"/>
+        <argument key="App\Repository\ModalidadRepository" type="service" id="App\Repository\ModalidadRepository"/>
+        <argument key="App\Repository\ParticipanteRepository" type="service" id="App\Repository\ParticipanteRepository"/>
+        <argument key="App\Repository\PartidoRepository" type="service" id="App\Repository\PartidoRepository"/>
+        <argument key="App\Repository\ResultadoRepository" type="service" id="App\Repository\ResultadoRepository"/>
+        <argument key="App\Repository\SetRepository" type="service" id="App\Repository\SetRepository"/>
+        <argument key="App\Repository\TipoDocumentoRepository" type="service" id="App\Repository\TipoDocumentoRepository"/>
+        <argument key="App\Repository\UsuarioRepository" type="service" id="App\Repository\UsuarioRepository"/>
+      </argument>
     </service>
     <service id="debug.security.voter.security.access.authenticated_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
       <argument type="service" id="security.access.authenticated_voter"/>
@@ -5929,8 +6040,8 @@
     <service id="Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface" alias="security.authentication.manager" public="false"/>
     <service id="Symfony\Component\Security\Guard\GuardAuthenticatorHandler" alias="security.authentication.guard_handler" public="false"/>
     <service id="security.firewall" alias="debug.security.firewall" public="false"/>
-    <service id="security.user_providers" alias="security.user.provider.concrete.users_in_memory" public="false"/>
-    <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="security.user.provider.concrete.users_in_memory"/>
+    <service id="security.user_providers" alias="security.user.provider.concrete.app_user_provider" public="false"/>
+    <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="security.user.provider.concrete.app_user_provider"/>
     <service id="security.authentication.session_strategy.main" alias="security.authentication.session_strategy"/>
     <service id="security.user_checker.main" alias="security.user_checker" public="false"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker" public="false"/>
