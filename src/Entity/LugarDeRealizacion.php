@@ -50,6 +50,12 @@ class LugarDeRealizacion
         $this->deportes = new ArrayCollection();
     }
 
+    public function __toString(): ?string
+    {
+        // TODO: Implement __toString() method.
+        return $this->getNombre();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

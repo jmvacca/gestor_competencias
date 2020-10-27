@@ -20,4 +20,7 @@ return [
     'competencia_deportiva_show' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/competencia/deportiva']], [], []],
     'competencia_deportiva_edit' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/competencia/deportiva']], [], []],
     'competencia_deportiva_delete' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/competencia/deportiva']], [], []],
+    'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], []],
+    'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
+    'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],
 ];

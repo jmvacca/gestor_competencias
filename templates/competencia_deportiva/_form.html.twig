@@ -26,19 +26,16 @@
         <label for="Nombre">Lugar/res De Realizacion: *</label>
     </div>
 </div>
-<form id="disponibilidad">
-    <div class="row">
-        <div class="col-7">
-            <label for="Lugares Disponibles">Lugares Disponibles *</label>
-        </div>
-        <div class="col-3">
-            <label for="Disponibilidad Necesaria">Disponibilidad Necesaria *</label>
-        </div>
-        <div class="col-2">
-            <button class="btn btn-primary btn-lg" id="bt_add" name="bt_add" type="submit"> Agregar A La Lista </button>
-        </div>
+<div class="row">
+    <div class="col-sm-7" id="disponibilidades_lista" data-prototype="{{ form_widget(form.disponibilidades.vars.prototype)|e('html_attr') }}">
+        {% for row in form.disponibilidades %}
+            {{ form_row(row) }}
+        {% endfor %}
     </div>
-</form>
+    <div class="col-2">
+        <button class="btn btn-primary btn-lg" id="bt_add" name="bt_add" type="submit"> Agregar A La Lista </button>
+    </div>
+</div>
 <div class="container">
     <div class="container">
         <div class="row">
@@ -56,143 +53,143 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <div class="row">
-        <div class="col-10">
-            {{ form_widget(form.modalidad,{'attr':{
-                'type' : 'select',
-                'style' : 'text-transform:uppercase',
-                'name' : 'modalidad',
-                'class' : 'form-control',
-                'id' : 'modalidad'
-            }}) }}
-        </div>
-        <div class="col-2">
-            <button type="button" class="btn btn-primary btn-lg" name="bt_modalidad" id="bt_modalidad"> Configurar Modalidad </button>
-            <div class="modal fade" id="modalModalidadcfg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content" id="modal">
-                        <div class="modal-header">
-                            <h5 class="modal-title"></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p>¿Se permite empate? </p>
-                                    </div>
-                                    <div class="col-6">
-                                        {{ form_widget(form.permiteEmpate,{'attr' : {
-                                            'type' : 'checkbox',
-                                            'name' : 'empate',
-                                            'id' : 'sie'
-                                        }}) }}
+
+<div class="row">
+    <div class="col-10">
+        <label for="modalidad">Modalidad: *</label>
+        {{ form_widget(form.modalidad,{'attr':{
+            'type' : 'select',
+            'style' : 'text-transform:uppercase',
+            'name' : 'modalidad',
+            'class' : 'form-control',
+            'id' : 'modalidad'
+        }}) }}
+    </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-primary btn-lg" name="bt_modalidad" id="bt_modalidad"> Configurar Modalidad </button>
+        <div class="modal fade" id="modalModalidadcfg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content" id="modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>¿Se permite empate? </p>
+                                </div>
+                                <div class="col-6">
+                                    {{ form_widget(form.permiteEmpate,{'attr' : {
+                                        'type' : 'checkbox',
+                                        'name' : 'empate',
+                                        'id' : 'sie'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>¿Puntos por empate? </p>
+                                </div>
+                                <div class="col-3">
+                                    {{ form_widget(form.puntosEmpate,{'attr' : {
+                                        'type' : 'number',
+                                        'id' : 'PPE',
+                                        'name' : 'PPE',
+                                        'min' : '0',
+                                        'max' : '999',
+                                        'class' : 'form-control',
+                                        'placeholder' : '0 - 999'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>¿Puntos por presentarse? </p>
+                                </div>
+                                <div class="col-3">
+                                    {{ form_widget(form.puntosPorPresentarse,{'attr' : {
+                                        'type' : 'number',
+                                        'id' : 'PPPRE',
+                                        'name' : 'PPPRE',
+                                        'min' : '0',
+                                        'max' : '999',
+                                        'class' : 'form-control',
+                                        'placeholder' : '0 - 999'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>¿Puntos por partido ganado?</p>
+                                </div>
+                                <div class="col-3">
+                                    {{ form_widget(form.puntosPartidoGanado,{'attr' : {
+                                        'type' : 'number',
+                                        'id' : 'PPG',
+                                        'name' : 'PPG',
+                                        'min' : '1',
+                                        'max' : '999',
+                                        'class' : 'form-control',
+                                        'placeholder' : '1 - 999'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p>Forma de puntuacion: </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="radio">
+                                        <input type="radio" name="fpuntuacion" onclick="funcion1();" id="sets" checked> Sets
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p>¿Puntos por empate? </p>
-                                    </div>
-                                    <div class="col-3">
-                                        {{ form_widget(form.puntosEmpate,{'attr' : {
-                                            'type' : 'number',
-                                            'id' : 'PPE',
-                                            'name' : 'PPE',
-                                            'min' : '0',
-                                            'max' : '999',
-                                            'class' : 'form-control',
-                                            'placeholder' : '0 - 999'
-                                        }}) }}
+                                <div class="col-4">
+                                    <div class="radio">
+                                        <input type="radio" name="fpuntuacion" onclick="funcion2();" id="puntuacion"> Puntuacion WalkOver
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p>¿Puntos por presentarse? </p>
-                                    </div>
-                                    <div class="col-3">
-                                        {{ form_widget(form.puntosPorPresentarse,{'attr' : {
-                                            'type' : 'number',
-                                            'id' : 'PPPRE',
-                                            'name' : 'PPPRE',
-                                            'min' : '0',
-                                            'max' : '999',
-                                            'class' : 'form-control',
-                                            'placeholder' : '0 - 999'
-                                        }}) }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p>¿Puntos por partido ganado?</p>
-                                    </div>
-                                    <div class="col-3">
-                                        {{ form_widget(form.puntosPartidoGanado,{'attr' : {
-                                            'type' : 'number',
-                                            'id' : 'PPG',
-                                            'name' : 'PPG',
-                                            'min' : '1',
-                                            'max' : '999',
-                                            'class' : 'form-control',
-                                            'placeholder' : '1 - 999'
-                                        }}) }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p>Forma de puntuacion: </p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="radio">
-                                            <input type="radio" name="fpuntuacion" onclick="funcion1();" id="sets" checked> Sets
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="radio">
-                                            <input type="radio" name="fpuntuacion" onclick="funcion2();" id="puntuacion"> Puntuacion WalkOver
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="radio">
-                                            <input type="radio" name="fpuntuacion" onclick="funcion3();" id="resultadofinal"> Resultado Final
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4">
-                                        {{ form_widget(form.cantidadMaximaSet, {'attr' : {
-                                            'type' : 'select',
-                                            'id' : 'csets',
-                                            'name' : 'sets',
-                                            'class' : 'form-control'
-                                        }}) }}
-                                    </div>
-                                    <div class="col-4">
-                                        {{ form_widget(form.puntosPorNoPresentarse, {'attr' : {
-                                            'type' : 'number',
-                                            'id' : 'puntuacionwo',
-                                            'name' : 'puntuacionwo',
-                                            'min' : '1',
-                                            'max' : '999',
-                                            'class' : 'form-control',
-                                            'placeholder' : 'WO: 1 - 999',
-                                            'disabled' : 'true'
-                                        }}) }}
+                                <div class="col-4">
+                                    <div class="radio">
+                                        <input type="radio" name="fpuntuacion" onclick="funcion3();" id="resultadofinal"> Resultado Final
                                     </div>
                                 </div>
                             </div>
-                            <hr>
                             <div class="row">
-                                <div class="col-6">
-                                    <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                                <div class="col-4">
+                                    {{ form_widget(form.cantidadMaximaSet, {'attr' : {
+                                        'type' : 'select',
+                                        'id' : 'csets',
+                                        'name' : 'sets',
+                                        'class' : 'form-control'
+                                    }}) }}
                                 </div>
-                                <div class="col-6">
-                                    <button type="button" id="buttonCM1" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
+                                <div class="col-4">
+                                    {{ form_widget(form.puntosPorNoPresentarse, {'attr' : {
+                                        'type' : 'number',
+                                        'id' : 'puntuacionwo',
+                                        'name' : 'puntuacionwo',
+                                        'min' : '1',
+                                        'max' : '999',
+                                        'class' : 'form-control',
+                                        'placeholder' : 'WO: 1 - 999',
+                                        'disabled' : 'true'
+                                    }}) }}
                                 </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" id="buttonCM1" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
                     </div>
@@ -201,6 +198,7 @@
         </div>
     </div>
 </div>
+
 <!--Reglamento-->
 <div class="container">
     <input type="checkbox" class="form-check-input" id="CheckReglamento">Reglamento</input>

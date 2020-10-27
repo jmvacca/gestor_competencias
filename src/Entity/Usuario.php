@@ -6,10 +6,12 @@ use App\Repository\UsuarioRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UsuarioRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class Usuario implements UserInterface
 {
@@ -50,11 +52,6 @@ class Usuario implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $numero_documento;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $catc;
 
     /**
      * @ORM\OneToMany(targetEntity=CompetenciaDeportiva::class, mappedBy="usuario", orphanRemoval=true)

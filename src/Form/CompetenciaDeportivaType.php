@@ -24,7 +24,7 @@ class CompetenciaDeportivaType extends AbstractType
             ->add('cantidadMaximaSet')
             ->add('reglamento')
             ->add('puntosPorNoPresentarse')
-            ->add('disponibilidad', CollectionType::class, [
+            ->add('disponibilidades', CollectionType::class, [
                 'entry_type' => DisponibilidadType::class,
                 'entry_options' => [
                     'label' => false

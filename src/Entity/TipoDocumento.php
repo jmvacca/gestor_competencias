@@ -22,6 +22,11 @@ class TipoDocumento
      */
     private $tipo_documento;
 
+    public function __toString()
+    {
+        return $this->getTipoDocumento();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
