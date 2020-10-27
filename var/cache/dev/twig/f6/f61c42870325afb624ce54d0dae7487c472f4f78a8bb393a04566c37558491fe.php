@@ -27,6 +27,7 @@ class __TwigTemplate_5f1b83304d669e05c72c9cdb6fbc02487fe3b9a1aca6e7237f466b409d4
         $this->blocks = [
             'title' => [$this, 'block_title'],
             'body' => [$this, 'block_body'],
+            'javascripts' => [$this, 'block_javascripts'],
         ];
     }
 
@@ -65,7 +66,7 @@ class __TwigTemplate_5f1b83304d669e05c72c9cdb6fbc02487fe3b9a1aca6e7237f466b409d4
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
 
-        echo "New CompetenciaDeportiva";
+        echo "Nueva Competencia Deportiva";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -85,17 +86,111 @@ class __TwigTemplate_5f1b83304d669e05c72c9cdb6fbc02487fe3b9a1aca6e7237f466b409d4
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo "    <h1>Create new CompetenciaDeportiva</h1>
-
+        echo "    <div class=\"container\">
     ";
-        // line 8
+        // line 7
         echo twig_include($this->env, $context, "competencia_deportiva/_form.html.twig");
         echo "
+    </div>
+";
+        
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
-    <a href=\"";
-        // line 10
+        
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
+
+    }
+
+    // line 11
+    public function block_javascripts($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->enter($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 12
+        echo "    ";
+        $this->displayParentBlock("javascripts", $context, $blocks);
+        echo "
+    <script type=\"text/javascript\">
+
+        function funcion1() {
+            document.getElementById(\"puntuacionwo\").value = null;
+            var camposet = document.getElementById('csets').disabled = false;
+            var camposet = document.getElementById('puntuacionwo').disabled = true;
+        }
+
+        function funcion2() {
+            \$('#csets').prop('selectedIndex', 0);
+            var camposet = document.getElementById('puntuacionwo').disabled = false;
+            var camposet = document.getElementById('csets').disabled = true;
+        }
+
+        function funcion3() {
+            document.getElementById(\"puntuacionwo\").value = null;
+            \$('#csets').prop('selectedIndex', 0);
+            var camposet = document.getElementById('puntuacionwo').disabled = true;
+            var camposet = document.getElementById('csets').disabled = true;
+        }
+
+        function funcion4() {
+            document.getElementById(\"PPE\").value = null;
+            var camposet = document.getElementById('PPE').disabled = true;
+        }
+
+        function funcion5() {
+            var camposet = document.getElementById('PPE').disabled = false;
+        }
+
+        \$(\"#AceptarModalidad\").on(\"submit\", function(e) {
+            e.preventDefault();
+            \$('#modalLiga').modal('hide');
+            modalidadBool = true;
+            console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+            \$('#alertmodal').modal();
+        });
+
+        \$(\"#buttonCM1\").on(\"click\", function(e) {
+            e.preventDefault();
+            \$('#modalLiga').modal('hide');
+            modalidadBool = false;
+            console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
+            \$('#modalcam').modal();
+        });
+
+        \$(\"#AceptarModalidad2\").on(\"submit\", function(e) {
+            e.preventDefault();
+            \$('#modalEliminacion').modal('hide');
+            modalidadBool = true;
+            console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+            \$('#alertmodal').modal();
+        });
+
+        \$(\"#buttonCM2\").on(\"click\", function(e) {
+            e.preventDefault();
+            \$('#modalLiga').modal('hide');
+            modalidadBool = false;
+            console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
+            \$('#modalcam').modal();
+        });
+
+        \$(\"#CancelarNC\").on(\"click\", function(e) {
+            e.preventDefault();
+            \$('#modalCancelarNC').modal();
+        });
+
+        \$(\"#AceptarCancelarNC\").on(\"click\", function(e) {
+            window.location.href = \"";
+        // line 81
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("competencia_deportiva_index");
-        echo "\">back to list</a>
+        echo "\"
+        });
+    </script>
+
+
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -117,21 +212,96 @@ class __TwigTemplate_5f1b83304d669e05c72c9cdb6fbc02487fe3b9a1aca6e7237f466b409d4
 
     public function getDebugInfo()
     {
-        return array (  97 => 10,  92 => 8,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  188 => 81,  115 => 12,  105 => 11,  92 => 7,  89 => 6,  79 => 5,  60 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("{% extends 'base.html.twig' %}
 
-{% block title %}New CompetenciaDeportiva{% endblock %}
+{% block title %}Nueva Competencia Deportiva{% endblock %}
 
 {% block body %}
-    <h1>Create new CompetenciaDeportiva</h1>
-
+    <div class=\"container\">
     {{ include('competencia_deportiva/_form.html.twig') }}
+    </div>
+{% endblock %}
 
-    <a href=\"{{ path('competencia_deportiva_index') }}\">back to list</a>
+{% block javascripts %}
+    {{ parent() }}
+    <script type=\"text/javascript\">
+
+        function funcion1() {
+            document.getElementById(\"puntuacionwo\").value = null;
+            var camposet = document.getElementById('csets').disabled = false;
+            var camposet = document.getElementById('puntuacionwo').disabled = true;
+        }
+
+        function funcion2() {
+            \$('#csets').prop('selectedIndex', 0);
+            var camposet = document.getElementById('puntuacionwo').disabled = false;
+            var camposet = document.getElementById('csets').disabled = true;
+        }
+
+        function funcion3() {
+            document.getElementById(\"puntuacionwo\").value = null;
+            \$('#csets').prop('selectedIndex', 0);
+            var camposet = document.getElementById('puntuacionwo').disabled = true;
+            var camposet = document.getElementById('csets').disabled = true;
+        }
+
+        function funcion4() {
+            document.getElementById(\"PPE\").value = null;
+            var camposet = document.getElementById('PPE').disabled = true;
+        }
+
+        function funcion5() {
+            var camposet = document.getElementById('PPE').disabled = false;
+        }
+
+        \$(\"#AceptarModalidad\").on(\"submit\", function(e) {
+            e.preventDefault();
+            \$('#modalLiga').modal('hide');
+            modalidadBool = true;
+            console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+            \$('#alertmodal').modal();
+        });
+
+        \$(\"#buttonCM1\").on(\"click\", function(e) {
+            e.preventDefault();
+            \$('#modalLiga').modal('hide');
+            modalidadBool = false;
+            console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
+            \$('#modalcam').modal();
+        });
+
+        \$(\"#AceptarModalidad2\").on(\"submit\", function(e) {
+            e.preventDefault();
+            \$('#modalEliminacion').modal('hide');
+            modalidadBool = true;
+            console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+            \$('#alertmodal').modal();
+        });
+
+        \$(\"#buttonCM2\").on(\"click\", function(e) {
+            e.preventDefault();
+            \$('#modalLiga').modal('hide');
+            modalidadBool = false;
+            console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
+            \$('#modalcam').modal();
+        });
+
+        \$(\"#CancelarNC\").on(\"click\", function(e) {
+            e.preventDefault();
+            \$('#modalCancelarNC').modal();
+        });
+
+        \$(\"#AceptarCancelarNC\").on(\"click\", function(e) {
+            window.location.href = \"{{ path('competencia_deportiva_index') }}\"
+        });
+    </script>
+
+
 {% endblock %}
 ", "competencia_deportiva/new.html.twig", "C:\\Users\\joaqo\\Desktop\\Proyectos\\gestor_competencias\\templates\\competencia_deportiva\\new.html.twig");
     }

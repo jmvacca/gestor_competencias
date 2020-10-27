@@ -6,9 +6,12 @@ use App\Repository\CompetenciaDeportivaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=CompetenciaDeportivaRepository::class)
+ * @UniqueEntity(fields="nombre",
+ *     message="Nombre ya en uso.")
  */
 class CompetenciaDeportiva
 {
@@ -20,7 +23,7 @@ class CompetenciaDeportiva
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      */
     private $nombre;
 
@@ -93,7 +96,7 @@ class CompetenciaDeportiva
     private $participante;
 
     /**
-     * @ORM\OneToMany(targetEntity=Disponibilidad::class, mappedBy="competenciaDeportiva", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Disponibilidad::class, mappedBy="competenciaDeportiva", orphanRemoval=true, cascade={"persist"})
      */
     private $disponibilidades;
 
@@ -102,6 +105,11 @@ class CompetenciaDeportiva
      * @ORM\JoinColumn(nullable=false)
      */
     private $usuario;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $puntosPorNoPresentarse;
 
     public function __construct()
     {
@@ -357,6 +365,18 @@ class CompetenciaDeportiva
     public function setUsuario(?Usuario $usuario): self
     {
         $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    public function getPuntosPorNoPresentarse(): ?int
+    {
+        return $this->puntosPorNoPresentarse;
+    }
+
+    public function setPuntosPorNoPresentarse(?int $puntosPorNoPresentarse): self
+    {
+        $this->puntosPorNoPresentarse = $puntosPorNoPresentarse;
 
         return $this;
     }

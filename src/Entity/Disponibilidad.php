@@ -24,7 +24,7 @@ class Disponibilidad
 
     /**
      * @ORM\ManyToOne(targetEntity=CompetenciaDeportiva::class, inversedBy="disponibilidades")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="competenciaDeportiva_id", referencedColumnName="id")
      */
     private $competenciaDeportiva;
 

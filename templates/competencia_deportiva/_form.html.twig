@@ -1,4 +1,330 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="row">
+    <div class="col">
+        <label for="Nombre">Nombre: *</label>
+        {{ form_widget(form.nombre, {'attr': {
+            'type':'text',
+            'style':'text-transform:uppercase',
+            'placeholder':'Introduce el Nombre',
+            'maxlength':'20',
+            'class':'form-control',
+            'id':'NombreCompetencia'
+        }}) }}
+        {{ form_errors(form.nombre) }}
+    </div>
+    <div class="col">
+        <label for="Deporte">Deporte: *</label>
+        {{ form_widget(form.deporte, {'attr': {
+            'style' : 'text-transform:uppercase',
+            'name' : 'Deporte',
+            'class' : 'form-control'
+        }}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-6">
+        <label for="Nombre">Lugar/res De Realizacion: *</label>
+    </div>
+</div>
+<form id="disponibilidad">
+    <div class="row">
+        <div class="col-7">
+            <label for="Lugares Disponibles">Lugares Disponibles *</label>
+        </div>
+        <div class="col-3">
+            <label for="Disponibilidad Necesaria">Disponibilidad Necesaria *</label>
+        </div>
+        <div class="col-2">
+            <button class="btn btn-primary btn-lg" id="bt_add" name="bt_add" type="submit"> Agregar A La Lista </button>
+        </div>
+    </div>
+</form>
+<div class="container">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped table-bordered table-hover" id="tabla">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Nro</th>
+                    <th>Lugar</th>
+                    <th>Disponibilidad</th>
+                    <th>Accion</th>
+                </tr>
+                </thead>
+                <tbody id="tablalugares"> </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            {{ form_widget(form.modalidad,{'attr':{
+                'type' : 'select',
+                'style' : 'text-transform:uppercase',
+                'name' : 'modalidad',
+                'class' : 'form-control',
+                'id' : 'modalidad'
+            }}) }}
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-primary btn-lg" name="bt_modalidad" id="bt_modalidad"> Configurar Modalidad </button>
+            <div class="modal fade" id="modalModalidadcfg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>¿Se permite empate? </p>
+                                    </div>
+                                    <div class="col-6">
+                                        {{ form_widget(form.permiteEmpate,{'attr' : {
+                                            'type' : 'checkbox',
+                                            'name' : 'empate',
+                                            'id' : 'sie'
+                                        }}) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>¿Puntos por empate? </p>
+                                    </div>
+                                    <div class="col-3">
+                                        {{ form_widget(form.puntosEmpate,{'attr' : {
+                                            'type' : 'number',
+                                            'id' : 'PPE',
+                                            'name' : 'PPE',
+                                            'min' : '0',
+                                            'max' : '999',
+                                            'class' : 'form-control',
+                                            'placeholder' : '0 - 999'
+                                        }}) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>¿Puntos por presentarse? </p>
+                                    </div>
+                                    <div class="col-3">
+                                        {{ form_widget(form.puntosPorPresentarse,{'attr' : {
+                                            'type' : 'number',
+                                            'id' : 'PPPRE',
+                                            'name' : 'PPPRE',
+                                            'min' : '0',
+                                            'max' : '999',
+                                            'class' : 'form-control',
+                                            'placeholder' : '0 - 999'
+                                        }}) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>¿Puntos por partido ganado?</p>
+                                    </div>
+                                    <div class="col-3">
+                                        {{ form_widget(form.puntosPartidoGanado,{'attr' : {
+                                            'type' : 'number',
+                                            'id' : 'PPG',
+                                            'name' : 'PPG',
+                                            'min' : '1',
+                                            'max' : '999',
+                                            'class' : 'form-control',
+                                            'placeholder' : '1 - 999'
+                                        }}) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Forma de puntuacion: </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="radio">
+                                            <input type="radio" name="fpuntuacion" onclick="funcion1();" id="sets" checked> Sets
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="radio">
+                                            <input type="radio" name="fpuntuacion" onclick="funcion2();" id="puntuacion"> Puntuacion WalkOver
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="radio">
+                                            <input type="radio" name="fpuntuacion" onclick="funcion3();" id="resultadofinal"> Resultado Final
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        {{ form_widget(form.cantidadMaximaSet, {'attr' : {
+                                            'type' : 'select',
+                                            'id' : 'csets',
+                                            'name' : 'sets',
+                                            'class' : 'form-control'
+                                        }}) }}
+                                    </div>
+                                    <div class="col-4">
+                                        {{ form_widget(form.puntosPorNoPresentarse, {'attr' : {
+                                            'type' : 'number',
+                                            'id' : 'puntuacionwo',
+                                            'name' : 'puntuacionwo',
+                                            'min' : '1',
+                                            'max' : '999',
+                                            'class' : 'form-control',
+                                            'placeholder' : 'WO: 1 - 999',
+                                            'disabled' : 'true'
+                                        }}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" id="buttonCM1" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Reglamento-->
+<div class="container">
+    <input type="checkbox" class="form-check-input" id="CheckReglamento">Reglamento</input>
+    <div class="modal fade" id="reglamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h6> Reglamento: </h6>
+                    {{ form_widget(form.reglamento) }}
+                    <hr>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="reglamentofile" lang="es">
+                        <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Aceptar</button>
+                        </div>
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="reglamentoDesactivado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert">
+                        Reglamento desactivado, no se guardara ningún reglamento.
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Botones Aceptar y Cancelar -->
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <button class="btn btn-success btn-lg btn-block" id="AceptarNC" name="Aceptar">{{ button_label|default('ACEPTAR') }}</button>
+        </div>
+        <div class="col-6">
+            <button class="btn btn-danger btn-lg btn-block" id="CancelarNC" name="Cancelar">CANCELAR</button>
+        </div>
+        <div class="modal fade" id="modalCancelarNC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="alert alert-warning" role="alert">
+                            <h4> ¿Seguro que desea cancelar la operacion y salir? </h4>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" id="AceptarCancelarNC" class="btn btn-outline-secondary btn-block">Si</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-secondary btn-block" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalAceptarNC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="alert alert-info" role="alert">
+                            <div id="bodyAceptarNC"> </div>
+                            <h4> ¿Seguro que desea aceptar y crear la nueva competencia? </h4>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-2">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" id="AceptarMNC" class="btn btn-outline-success btn-block">Si</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="CompetenciaCreada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered"  role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="alert alert-success" role="alert">
+                            Competencia creada con exito.
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-4">
+                            </div>
+                            <div class="col-4">
+                                <button text="center" type="button" onclick="location.href='index_listarcompetencias.php'" class="btn btn-primary btn-block">Okey</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}
+
+
+

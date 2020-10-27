@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\CompetenciaDeportiva;
+use App\Entity\Disponibilidad;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,6 +23,16 @@ class CompetenciaDeportivaType extends AbstractType
             ->add('puntosPorPresentarse')
             ->add('cantidadMaximaSet')
             ->add('reglamento')
+            ->add('puntosPorNoPresentarse')
+            ->add('disponibilidad', CollectionType::class, [
+                'entry_type' => DisponibilidadType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
             //->add('fechaBaja')
             //->add('horaBaja')
             //->add('estado')
