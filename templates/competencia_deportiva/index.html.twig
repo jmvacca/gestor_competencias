@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CompetenciaDeportiva index{% endblock %}
+{% block title %}Competencia Deportiva index{% endblock %}
 
 {% block body %}
-    <h1>CompetenciaDeportiva index</h1>
+    <h1>Competencia Deportiva index</h1>
 
     <table class="table">
         <thead>
@@ -11,13 +11,13 @@
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Reglamento</th>
-                <th>PermiteEmpate</th>
-                <th>PuntosEmpate</th>
-                <th>PuntosPartidoGanado</th>
-                <th>PuntosPorPresentarse</th>
-                <th>CantidadMaximaSet</th>
-                <th>FechaBaja</th>
-                <th>HoraBaja</th>
+                <th>Permite Empate</th>
+                <th>Puntos por Empate</th>
+                <th>Puntos por Partido Ganado</th>
+                <th>Puntos por Presentarse</th>
+                <th>Cantidad Maxima de Set</th>
+                <th>Fecha Baja</th>
+                <th>Hora Baja</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -35,8 +35,8 @@
                 <td>{{ competencia_deportiva.fechaBaja ? competencia_deportiva.fechaBaja|date('Y-m-d') : '' }}</td>
                 <td>{{ competencia_deportiva.horaBaja ? competencia_deportiva.horaBaja|date('H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('competencia_deportiva_show', {'id': competencia_deportiva.id}) }}">show</a>
-                    <a href="{{ path('competencia_deportiva_edit', {'id': competencia_deportiva.id}) }}">edit</a>
+                    <a href="{{ path('competencia_deportiva_show', {'id': competencia_deportiva.id}) }}">Mostrar</a>
+                    <a href="{{ path('competencia_deportiva_edit', {'id': competencia_deportiva.id}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
@@ -47,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('competencia_deportiva_new') }}">Create new</a>
+    <a href="{{ path('competencia_deportiva_new') }}">Crear una competencia nueva</a>
 {% endblock %}

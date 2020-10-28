@@ -331,6 +331,20 @@
         <argument type="service" id=".service_locator.g9CqTPp.App\Controller\CompetenciaDeportivaController"/>
       </call>
     </service>
+    <service id="App\Controller\IndexController" class="App\Controller\IndexController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.g9CqTPp.App\Controller\IndexController"/>
+      </call>
+    </service>
+    <service id="App\Controller\LugarDeRealizacionController" class="App\Controller\LugarDeRealizacionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.g9CqTPp.App\Controller\LugarDeRealizacionController"/>
+      </call>
+    </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -5034,6 +5048,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CompetenciaDeportivaController" class="App\Controller\CompetenciaDeportivaController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CompetenciaDeportivaController" class="App\Controller\CompetenciaDeportivaController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CompetenciaDeportivaController" class="App\Controller\CompetenciaDeportivaController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\IndexController" class="App\Controller\IndexController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\IndexController" class="App\Controller\IndexController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\IndexController" class="App\Controller\IndexController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\LugarDeRealizacionController" class="App\Controller\LugarDeRealizacionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\LugarDeRealizacionController" class="App\Controller\LugarDeRealizacionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\LugarDeRealizacionController" class="App\Controller\LugarDeRealizacionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5343,6 +5363,18 @@
         <argument key="competenciaDeportiva" type="service" id=".errored..service_locator.eFzgP0o.App\Entity\CompetenciaDeportiva"/>
       </argument>
     </service>
+    <service id=".service_locator.kFOZRV_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="lugarDeRealizacionRepository" type="service" id="App\Repository\LugarDeRealizacionRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.wnAG.Cd" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="lugarDeRealizacion" type="service" id=".errored..service_locator.wnAG.Cd.App\Entity\LugarDeRealizacion"/>
+      </argument>
+    </service>
     <service id=".service_locator.j5_bHjD" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5355,13 +5387,17 @@
         <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.YrC.a0h" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.Vmdeu6I" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CompetenciaDeportivaController::delete" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController::edit" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController::index" type="service" id=".service_locator.KQEkocX"/>
         <argument key="App\Controller\CompetenciaDeportivaController::show" type="service" id=".service_locator.eFzgP0o"/>
+        <argument key="App\Controller\LugarDeRealizacionController::delete" type="service" id=".service_locator.wnAG.Cd"/>
+        <argument key="App\Controller\LugarDeRealizacionController::edit" type="service" id=".service_locator.wnAG.Cd"/>
+        <argument key="App\Controller\LugarDeRealizacionController::index" type="service" id=".service_locator.kFOZRV_"/>
+        <argument key="App\Controller\LugarDeRealizacionController::show" type="service" id=".service_locator.wnAG.Cd"/>
         <argument key="App\Controller\RegistrationController::register" type="service" id=".service_locator.j5_bHjD"/>
         <argument key="App\Controller\SecurityController::login" type="service" id=".service_locator.xA8Fw_."/>
         <argument key="App\Kernel::loadRoutes" type="service" id=".service_locator.C9JCBPC"/>
@@ -5374,6 +5410,10 @@
         <argument key="App\Controller\CompetenciaDeportivaController:edit" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController:index" type="service" id=".service_locator.KQEkocX"/>
         <argument key="App\Controller\CompetenciaDeportivaController:show" type="service" id=".service_locator.eFzgP0o"/>
+        <argument key="App\Controller\LugarDeRealizacionController:delete" type="service" id=".service_locator.wnAG.Cd"/>
+        <argument key="App\Controller\LugarDeRealizacionController:edit" type="service" id=".service_locator.wnAG.Cd"/>
+        <argument key="App\Controller\LugarDeRealizacionController:index" type="service" id=".service_locator.kFOZRV_"/>
+        <argument key="App\Controller\LugarDeRealizacionController:show" type="service" id=".service_locator.wnAG.Cd"/>
         <argument key="App\Controller\RegistrationController:register" type="service" id=".service_locator.j5_bHjD"/>
         <argument key="App\Controller\SecurityController:login" type="service" id=".service_locator.xA8Fw_."/>
         <argument key="kernel:loadRoutes" type="service" id=".service_locator.C9JCBPC"/>
@@ -5690,6 +5730,18 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.g9CqTPp" method="withContext"/>
     </service>
+    <service id=".service_locator.g9CqTPp.App\Controller\IndexController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\IndexController"/>
+      <argument>App\Controller\IndexController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.g9CqTPp" method="withContext"/>
+    </service>
+    <service id=".service_locator.g9CqTPp.App\Controller\LugarDeRealizacionController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\LugarDeRealizacionController"/>
+      <argument>App\Controller\LugarDeRealizacionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.g9CqTPp" method="withContext"/>
+    </service>
     <service id=".service_locator.g9CqTPp.App\Controller\RegistrationController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\RegistrationController"/>
       <argument>App\Controller\RegistrationController</argument>
@@ -5863,12 +5915,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.YrC.a0h"/>
+      <argument type="service" id=".service_locator.Vmdeu6I"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.YrC.a0h"/>
+      <argument type="service" id=".service_locator.Vmdeu6I"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -5881,6 +5933,7 @@
     <service id=".errored..service_locator.beq5mCo.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.C9JCBPC.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
     <service id=".errored..service_locator.eFzgP0o.App\Entity\CompetenciaDeportiva" class="App\Entity\CompetenciaDeportiva"/>
+    <service id=".errored..service_locator.wnAG.Cd.App\Entity\LugarDeRealizacion" class="App\Entity\LugarDeRealizacion"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
       <argument type="service" id=".service_locator.kjL308J"/>
@@ -6267,7 +6320,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.YrC.a0h"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.Vmdeu6I"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

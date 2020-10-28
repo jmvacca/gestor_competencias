@@ -34,6 +34,12 @@ class Disponibilidad
      */
     private $lugar;
 
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getDisponibilidad();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

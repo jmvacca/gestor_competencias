@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Bienvenido! {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                {% if app.user %}
+                    <a href="{{ path('app_logout') }}" class="btn-light">LOG OUT</a>
+                {% else %}
+                    <h5>
+                        <a href="{{ path('app_login') }}" class="btn-light">LOG IN</a>
+                        OR
+                        <a href="{{ path('app_register') }}" class="btn-secondary">REGISTER!</a>
+                    </h5>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <a href="{{ path('competencia_deportiva_index') }}" class="btn-link">COMPETENCIAS DEPORTIVAS</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <a href="{{ path('lugar_de_realizacion_index') }}" class="btn-link">LUGARES DE REALIZACION</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

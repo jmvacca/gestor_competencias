@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/competencia/deportiva")
+ * @Route("/competencia")
  */
 class CompetenciaDeportivaController extends AbstractController
 {
