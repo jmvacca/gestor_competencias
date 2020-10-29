@@ -24,15 +24,15 @@ class CompetenciaDeportivaType extends AbstractType
             ->add('cantidadMaximaSet')
             ->add('reglamento')
             ->add('puntosPorNoPresentarse')
-            ->add('disponibilidades', CollectionType::class, [
-                'entry_type' => DisponibilidadType::class,
-                'entry_options' => [
-                    'label' => false
-                ],
-                'by_reference' => false,
-                'allow_add' => true,
-                'allow_delete' => true
-            ])
+            ->add('disponibilidades', CollectionType::class,
+                [
+                    'entry_type' => DisponibilidadType::class,
+                    'entry_options' => [ 'label' => false  ],
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false
+                ]
+            )
             //->add('fechaBaja')
             //->add('horaBaja')
             //->add('estado')

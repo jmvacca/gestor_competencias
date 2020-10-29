@@ -12,6 +12,50 @@
     {{ parent() }}
     <script type="text/javascript">
 
+        var $coleccionDisponibilidades;
+        // setup an "add a tag" link
+        var $addDisponibilidadButton = $('<button type="button" class="add_disponibilidad_link">Añadir Disponibilidad</button>');
+        var $newLinkLi = $('<li></li>').append($addDisponibilidadButton);
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            $coleccionDisponibilidades = $('ul.disponibilidades');
+            // add the "add a tag" anchor and li to the tags ul
+            // add a delete link to all of the existing tag form li elements
+            $coleccionDisponibilidades.find('li').each(function() {
+                addDisponibilidadFormDeleteLink($(this));
+            });
+            $coleccionDisponibilidades.append($newLinkLi);
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $coleccionDisponibilidades.data('index', $coleccionDisponibilidades.find('input').length);
+            $addDisponibilidadButton.on('click', function(e) {
+                // add a new tag form (see next code block)
+                addDisponibilidadForm($coleccionDisponibilidades, $newLinkLi);
+            });
+        });
+
+
+        function addDisponibilidadForm($coleccionDisponibilidades, $newLinkLi) {
+            var prototype = $coleccionDisponibilidades.data('prototype');
+            var index = $coleccionDisponibilidades.data('index');
+            var newForm = prototype;
+            newForm = newForm.replace(/__name__/, index);
+            $coleccionDisponibilidades.data('index', index + 1);
+            var $newFormLi = $('<li></li>').append(newForm);
+            addDisponibilidadFormDeleteLink($newFormLi);
+            $newLinkLi.before($newFormLi);
+        }
+
+        function addDisponibilidadFormDeleteLink($disponibilidadFormLi) {
+            var $removeFormButton = $('<button type="button">BORRAR ESTA DISPONIBILIDAD</button>');
+            $disponibilidadFormLi.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $disponibilidadFormLi.remove();
+            });
+        }
+
         function funcion1() {
             document.getElementById("puntuacionwo").value = null;
             var camposet = document.getElementById('csets').disabled = false;

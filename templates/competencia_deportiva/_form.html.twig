@@ -1,8 +1,8 @@
 {{ form_start(form) }}
-<div class="row">
+<!--<div class="row">
     <div class="col">
         <label for="Nombre">Nombre: *</label>
-        {{ form_widget(form.nombre, {'attr': {
+       {#  {{ form_widget(form.nombre, {'attr': {
             'type':'text',
             'style':'text-transform:uppercase',
             'placeholder':'Introduce el Nombre',
@@ -199,8 +199,8 @@
     </div>
 </div>
 
-<!--Reglamento-->
-<div class="container">
+Reglamento-->
+<!--<div class="container">
     <input type="checkbox" class="form-check-input" id="CheckReglamento">Reglamento</input>
     <div class="modal fade" id="reglamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -247,8 +247,8 @@
         </div>
     </div>
 </div>
-<!-- Botones Aceptar y Cancelar -->
-<div class="container">
+Botones Aceptar y Cancelar -->
+<!-- <div class="container">
     <div class="row">
         <div class="col-6">
             <button class="btn btn-success btn-lg btn-block" id="AceptarNC" name="Aceptar">{{ button_label|default('ACEPTAR') }}</button>
@@ -321,7 +321,27 @@
             </div>
         </div>
     </div>
+</div>#}-->
+
+{{ form_row(form.nombre) }}
+{{ form_row(form.deporte) }}
+<hr>
+<div class="row">
+       <ul class="disponibilidades" data-prototype="{{ form_widget(form.disponibilidades.vars.prototype)|e('html_attr') }}">
+       {% for disponibilidad in form.disponibilidades %}
+              <li>{{ form_row(disponibilidad) }}</li>
+       {% endfor %}
+       </ul>
 </div>
+<hr>
+{{ form_row(form.modalidad) }}
+{{ form_row(form.puntosPorNoPresentarse) }}
+{{ form_row(form.puntosEmpate) }}
+{{ form_row(form.puntosPartidoGanado) }}
+{{ form_row(form.puntosPorPresentarse) }}
+{{ form_row(form.cantidadMaximaSet) }}
+{{ form_row(form.permiteEmpate) }}
+{{ form_row(form.reglamento) }}
 {{ form_end(form) }}
 
 

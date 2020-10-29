@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CompetenciaDeportiva;
 use App\Entity\Disponibilidad;
 use App\Entity\Estado;
+use App\Entity\LugarDeRealizacion;
 use App\Entity\Usuario;
 use App\Form\CompetenciaDeportivaType;
 use App\Repository\CompetenciaDeportivaRepository;
@@ -34,28 +35,27 @@ class CompetenciaDeportivaController extends AbstractController
     public function new(Request $request): Response
     {
         $competenciaDeportiva = new CompetenciaDeportiva();
-        $disponibilidad = new Disponibilidad();
-        $disponibilidades[] = [$disponibilidad];
+
         $form = $this->createForm(CompetenciaDeportivaType::class, $competenciaDeportiva);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
             $repositorio = $entityManager->getRepository(get_class(new Estado()));
             $competenciaDeportiva->setEstado($repositorio->find(1));
             $repositorio = $entityManager->getRepository(get_class(new Usuario()));
             $competenciaDeportiva->setUsuario($repositorio->find(1));
 
+            dump($competenciaDeportiva);
 
-
-            $entityManager->persist($competenciaDeportiva);
+            /*$entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
 
-            return $this->redirectToRoute('competencia_deportiva_index');
+            return $this->redirectToRoute('competencia_deportiva_index');*/
         }
 
         return $this->render('competencia_deportiva/new.html.twig', [
-            'competencia_deportiva' => $competenciaDeportiva,
             'form' => $form->createView(),
         ]);
     }

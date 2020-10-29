@@ -15,6 +15,8 @@ return [
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/competencia' => [[['_route' => 'competencia_deportiva_index', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::index'], null, ['GET' => 0], null, true, false, null]],
         '/competencia/new' => [[['_route' => 'competencia_deportiva_new', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/disponibilidad' => [[['_route' => 'disponibilidad_index', '_controller' => 'App\\Controller\\DisponibilidadController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/disponibilidad/new' => [[['_route' => 'disponibilidad_new', '_controller' => 'App\\Controller\\DisponibilidadController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/' => [[['_route' => 'menu', '_controller' => 'App\\Controller\\IndexController::menuPrincipal'], null, null, null, false, false, null]],
         '/lugar' => [[['_route' => 'lugar_de_realizacion_index', '_controller' => 'App\\Controller\\LugarDeRealizacionController::index'], null, ['GET' => 0], null, true, false, null]],
         '/lugar/new' => [[['_route' => 'lugar_de_realizacion_new', '_controller' => 'App\\Controller\\LugarDeRealizacionController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
@@ -44,10 +46,15 @@ return [
                     .'|/edit(*:206)'
                     .'|(*:214)'
                 .')'
+                .'|/disponibilidad/([^/]++)(?'
+                    .'|(*:250)'
+                    .'|/edit(*:263)'
+                    .'|(*:271)'
+                .')'
                 .'|/lugar/([^/]++)(?'
-                    .'|(*:241)'
-                    .'|/edit(*:254)'
-                    .'|(*:262)'
+                    .'|(*:298)'
+                    .'|/edit(*:311)'
+                    .'|(*:319)'
                 .')'
             .')/?$}sDu',
     ],
@@ -62,9 +69,12 @@ return [
         193 => [[['_route' => 'competencia_deportiva_show', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         206 => [[['_route' => 'competencia_deportiva_edit', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         214 => [[['_route' => 'competencia_deportiva_delete', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        241 => [[['_route' => 'lugar_de_realizacion_show', '_controller' => 'App\\Controller\\LugarDeRealizacionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        254 => [[['_route' => 'lugar_de_realizacion_edit', '_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        262 => [
+        250 => [[['_route' => 'disponibilidad_show', '_controller' => 'App\\Controller\\DisponibilidadController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        263 => [[['_route' => 'disponibilidad_edit', '_controller' => 'App\\Controller\\DisponibilidadController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        271 => [[['_route' => 'disponibilidad_delete', '_controller' => 'App\\Controller\\DisponibilidadController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        298 => [[['_route' => 'lugar_de_realizacion_show', '_controller' => 'App\\Controller\\LugarDeRealizacionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        311 => [[['_route' => 'lugar_de_realizacion_edit', '_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        319 => [
             [['_route' => 'lugar_de_realizacion_delete', '_controller' => 'App\\Controller\\LugarDeRealizacionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DisponibilidadRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @ORM\Entity(repositoryClass=DisponibilidadRepository::class)
@@ -37,7 +38,7 @@ class Disponibilidad
     public function __toString()
     {
         // TODO: Implement __toString() method.
-        return $this->getDisponibilidad();
+        return sprintf('%s',$this->getDisponibilidad());
     }
 
     public function getId(): ?int
