@@ -44,8 +44,7 @@ class CompetenciaDeportivaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $repositorio = $entityManager->getRepository(get_class(new Estado()));
             $competenciaDeportiva->setEstado($repositorio->find(1));
-            $repositorio = $entityManager->getRepository(get_class(new Usuario()));
-            $competenciaDeportiva->setUsuario($repositorio->find(1));
+            $competenciaDeportiva->setUsuario($this->getUser());
 
             dump($competenciaDeportiva);
 

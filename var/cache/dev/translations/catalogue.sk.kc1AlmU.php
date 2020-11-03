@@ -96,6 +96,11 @@ $catalogue = new MessageCatalogue('sk', array (
     'This value is not a valid timezone.' => 'Táto hodnota nie je platné časové pásmo.',
     'This password has been leaked in a data breach, it must not be used. Please use another password.' => 'Toto heslo uniklo pri narušení ochrany dát, nie je možné ho použiť. Prosím, použite iné heslo.',
     'This value should be between {{ min }} and {{ max }}.' => 'Táto hodnota by mala byť medzi {{ min }} a {{ max }}.',
+    'This value is not a valid hostname.' => 'Táto hodnota nie je platný hostname.',
+    'The number of elements in this collection should be a multiple of {{ compared_value }}.' => 'Počet prvkov v tejto kolekcii musí byť násobok {{ compared_value }}.',
+    'This value should satisfy at least one of the following constraints:' => 'Táto hodnota musí spĺňať aspoň jedno z nasledujúcich obmedzení:',
+    'Each element of this collection should satisfy its own set of constraints.' => 'Každý prvok v tejto kolekcii musí spĺňať svoje vlastné obmedzenia.',
+    'This value is not a valid International Securities Identification Number (ISIN).' => 'Táto hodnota nie je platné medzinárodné označenie cenného papiera (ISIN).',
     'This form should not contain extra fields.' => 'Polia by nemali obsahovať ďalšie prvky.',
     'The uploaded file was too large. Please try to upload a smaller file.' => 'Odoslaný súbor je príliš veľký. Prosím odošlite súbor s menšou veľkosťou.',
     'The CSRF token is invalid. Please try to resubmit the form.' => 'CSRF token je neplatný. Prosím skúste znovu odoslať formulár.',
@@ -117,6 +122,8 @@ $catalogue = new MessageCatalogue('sk', array (
     'Credentials have expired.' => 'Platnosť prihlasovacích údajov skončila.',
     'Account is disabled.' => 'Účet je zakázaný.',
     'Account is locked.' => 'Účet je zablokovaný.',
+    'Too many failed login attempts, please try again later.' => 'Príliš mnoho neúspešných pokusov o prihlásenie. Skúste to prosím znovu neskôr.',
+    'Invalid or expired login link.' => 'Neplatný alebo expirovaný odkaz na prihlásenie.',
   ),
 ));
 
@@ -247,6 +254,11 @@ $catalogueEn = new MessageCatalogue('en', array (
     'Please enter a valid URL.' => 'Please enter a valid URL.',
     'Please enter a valid search term.' => 'Please enter a valid search term.',
     'Please provide a valid phone number.' => 'Please provide a valid phone number.',
+    'The checkbox has an invalid value.' => 'The checkbox has an invalid value.',
+    'Please enter a valid email address.' => 'Please enter a valid email address.',
+    'Please select a valid option.' => 'Please select a valid option.',
+    'Please select a valid range.' => 'Please select a valid range.',
+    'Please enter a valid week.' => 'Please enter a valid week.',
   ),
   'security' => 
   array (
@@ -265,6 +277,8 @@ $catalogueEn = new MessageCatalogue('en', array (
     'Credentials have expired.' => 'Credentials have expired.',
     'Account is disabled.' => 'Account is disabled.',
     'Account is locked.' => 'Account is locked.',
+    'Too many failed login attempts, please try again later.' => 'Too many failed login attempts, please try again later.',
+    'Invalid or expired login link.' => 'Invalid or expired login link.',
   ),
 ));
 $catalogue->addFallbackCatalogue($catalogueEn);

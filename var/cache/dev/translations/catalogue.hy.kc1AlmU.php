@@ -229,6 +229,11 @@ $catalogueEn = new MessageCatalogue('en', array (
     'Please enter a valid URL.' => 'Please enter a valid URL.',
     'Please enter a valid search term.' => 'Please enter a valid search term.',
     'Please provide a valid phone number.' => 'Please provide a valid phone number.',
+    'The checkbox has an invalid value.' => 'The checkbox has an invalid value.',
+    'Please enter a valid email address.' => 'Please enter a valid email address.',
+    'Please select a valid option.' => 'Please select a valid option.',
+    'Please select a valid range.' => 'Please select a valid range.',
+    'Please enter a valid week.' => 'Please enter a valid week.',
   ),
   'security' => 
   array (
@@ -247,6 +252,8 @@ $catalogueEn = new MessageCatalogue('en', array (
     'Credentials have expired.' => 'Credentials have expired.',
     'Account is disabled.' => 'Account is disabled.',
     'Account is locked.' => 'Account is locked.',
+    'Too many failed login attempts, please try again later.' => 'Too many failed login attempts, please try again later.',
+    'Invalid or expired login link.' => 'Invalid or expired login link.',
   ),
 ));
 $catalogue->addFallbackCatalogue($catalogueEn);

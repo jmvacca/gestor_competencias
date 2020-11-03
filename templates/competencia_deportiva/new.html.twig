@@ -4,84 +4,137 @@
 
 {% block body %}
     <div class="container">
-    {{ include('competencia_deportiva/_form.html.twig') }}
+        <div class="panel panel-warning"
+        {{ include('competencia_deportiva/_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
-
+        //Como añadir DISPONIBILIDADES
         var $coleccionDisponibilidades;
-        // setup an "add a tag" link
-        var $addDisponibilidadButton = $('<button type="button" class="add_disponibilidad_link">Añadir Disponibilidad</button>');
-        var $newLinkLi = $('<li></li>').append($addDisponibilidadButton);
+        // setup an "add a disponibilidad" link
+        var $addDisponibilidadButton = $('<button type="button" class="add_disponibilidad_link btn btn-primary btn-lg"> <i class="fa fa-plus"></i> AÑADIR DISPONIBILIDAD</button>');
         jQuery(document).ready(function() {
-            // Get the ul that holds the collection of tags
-            $coleccionDisponibilidades = $('ul.disponibilidades');
-            // add the "add a tag" anchor and li to the tags ul
-            // add a delete link to all of the existing tag form li elements
-            $coleccionDisponibilidades.find('li').each(function() {
-                addDisponibilidadFormDeleteLink($(this));
-            });
-            $coleccionDisponibilidades.append($newLinkLi);
+            // Get the table that holds the collection of disponibilidades
+            $coleccionDisponibilidades = $('#disponibilidades');
+            // add the "add a disponibilidad" anchor and tr to the tags table
+            // add a delete link to all of the existing disponibilidad form tr elements
+            $coleccionDisponibilidades.append($addDisponibilidadButton);
             // count the current form inputs we have (e.g. 2), use that as the new
             // index when inserting a new item (e.g. 2)
-            $coleccionDisponibilidades.data('index', $coleccionDisponibilidades.find('input').length);
+            $coleccionDisponibilidades.data('index', $coleccionDisponibilidades.find('#card-disponibilidad').length);
+            $coleccionDisponibilidades.find('#card-disponibilidad').each(function() {
+                addDisponibilidadFormDeleteLink($(this));
+            });
             $addDisponibilidadButton.on('click', function(e) {
-                // add a new tag form (see next code block)
-                addDisponibilidadForm($coleccionDisponibilidades, $newLinkLi);
+                e.preventDefault();
+                // add a new disponibilidad form (see next code block)
+                addDisponibilidadForm();
             });
         });
 
 
-        function addDisponibilidadForm($coleccionDisponibilidades, $newLinkLi) {
+        function addDisponibilidadForm() {
             var prototype = $coleccionDisponibilidades.data('prototype');
             var index = $coleccionDisponibilidades.data('index');
             var newForm = prototype;
             newForm = newForm.replace(/__name__/, index);
-            $coleccionDisponibilidades.data('index', index + 1);
-            var $newFormLi = $('<li></li>').append(newForm);
-            addDisponibilidadFormDeleteLink($newFormLi);
-            $newLinkLi.before($newFormLi);
-        }
 
-        function addDisponibilidadFormDeleteLink($disponibilidadFormLi) {
-            var $removeFormButton = $('<button type="button">BORRAR ESTA DISPONIBILIDAD</button>');
-            $disponibilidadFormLi.append($removeFormButton);
+            $coleccionDisponibilidades.data('index', index+1);
+            //var $newFormTr = $('<tr></tr>').append(newForm);
+            var $card = $('<div class="card  bg-light mb-3" id="card-disponibilidad"><div class="card-header"></div></div>');
+            // create the panel-body and append the form to it
+            var $cardBody = $('<div class="card-body"></div>').append(newForm);
+            // append the body to the panel
+            $card.append($cardBody);
+            addDisponibilidadFormDeleteLink($card);
+            $addDisponibilidadButton.before($card);
+        }
+        /**
+         * @param $card
+         */
+        function addDisponibilidadFormDeleteLink($card) {
+            var $removeFormButton = $('<button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash"></i> ELIMINAR</button>');
+            var $cardFooter = $('<div class="card-footer"></div>').append($removeFormButton);
 
             $removeFormButton.on('click', function(e) {
-                // remove the li for the tag form
-                $disponibilidadFormLi.remove();
+                // remove the tr for the tag form
+                $(e.target).parents('#card-disponibilidad').slideUp(1000, function (){
+                    $(this).remove();
+                });
             });
+            $card.append($cardFooter);
         }
 
+
+        //CONFIGURAR MODALIDAD
+        var $modalidadSelect;
+
+        var $addModalidadButton = $('<button type="button" class="btn btn-primary btn-lg"> Configurar Modalidad </button>')
+        jQuery(document).ready(function() {
+            $modalidadSelect = $('div.modalidad');
+            $modalidadSelect.append($addModalidadButton);
+            $addModalidadButton.on('click', function(e) {
+                var select = document.getElementById('competencia_deportiva_modalidad');
+                var modalidadS = [select.selectedIndex];
+                if(modalidadS!=0){
+                    document.getElementById('ocultar').style.display = 'none';
+                } else {
+                    document.getElementById('ocultar').style.display = '';
+                }
+                $('div.modalModalidadcfg').modal();
+            });
+        });
+
+
         function funcion1() {
-            document.getElementById("puntuacionwo").value = null;
-            var camposet = document.getElementById('csets').disabled = false;
-            var camposet = document.getElementById('puntuacionwo').disabled = true;
+            document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value = null;
+            document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = false;
+            document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
         }
 
         function funcion2() {
-            $('#csets').prop('selectedIndex', 0);
-            var camposet = document.getElementById('puntuacionwo').disabled = false;
-            var camposet = document.getElementById('csets').disabled = true;
+            document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
+            document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = false;
+            document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
         }
 
         function funcion3() {
-            document.getElementById("puntuacionwo").value = null;
-            $('#csets').prop('selectedIndex', 0);
-            var camposet = document.getElementById('puntuacionwo').disabled = true;
-            var camposet = document.getElementById('csets').disabled = true;
+            document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value = null;
+            document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
+            document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+            document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
         }
 
         function funcion4() {
-            document.getElementById("PPE").value = null;
-            var camposet = document.getElementById('PPE').disabled = true;
+            document.getElementById("competencia_deportiva_puntosEmpate").value = null;
+            document.getElementById('competencia_deportiva_puntosEmpate').disabled = true;
         }
 
         function funcion5() {
-            var camposet = document.getElementById('PPE').disabled = false;
+            document.getElementById('competencia_deportiva_puntosEmpate').disabled = false;
+        }
+
+        function funcion6() {
+            document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value = null;
+            document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = false;
+            document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+        }
+
+        function funcion7() {
+            document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
+            document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = false;
+            document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
+        }
+
+        function funcion8() {
+            document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value = null;
+            document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
+            document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+            document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
         }
 
         $("#AceptarModalidad").on("submit", function(e) {

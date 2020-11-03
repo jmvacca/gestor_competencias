@@ -129,6 +129,11 @@ $catalogue = new MessageCatalogue('vi', array (
     'Please enter a valid URL.' => 'Vui lòng nhập một URL hợp lệ.',
     'Please enter a valid search term.' => 'Vui lòng nhập chuỗi tìm kiếm hợp lệ.',
     'Please provide a valid phone number.' => 'Vui lòng cung cấp số điện thoại hợp lệ.',
+    'The checkbox has an invalid value.' => 'Hộp kiểm có một giá trị không hợp lệ.',
+    'Please enter a valid email address.' => 'Vui lòng nhập địa chỉ email hợp lệ.',
+    'Please select a valid option.' => 'Vui lòng chọn một phương án hợp lệ.',
+    'Please select a valid range.' => 'Vui lòng nhập một phạm vi hợp lệ.',
+    'Please enter a valid week.' => 'Vui lòng nhập một tuần hợp lệ.',
   ),
   'security' => 
   array (
@@ -147,6 +152,8 @@ $catalogue = new MessageCatalogue('vi', array (
     'Credentials have expired.' => 'Thông tin xác thực đã hết hạn.',
     'Account is disabled.' => 'Tài khoản bị tạm ngừng.',
     'Account is locked.' => 'Tài khoản bị khóa.',
+    'Too many failed login attempts, please try again later.' => 'Đăng nhập sai quá nhiều lần, vui lòng thử lại lần nữa.',
+    'Invalid or expired login link.' => 'Liên kết đăng nhập không hợp lệ hoặc quá hạn.',
   ),
 ));
 
@@ -277,6 +284,11 @@ $catalogueEn = new MessageCatalogue('en', array (
     'Please enter a valid URL.' => 'Please enter a valid URL.',
     'Please enter a valid search term.' => 'Please enter a valid search term.',
     'Please provide a valid phone number.' => 'Please provide a valid phone number.',
+    'The checkbox has an invalid value.' => 'The checkbox has an invalid value.',
+    'Please enter a valid email address.' => 'Please enter a valid email address.',
+    'Please select a valid option.' => 'Please select a valid option.',
+    'Please select a valid range.' => 'Please select a valid range.',
+    'Please enter a valid week.' => 'Please enter a valid week.',
   ),
   'security' => 
   array (
@@ -295,6 +307,8 @@ $catalogueEn = new MessageCatalogue('en', array (
     'Credentials have expired.' => 'Credentials have expired.',
     'Account is disabled.' => 'Account is disabled.',
     'Account is locked.' => 'Account is locked.',
+    'Too many failed login attempts, please try again later.' => 'Too many failed login attempts, please try again later.',
+    'Invalid or expired login link.' => 'Invalid or expired login link.',
   ),
 ));
 $catalogue->addFallbackCatalogue($catalogueEn);

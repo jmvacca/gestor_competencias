@@ -215,6 +215,7 @@
     </parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
+      <parameter>bootstrap_4_layout.html.twig</parameter>
     </parameter>
     <parameter key="twig.default_path">C:\Users\joaqo\Desktop\Proyectos\gestor_competencias/templates</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
@@ -1644,6 +1645,7 @@
           </argument>
           <argument key="bs" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.bs.xlf</argument>
+            <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\form/Resources/translations\validators.bs.xlf</argument>
           </argument>
           <argument key="ca" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.ca.xlf</argument>
@@ -1700,6 +1702,7 @@
           <argument key="fi" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.fi.xlf</argument>
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\form/Resources/translations\validators.fi.xlf</argument>
+            <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\security-core/Resources/translations\security.fi.xlf</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.fr.xlf</argument>
@@ -1820,6 +1823,8 @@
           </argument>
           <argument key="sq" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.sq.xlf</argument>
+            <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\form/Resources/translations\validators.sq.xlf</argument>
+            <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\security-core/Resources/translations\security.sq.xlf</argument>
           </argument>
           <argument key="sr_Cyrl" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.sr_Cyrl.xlf</argument>
@@ -1867,6 +1872,8 @@
           </argument>
           <argument key="zh_TW" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\validator/Resources/translations\validators.zh_TW.xlf</argument>
+            <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\form/Resources/translations\validators.zh_TW.xlf</argument>
+            <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\security-core/Resources/translations\security.zh_TW.xlf</argument>
           </argument>
           <argument key="pt_PT" type="collection">
             <argument>C:\Users\joaqo\Desktop\Proyectos\gestor_competencias\vendor\symfony\security-core/Resources/translations\security.pt_PT.xlf</argument>
