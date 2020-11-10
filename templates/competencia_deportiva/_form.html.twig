@@ -2,14 +2,7 @@
 <div class="row">
     <div class="col">
         <label for="Nombre">Nombre: *</label>
-        {{ form_widget(form.nombre, {'attr': {
-            'type':'text',
-            'style':'text-transform:uppercase',
-            'placeholder':'Introduce el Nombre',
-            'maxlength':'20',
-            'class':'form-control',
-            'id':'NombreCompetencia'
-        }}) }}
+        {{ form_widget(form.nombre) }}
         {{ form_errors(form.nombre) }}
     </div>
     <div class="col">
@@ -24,6 +17,9 @@
 <div class="row">
     <div class="col-6" id="disponibilidades" data-prototype="{{ form_widget(form.disponibilidades.vars.prototype)|e('html_attr') }}">
         <label for="disponibilidad">Lugar/es y disponibilidad/es: *</label>
+        {{ form_widget(form.disponibilidades,{'attr':{
+            'visible' : 'false'
+        }}) }}
         <hr>
     </div>
 </div>
@@ -164,7 +160,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-6">
-                                <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                                <button type="button" id="buttonAM1" class="btn btn-success btn-block">Guardar</button>
                             </div>
                             <div class="col-6">
                                 <button type="button" id="buttonCM1" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
@@ -180,127 +176,21 @@
 <!--Reglamento-->
 <div class="row">
     <div class="col">
-        <input type="checkbox" id="CheckReglamento">Reglamento</input>
-        <div class="modal fade" id="reglamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h6> Reglamento: </h6>
-                        {{ form_widget(form.reglamento) }}
-                        <hr>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="reglamentofile" lang="es">
-                            <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-2"></div>
-                            <div class="col-4">
-                                <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Aceptar</button>
-                            </div>
-                            <div class="col-4">
-                                <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="reglamentoDesactivado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="alert alert-warning" role="alert">
-                            Reglamento desactivado, no se guardara ningún reglamento.
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-4">
-                            </div>
-                            <div class="col-4">
-                                <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{ form_label(form.reglamento) }}
+        {{ form_widget(form.reglamento) }}
+        {{ form_errors(form.reglamento) }}
+        <hr>
     </div>
 </div>
 <!-- Botones Aceptar y Cancelar -->
 <div class="row">
     <div class="col-6">
-        <button class="btn btn-success btn-lg btn-block" id="AceptarNC" name="Aceptar">{{ button_label|default('ACEPTAR') }}</button>
+        <button class="btn btn-success btn-lg btn-block" id="buttonAceptarCompetencia">{{ button_label|default('ACEPTAR') }}</button>
     </div>
     <div class="col-6">
         <button class="btn btn-danger btn-lg btn-block" id="CancelarNC" name="Cancelar">CANCELAR</button>
     </div>
-    <div class="modal fade" id="modalCancelarNC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="alert alert-warning" role="alert">
-                        <h4> ¿Seguro que desea cancelar la operacion y salir? </h4>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-2">
-                        </div>
-                        <div class="col-4">
-                            <button type="button" id="AceptarCancelarNC" class="btn btn-outline-secondary btn-block">Si</button>
-                        </div>
-                        <div class="col-4">
-                            <button type="button" class="btn btn-outline-secondary btn-block" data-dismiss="modal">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="modalAceptarNC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="alert alert-info" role="alert">
-                        <div id="bodyAceptarNC"> </div>
-                        <h4> ¿Seguro que desea aceptar y crear la nueva competencia? </h4>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-2">
-                        </div>
-                        <div class="col-4">
-                            <button type="button" id="AceptarMNC" class="btn btn-outline-success btn-block">Si</button>
-                        </div>
-                        <div class="col-4">
-                            <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">No</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="CompetenciaCreada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"  role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="alert alert-success" role="alert">
-                        Competencia creada con exito.
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-4">
-                        </div>
-                        <div class="col-4">
-                            <button text="center" type="button" onclick="location.href='index_listarcompetencias.php'" class="btn btn-primary btn-block">Okey</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
-
 {{ form_end(form) }}
 
 

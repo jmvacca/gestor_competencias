@@ -137,12 +137,11 @@
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
         }
 
-        $("#AceptarModalidad").on("submit", function(e) {
+        $("#buttonAM1").on("click", function(e) {
             e.preventDefault();
-            $('#modalLiga').modal('hide');
+            $('div.modalModalidadcfg').modal('hide');
             modalidadBool = true;
             console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
-            $('#alertmodal').modal();
         });
 
         $("#buttonCM1").on("click", function(e) {
@@ -150,33 +149,16 @@
             $('#modalLiga').modal('hide');
             modalidadBool = false;
             console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
-            $('#modalcam').modal();
         });
 
-        $("#AceptarModalidad2").on("submit", function(e) {
-            e.preventDefault();
-            $('#modalEliminacion').modal('hide');
-            modalidadBool = true;
-            console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
-            $('#alertmodal').modal();
-        });
-
-        $("#buttonCM2").on("click", function(e) {
-            e.preventDefault();
-            $('#modalLiga').modal('hide');
-            modalidadBool = false;
-            console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
-            $('#modalcam').modal();
-        });
 
         $("#CancelarNC").on("click", function(e) {
-            e.preventDefault();
-            $('#modalCancelarNC').modal();
-        });
-
-        $("#AceptarCancelarNC").on("click", function(e) {
             window.location.href = "{{ path('competencia_deportiva_index') }}"
         });
+
+        $("#buttonAceptarCompetencia").on("click", function (e) {
+            console.log('presionaste el boton para guardar competencia');
+        })
     </script>
 
 

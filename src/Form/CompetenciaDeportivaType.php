@@ -6,6 +6,7 @@ use App\Entity\CompetenciaDeportiva;
 use App\Entity\Disponibilidad;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,14 @@ class CompetenciaDeportivaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
+            ->add('nombre', TextType::class,
+                [
+                    'style' => 'text-transform:uppercase',
+                    'placeholder' => 'Introduce el Nombre',
+                    'maxlength' => '20',
+                    'class' => 'form-control',
+                    'id' => 'NombreCompetencia'
+                ])
             ->add('deporte')
             ->add('modalidad')
             ->add('permiteEmpate')
