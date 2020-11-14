@@ -4,11 +4,12 @@
 
 {% block body %}
     <div class="container">
-        <div class="panel panel-warning"
+        <div class="panel panel-warning">
         {{ include('competencia_deportiva/_form.html.twig') }}
         </div>
     </div>
 {% endblock %}
+
 
 {% block javascripts %}
     {{ parent() }}
@@ -156,9 +157,9 @@
             window.location.href = "{{ path('competencia_deportiva_index') }}"
         });
 
-        $("#buttonAceptarCompetencia").on("click", function (e) {
+        /*$("#buttonAceptarCompetencia").on("click", function (e) {
             console.log('presionaste el boton para guardar competencia');
-        })
+        })*/
     </script>
 
 

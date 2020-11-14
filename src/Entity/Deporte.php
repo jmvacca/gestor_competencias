@@ -15,7 +15,7 @@ class Deporte
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="id",type="integer", type="smallint", nullable=false)
      */
     private $id;
 

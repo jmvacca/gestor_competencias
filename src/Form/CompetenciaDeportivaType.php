@@ -4,9 +4,14 @@ namespace App\Form;
 
 use App\Entity\CompetenciaDeportiva;
 use App\Entity\Disponibilidad;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,21 +22,71 @@ class CompetenciaDeportivaType extends AbstractType
         $builder
             ->add('nombre', TextType::class,
                 [
-                    'style' => 'text-transform:uppercase',
-                    'placeholder' => 'Introduce el Nombre',
-                    'maxlength' => '20',
-                    'class' => 'form-control',
-                    'id' => 'NombreCompetencia'
+                    'attr' => ['style' => 'text-transform:uppercase', 'title' => 'Nombre', 'placeholder' => 'Introduce el Nombre', 'maxlength' => '20', 'class' => 'form-control', 'id' => 'NombreCompetencia'],
+                    'required' => false,
+                    'invalid_message' => 'Valor Inválido! - Debe tener nombre de al menos %num% caracteres',
+                    'invalid_message_parameters' => array('%num%' => 20),
                 ])
-            ->add('deporte')
-            ->add('modalidad')
-            ->add('permiteEmpate')
-            ->add('puntosEmpate')
-            ->add('puntosPartidoGanado')
-            ->add('puntosPorPresentarse')
-            ->add('cantidadMaximaSet')
-            ->add('reglamento')
-            ->add('puntosPorNoPresentarse')
+            ->add('deporte', EntityType::class,
+                [
+                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control'],
+                    'class' => 'App\Entity\Deporte',
+                ])
+            ->add('modalidad', EntityType::class,
+                [
+                    'attr' => ['name' => 'Modalidad','title' => 'Modalidad', 'class' => 'form-control', 'id' => 'modalidad'],
+                    'class' => 'App\Entity\Modalidad',
+                ])
+            ->add('permiteEmpate', ChoiceType::class,
+                [
+                    'choices' =>
+                        [
+                            'No' => false,
+                            'Si' => true,
+                        ],
+                    'placeholder' => false,
+                    'expanded' => false,
+                    'multiple' => false,
+                    'attr' => ['name' => 'Empate','title' => 'Permite empate?', 'class' => 'form-control', 'id' => 'sie'],
+                    'required' => false,
+                ])
+            ->add('puntosEmpate', IntegerType::class,
+                [
+                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','name' => 'PPE', 'title' => 'Puntos por empate', 'class' => 'form-control', 'id' => 'PPE'],
+                    'required' => false,
+                ])
+            ->add('puntosPartidoGanado', IntegerType::class,
+                [
+                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'1 - 999','name' => 'PPG', 'title' => 'Puntos por partidos ganados', 'class' => 'form-control', 'id' => 'PPG'],
+                    'required' => false,
+                ])
+            ->add('puntosPorPresentarse', IntegerType::class,
+                [
+                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','name' => 'PPPRE', 'title' => 'Puntos por presentarse', 'class' => 'form-control', 'id' => 'PPPRE'],
+                    'required' => false,
+                ])
+            ->add('cantidadMaximaSet', ChoiceType::class,
+                [
+                    'choices'  => [
+                        '1' => 1,
+                        '3' => 3,
+                        '5' => 5,
+                        '7' => 7,
+                        '9' => 9,
+                        ],
+                    'attr' => ['id' => 'csets', 'name' => 'sets','placeholder'=> 'Seleccione Set', 'class' => 'form-control'],
+                    'required' => false,
+                ])
+            ->add('reglamento', TextareaType::class,
+                [
+                    'attr' => ['class' => 'form-control', 'name' => 'Reglamento', 'placeholder'=>'Ingrese un reglamento (opcional)'],
+                    'required' => false,
+                ])
+            ->add('puntosPorNoPresentarse', IntegerType::class,
+                [
+                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'1 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
+                    'required' => false,
+                ])
             ->add('disponibilidades', CollectionType::class,
                 [
                     'entry_type' => DisponibilidadType::class,

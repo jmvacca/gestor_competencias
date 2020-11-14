@@ -18,7 +18,7 @@ class CompetenciaDeportiva
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="id",type="integer", type="smallint", nullable=false)
      */
     private $id;
 
@@ -74,7 +74,7 @@ class CompetenciaDeportiva
 
     /**
      * @ORM\ManyToOne(targetEntity=Modalidad::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="modalidad", referencedColumnName="id")
      */
     private $modalidad;
 
@@ -86,7 +86,7 @@ class CompetenciaDeportiva
 
     /**
      * @ORM\ManyToOne(targetEntity=Deporte::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="deporte", referencedColumnName="id")
      */
     private $deporte;
 
