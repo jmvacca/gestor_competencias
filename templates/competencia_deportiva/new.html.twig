@@ -26,8 +26,8 @@
             $coleccionDisponibilidades.append($addDisponibilidadButton);
             // count the current form inputs we have (e.g. 2), use that as the new
             // index when inserting a new item (e.g. 2)
-            $coleccionDisponibilidades.data('index', $coleccionDisponibilidades.find('#card-disponibilidad').length);
-            $coleccionDisponibilidades.find('#card-disponibilidad').each(function() {
+            $coleccionDisponibilidades.data('index', $coleccionDisponibilidades.find('input').length);
+            $coleccionDisponibilidades.find('input').each(function() {
                 addDisponibilidadFormDeleteLink($(this));
             });
             $addDisponibilidadButton.on('click', function(e) {
@@ -42,7 +42,7 @@
             var prototype = $coleccionDisponibilidades.data('prototype');
             var index = $coleccionDisponibilidades.data('index');
             var newForm = prototype;
-            newForm = newForm.replace(/__name__/, index);
+            newForm = newForm.replace(/__name__/g, index);
 
             $coleccionDisponibilidades.data('index', index+1);
             //var $newFormTr = $('<tr></tr>').append(newForm);
@@ -157,9 +157,9 @@
             window.location.href = "{{ path('competencia_deportiva_index') }}"
         });
 
-        /*$("#buttonAceptarCompetencia").on("click", function (e) {
-            console.log('presionaste el boton para guardar competencia');
-        })*/
+        $("#botonac").on("click", function (e) {
+            console.log('Disponibilidades: '+$coleccionDisponibilidades.data('index', $coleccionDisponibilidades.find('#card-disponibilidad').length));
+        })
     </script>
 
 

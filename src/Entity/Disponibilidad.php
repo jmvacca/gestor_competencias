@@ -30,8 +30,8 @@ class Disponibilidad
     private $competenciaDeportiva;
 
     /**
-     * @ORM\OneToOne(targetEntity=LugarDeRealizacion::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=LugarDeRealizacion::class)
+     * @ORM\JoinColumn(nullable=false, name="lugar_id", referencedColumnName="id")
      */
     private $lugar;
 
@@ -41,41 +41,41 @@ class Disponibilidad
         return sprintf('%s',$this->getDisponibilidad());
     }
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getDisponibilidad(): ?int
+    public function getDisponibilidad()
     {
         return $this->disponibilidad;
     }
 
-    public function setDisponibilidad(int $disponibilidad): self
+    public function setDisponibilidad(int $disponibilidad)
     {
         $this->disponibilidad = $disponibilidad;
 
         return $this;
     }
 
-    public function getCompetenciaDeportiva(): ?CompetenciaDeportiva
+    public function getCompetenciaDeportiva()
     {
         return $this->competenciaDeportiva;
     }
 
-    public function setCompetenciaDeportiva(?CompetenciaDeportiva $competenciaDeportiva): self
+    public function setCompetenciaDeportiva($competenciaDeportiva)
     {
         $this->competenciaDeportiva = $competenciaDeportiva;
 
         return $this;
     }
 
-    public function getLugar(): ?LugarDeRealizacion
+    public function getLugar()
     {
         return $this->lugar;
     }
 
-    public function setLugar(LugarDeRealizacion $lugar): self
+    public function setLugar($lugar)
     {
         $this->lugar = $lugar;
 

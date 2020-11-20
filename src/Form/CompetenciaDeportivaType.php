@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CompetenciaDeportivaType extends AbstractType
 {
@@ -29,12 +30,12 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('deporte', EntityType::class,
                 [
-                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control'],
+                    'attr' => ['style' => 'text-transform:uppercase','name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control'],
                     'class' => 'App\Entity\Deporte',
                 ])
             ->add('modalidad', EntityType::class,
                 [
-                    'attr' => ['name' => 'Modalidad','title' => 'Modalidad', 'class' => 'form-control', 'id' => 'modalidad'],
+                    'attr' => ['style' => 'text-transform:uppercase','name' => 'Modalidad','title' => 'Modalidad', 'class' => 'form-control', 'id' => 'modalidad'],
                     'class' => 'App\Entity\Modalidad',
                 ])
             ->add('permiteEmpate', ChoiceType::class,
@@ -79,7 +80,7 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('reglamento', TextareaType::class,
                 [
-                    'attr' => ['class' => 'form-control', 'name' => 'Reglamento', 'placeholder'=>'Ingrese un reglamento (opcional)'],
+                    'attr' => ['style' => 'text-transform:uppercase','class' => 'form-control', 'name' => 'Reglamento', 'placeholder'=>'Ingrese un reglamento (opcional)'],
                     'required' => false,
                 ])
             ->add('puntosPorNoPresentarse', IntegerType::class,
@@ -101,6 +102,7 @@ class CompetenciaDeportivaType extends AbstractType
             //->add('estado')
             //->add('usuario')
         ;
+        //$builder->addEventSubscriber(new AddLugarFieldCompetencia());
     }
 
     public function configureOptions(OptionsResolver $resolver)

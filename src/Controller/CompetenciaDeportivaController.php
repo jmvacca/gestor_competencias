@@ -46,8 +46,6 @@ class CompetenciaDeportivaController extends AbstractController
             $competenciaDeportiva->setEstado($repositorio->find(1));
             $competenciaDeportiva->setUsuario($this->getUser());
 
-            dump($competenciaDeportiva);
-
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
 

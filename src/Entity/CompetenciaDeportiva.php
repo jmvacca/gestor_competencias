@@ -335,10 +335,10 @@ class CompetenciaDeportiva
         return $this->disponibilidades;
     }
 
-    public function addDisponibilidade(Disponibilidad $disponibilidade): self
+    public function addDisponibilidade(Disponibilidad $disponibilidade)
     {
         if (!$this->disponibilidades->contains($disponibilidade)) {
-            $this->disponibilidades[] = $disponibilidade;
+            $this->disponibilidades->add($disponibilidade);
             $disponibilidade->setCompetenciaDeportiva($this);
         }
 
