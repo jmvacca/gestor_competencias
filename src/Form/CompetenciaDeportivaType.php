@@ -24,7 +24,7 @@ class CompetenciaDeportivaType extends AbstractType
             ->add('nombre', TextType::class,
                 [
                     'attr' => ['style' => 'text-transform:uppercase', 'title' => 'Nombre', 'placeholder' => 'Introduce el Nombre', 'maxlength' => '20', 'class' => 'form-control', 'id' => 'NombreCompetencia'],
-                    'required' => false,
+                    'required' => true,
                     'invalid_message' => 'Valor Inválido! - Debe tener nombre de al menos %num% caracteres',
                     'invalid_message_parameters' => array('%num%' => 20),
                 ])

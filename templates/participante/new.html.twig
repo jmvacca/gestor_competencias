@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}NUEVO PARTICIPANTE{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="panel panel-warning">
+            {{ include('participante/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $("#CancelarNP").on("click", function(e) {
+            window.location.href = "{{ path('participante_index') }}"
+        });
+
+    </script>
+
+
+{% endblock %}
