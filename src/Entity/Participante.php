@@ -28,13 +28,13 @@ class Participante
     private $email;
 
     /**
-     * @ORM\Column(type="binary", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $imagen;
+    private $imagenFileName;
 
     /**
      * @ORM\ManyToOne(targetEntity=CompetenciaDeportiva::class, inversedBy="participante")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="competenciaDeportiva" ,nullable=false, referencedColumnName="id")
      */
     private $competenciaDeportiva;
 
@@ -67,14 +67,14 @@ class Participante
         return $this;
     }
 
-    public function getImagen()
+    public function getImagenFileName()
     {
-        return $this->imagen;
+        return $this->imagenFileName;
     }
 
-    public function setImagen($imagen): self
+    public function setImagenFileName($imagenFileName): self
     {
-        $this->imagen = $imagen;
+        $this->imagenFileName = $imagenFileName;
 
         return $this;
     }
