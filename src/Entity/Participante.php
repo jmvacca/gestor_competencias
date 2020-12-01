@@ -34,7 +34,7 @@ class Participante
 
     /**
      * @ORM\ManyToOne(targetEntity=CompetenciaDeportiva::class, inversedBy="participante")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="competenciaDeportiva" ,nullable=false, referencedColumnName="id")
      */
     private $competenciaDeportiva;
 
