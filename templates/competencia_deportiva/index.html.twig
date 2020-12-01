@@ -81,8 +81,9 @@
 
 </div>
 {% endblock %}
-   {% block javascripts %}
 
+    {% block javascripts %}
+        {{ parent() }}
        <script type="text/javascript">
            console.log('JavaScript Listar Competencias Deportivas Funcionando');
            $('#myTable').DataTable({
