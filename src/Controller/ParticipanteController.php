@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
- * @Route("/participante")
+ * @Route("/participantes")
  */
 class ParticipanteController extends AbstractController
 {

@@ -22,6 +22,7 @@ class DisponibilidadController extends AbstractController
     {
         return $this->render('disponibilidad/index.html.twig', [
             'disponibilidads' => $disponibilidadRepository->findAll(),
+
         ]);
     }
 

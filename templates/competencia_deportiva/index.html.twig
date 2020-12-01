@@ -1,51 +1,132 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Competencia Deportiva index{% endblock %}
+{% block title %}Listar Competencias Deportivas{% endblock %}
 
 {% block body %}
-    <h1>Competencia Deportiva index</h1>
+<div class="container">
+    <p></p>
+    <div class="row">
+            <div class="col-8">
+             <h3>Competencias Deportivas </h3>
+            </div>
+                <div class="col-4">
+                    <button type="button" id="" class="btn btn-outline-success btn-block" onclick=location.href="{{ path('competencia_deportiva_new')}}" > <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg> Nueva Competencia
+                    </button>
+                </div>
+    </div>
+    <p></p>
 
-    <table class="table">
-        <thead>
+    <table id="myTable" class="table table-striped table-bordered" >
+
+        <thead class="thead-dark">
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
-                <th>Reglamento</th>
-                <th>Permite Empate</th>
-                <th>Puntos por Empate</th>
-                <th>Puntos por Partido Ganado</th>
-                <th>Puntos por Presentarse</th>
-                <th>Cantidad Maxima de Set</th>
-                <th>Fecha Baja</th>
-                <th>Hora Baja</th>
-                <th>actions</th>
+                <th>Deporte</th>
+                <th>Modalidad</th>
+                <th>Estado</th>
+                <th>Accion</th>
             </tr>
         </thead>
         <tbody>
         {% for competencia_deportiva in competencia_deportivas %}
             <tr>
-                <td>{{ competencia_deportiva.id }}</td>
                 <td>{{ competencia_deportiva.nombre }}</td>
-                <td>{{ competencia_deportiva.reglamento }}</td>
-                <td>{{ competencia_deportiva.permiteEmpate ? 'Yes' : 'No' }}</td>
-                <td>{{ competencia_deportiva.puntosEmpate }}</td>
-                <td>{{ competencia_deportiva.puntosPartidoGanado }}</td>
-                <td>{{ competencia_deportiva.puntosPorPresentarse }}</td>
-                <td>{{ competencia_deportiva.cantidadMaximaSet }}</td>
-                <td>{{ competencia_deportiva.fechaBaja ? competencia_deportiva.fechaBaja|date('Y-m-d') : '' }}</td>
-                <td>{{ competencia_deportiva.horaBaja ? competencia_deportiva.horaBaja|date('H:i:s') : '' }}</td>
+                <td>{{ competencia_deportiva.deporte }}</td>
+                <td>{{ competencia_deportiva.modalidad}}</td>
+                <td>{{ competencia_deportiva.estado}}</td>
                 <td>
-                    <a href="{{ path('competencia_deportiva_show', {'id': competencia_deportiva.id}) }}">Mostrar</a>
-                    <a href="{{ path('competencia_deportiva_edit', {'id': competencia_deportiva.id}) }}">Editar</a>
+                    <button type="button" id="" class="btn btn-warning btn-block" onclick=location.href="{{ path('competencia_deportiva_show', {'id': competencia_deportiva.id}) }}"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-eyeglasses" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 0-4 0 2 2 0 0 0 4 0z"/>
+                        </svg> Ver Competencia
+                    </button>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">no records found</td>
+                <td colspan="11">No se encontraron Competencias Deportivas.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    <p></p>
+    <hr>
+      <div class="row">
+          <div class="col-3">
+          </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <button type="button" class="btn btn-info btn-block" onclick=location.href="{{path('menu')}}"> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                        </svg> Volver a Inicio</button>
+                </div>
+            {# <a href="{{ path('competencia_deportiva_index') }}">back to list</a> #}
+           </div>
+          {#
+          <div class="col-6">
+              <div class="form-group">
+                  <button type="button" class="btn btn-info btn-block" onclick=location.href="{{ path('competencia_deportiva_index') }}"> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-list-nested" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"/>
+                      </svg> Mostrar Todas las Competencias</button>
+              </div>#}
+              {# <a href="{{ path('competencia_deportiva_index') }}">back to list</a> #}
+          </div>
+      </div>
 
-    <a href="{{ path('competencia_deportiva_new') }}">Crear una competencia nueva</a>
+
+
+</div>
 {% endblock %}
+   {% block javascripts %}
+
+       <script type="text/javascript">
+           console.log('JavaScript Listar Competencias Deportivas Funcionando');
+           $('#myTable').DataTable({
+
+               "language": {
+               "decimal":        "",
+               "emptyTable":     "No hay Competencias Deportivas para mostrar...",
+               "info":           "Mostrando Competencias del _START_ al _END_ de _TOTAL_ Competencias",
+               "infoEmpty":      "Mostrando 0 de 0 de 0 Competencias",
+               "infoFiltered":   "(Filtrado de un total de _MAX_ Competencias)",
+               "infoPostFix":    "",
+               "thousands":      ",",
+               "lengthMenu":     "Mostrar _MENU_ Competencias",
+               "loadingRecords": "Cargando...",
+               "processing":     "Procesando...",
+               "search":         "Buscar:",
+               "zeroRecords":    "No se encontraron competencias...",
+               "paginate": {
+               "first":      "Primero",
+                   "last":       "Ultimo",
+                   "next":       "Siguiente",
+                   "previous":   "Anterior"
+               },
+               "aria": {
+                     "sortAscending":  ": Columna Ascendente",
+                     "sortDescending": ": Columna Descendente",
+           }
+           },
+
+               "search": {
+
+               },
+               columnDefs: [
+                   { orderable: false, targets: 4 }
+               ],
+               select: false,
+               paging: true,
+               /*scrollY: 200,*/
+               "info": true,
+               "autoWidth": true,
+               "lengthMenu": [ 5, 10, 15, 20, 30, 100],
+           });
+
+
+
+       </script>
+   {% endblock %}

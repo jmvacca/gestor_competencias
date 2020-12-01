@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CompetenciaDeportivaType extends AbstractType
 {
@@ -24,18 +23,18 @@ class CompetenciaDeportivaType extends AbstractType
             ->add('nombre', TextType::class,
                 [
                     'attr' => ['style' => 'text-transform:uppercase', 'title' => 'Nombre', 'placeholder' => 'Introduce el Nombre', 'maxlength' => '20', 'class' => 'form-control', 'id' => 'NombreCompetencia'],
-                    'required' => true,
+                    'required' => false,
                     'invalid_message' => 'Valor Inválido! - Debe tener nombre de al menos %num% caracteres',
                     'invalid_message_parameters' => array('%num%' => 20),
                 ])
             ->add('deporte', EntityType::class,
                 [
-                    'attr' => ['style' => 'text-transform:uppercase','name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control'],
+                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control'],
                     'class' => 'App\Entity\Deporte',
                 ])
             ->add('modalidad', EntityType::class,
                 [
-                    'attr' => ['style' => 'text-transform:uppercase','name' => 'Modalidad','title' => 'Modalidad', 'class' => 'form-control', 'id' => 'modalidad'],
+                    'attr' => ['name' => 'Modalidad','title' => 'Modalidad', 'class' => 'form-control', 'id' => 'modalidad'],
                     'class' => 'App\Entity\Modalidad',
                 ])
             ->add('permiteEmpate', ChoiceType::class,
@@ -80,7 +79,7 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('reglamento', TextareaType::class,
                 [
-                    'attr' => ['style' => 'text-transform:uppercase','class' => 'form-control', 'name' => 'Reglamento', 'placeholder'=>'Ingrese un reglamento (opcional)'],
+                    'attr' => ['class' => 'form-control', 'name' => 'Reglamento', 'placeholder'=>'Ingrese un reglamento (opcional)'],
                     'required' => false,
                 ])
             ->add('puntosPorNoPresentarse', IntegerType::class,
@@ -102,13 +101,15 @@ class CompetenciaDeportivaType extends AbstractType
             //->add('estado')
             //->add('usuario')
         ;
-        //$builder->addEventSubscriber(new AddLugarFieldCompetencia());
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => CompetenciaDeportiva::class,
+
+
+
         ]);
     }
 }

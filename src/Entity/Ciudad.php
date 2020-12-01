@@ -26,7 +26,7 @@ class Ciudad
     private $ciudad_nombre;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     private $cp;
 
@@ -35,16 +35,16 @@ class Ciudad
      * @ORM\JoinColumn(nullable=false)
      *
      */
-    private $provincia;
+    private $provincia_id;
 
     public function getProvincia()
     {
-        return $this->provincia;
+        return $this->provincia_id;
     }
 
     public function setProvincia($provincia_id)
     {
-        $this->provincia = $provincia_id;
+        $this->provincia_id = $provincia_id;
     }
 
     public function getId()

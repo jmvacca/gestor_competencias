@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../../../../GitPasantia/facturacion/.idea/facturacion.iml" filepath="$PROJECT_DIR$/../../../../../GitPasantia/facturacion/.idea/facturacion.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/gestor_competencias.iml" filepath="$PROJECT_DIR$/.idea/gestor_competencias.iml" />
     </modules>
   </component>

@@ -1,4 +1,5 @@
 {{ form_start(form) }}
+<h3>Nueva Competencia Deportiva</h3>
 <div class="row">
     <div class="col">
         {{ form_label(form.nombre,'Nombre de la competencia:') }}
@@ -11,7 +12,6 @@
         {{ form_errors(form.deporte) }}
     </div>
 </div>
-
 <div class="row">
     <div class="col-6" id="disponibilidades" data-prototype="{{ form_widget(form.disponibilidades.vars.prototype)|e('html_attr') }}">
         {{ form_label(form.disponibilidades, 'Lugar/es y disponibilidad/es necesarias:') }}
@@ -22,7 +22,6 @@
         <hr>
     </div>
 </div>
-
 <div class="row">
     <div class="col-10">
         {{ form_label(form.modalidad,'Modalidad:') }}
@@ -140,10 +139,10 @@
 <!-- Botones Aceptar y Cancelar -->
 <div class="row">
     <div class="col-6">
-        <button type="submit" class="btn btn-success btn-lg btn-block" id="botonac">{{ button_label|default('ACEPTAR') }}</button>
+        <button type="submit" class="btn btn-success btn-lg btn-block" id="bac">{{ button_label|default('ACEPTAR') }}</button>
     </div>
     <div class="col-6">
-        <button class="btn btn-danger btn-lg btn-block" id="CancelarNC" name="Cancelar">CANCELAR</button>
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{path('menu')}}" name="Cancelar">CANCELAR</button>
     </div>
 </div>
 

@@ -1,0 +1,26 @@
+<table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        {% for encabezado in encabezados %}
+            <th>{{ encabezado }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        {% for encabezado in encabezados %}
+            <th>{{ encabezado }}</th>
+        {% endfor %}
+    </tr>
+    </tfoot>
+    <tbody>
+    {% for competencia in competencias %}
+        <tr>
+            <td>{{ competencia.nombre }}</td>
+            <td>{{ competencia.apellido }}</td>
+            <td>{{ competencia.etc }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

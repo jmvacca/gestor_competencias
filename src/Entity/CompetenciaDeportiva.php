@@ -118,113 +118,113 @@ class CompetenciaDeportiva
         $this->disponibilidades = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNombre()
+    public function getNombre(): ?string
     {
         return $this->nombre;
     }
 
-    public function setNombre($nombre)
+    public function setNombre(string $nombre): self
     {
         $this->nombre = $nombre;
 
         return $this;
     }
 
-    public function getReglamento()
+    public function getReglamento(): ?string
     {
         return $this->reglamento;
     }
 
-    public function setReglamento( $reglamento)
+    public function setReglamento(?string $reglamento): self
     {
         $this->reglamento = $reglamento;
 
         return $this;
     }
 
-    public function getPermiteEmpate()
+    public function getPermiteEmpate(): ?bool
     {
         return $this->permiteEmpate;
     }
 
-    public function setPermiteEmpate( $permiteEmpate)
+    public function setPermiteEmpate(bool $permiteEmpate): self
     {
         $this->permiteEmpate = $permiteEmpate;
 
         return $this;
     }
 
-    public function getPuntosEmpate()
+    public function getPuntosEmpate(): ?int
     {
         return $this->puntosEmpate;
     }
 
-    public function setPuntosEmpate($puntosEmpate)
+    public function setPuntosEmpate(?int $puntosEmpate): self
     {
         $this->puntosEmpate = $puntosEmpate;
 
         return $this;
     }
 
-    public function getPuntosPartidoGanado()
+    public function getPuntosPartidoGanado(): ?int
     {
         return $this->puntosPartidoGanado;
     }
 
-    public function setPuntosPartidoGanado( $puntosPartidoGanado)
+    public function setPuntosPartidoGanado(?int $puntosPartidoGanado): self
     {
         $this->puntosPartidoGanado = $puntosPartidoGanado;
 
         return $this;
     }
 
-    public function getPuntosPorPresentarse()
+    public function getPuntosPorPresentarse(): ?int
     {
         return $this->puntosPorPresentarse;
     }
 
-    public function setPuntosPorPresentarse( $puntosPorPresentarse)
+    public function setPuntosPorPresentarse(?int $puntosPorPresentarse): self
     {
         $this->puntosPorPresentarse = $puntosPorPresentarse;
 
         return $this;
     }
 
-    public function getCantidadMaximaSet()
+    public function getCantidadMaximaSet(): ?int
     {
         return $this->cantidadMaximaSet;
     }
 
-    public function setCantidadMaximaSet( $cantidadMaximaSet)
+    public function setCantidadMaximaSet(?int $cantidadMaximaSet): self
     {
         $this->cantidadMaximaSet = $cantidadMaximaSet;
 
         return $this;
     }
 
-    public function getFechaBaja()
+    public function getFechaBaja(): ?\DateTimeInterface
     {
         return $this->fechaBaja;
     }
 
-    public function setFechaBaja(  $fechaBaja) 
+    public function setFechaBaja(?\DateTimeInterface $fechaBaja): self
     {
         $this->fechaBaja = $fechaBaja;
 
         return $this;
     }
 
-    public function getHoraBaja()  
+    public function getHoraBaja(): ?\DateTimeInterface
     {
         return $this->horaBaja;
     }
 
-    public function setHoraBaja(  $horaBaja) 
+    public function setHoraBaja(?\DateTimeInterface $horaBaja): self
     {
         $this->horaBaja = $horaBaja;
 
@@ -234,12 +234,12 @@ class CompetenciaDeportiva
     /**
      * @return Collection|Fecha[]
      */
-    public function getFecha()
+    public function getFecha(): Collection
     {
         return $this->fecha;
     }
 
-    public function addFecha(Fecha $fecha) 
+    public function addFecha(Fecha $fecha): self
     {
         if (!$this->fecha->contains($fecha)) {
             $this->fecha[] = $fecha;
@@ -249,7 +249,7 @@ class CompetenciaDeportiva
         return $this;
     }
 
-    public function removeFecha(Fecha $fecha) 
+    public function removeFecha(Fecha $fecha): self
     {
         if ($this->fecha->removeElement($fecha)) {
             // set the owning side to null (unless already changed)
@@ -261,36 +261,36 @@ class CompetenciaDeportiva
         return $this;
     }
 
-    public function getModalidad()
+    public function getModalidad(): ?Modalidad
     {
         return $this->modalidad;
     }
 
-    public function setModalidad( $modalidad)
+    public function setModalidad(?Modalidad $modalidad): self
     {
         $this->modalidad = $modalidad;
 
         return $this;
     }
 
-    public function getEstado()
+    public function getEstado(): ?Estado
     {
         return $this->estado;
     }
 
-    public function setEstado( $estado)
+    public function setEstado(?Estado $estado): self
     {
         $this->estado = $estado;
 
         return $this;
     }
 
-    public function getDeporte()
+    public function getDeporte(): ?Deporte
     {
         return $this->deporte;
     }
 
-    public function setDeporte($deporte)
+    public function setDeporte(?Deporte $deporte): self
     {
         $this->deporte = $deporte;
 
@@ -300,22 +300,22 @@ class CompetenciaDeportiva
     /**
      * @return Collection|Participante[]
      */
-    public function getParticipante()
+    public function getParticipante(): Collection
     {
         return $this->participante;
     }
 
-    public function addParticipante(Participante $participante) 
+    public function addParticipante(Participante $participante): self
     {
         if (!$this->participante->contains($participante)) {
-            $this->participante->add($participante);
+            $this->participante[] = $participante;
             $participante->setCompetenciaDeportiva($this);
         }
 
         return $this;
     }
 
-    public function removeParticipante(Participante $participante) 
+    public function removeParticipante(Participante $participante): self
     {
         if ($this->participante->removeElement($participante)) {
             // set the owning side to null (unless already changed)
@@ -330,22 +330,22 @@ class CompetenciaDeportiva
     /**
      * @return Collection|Disponibilidad[]
      */
-    public function getDisponibilidades()
+    public function getDisponibilidades(): Collection
     {
         return $this->disponibilidades;
     }
 
-    public function addDisponibilidade(Disponibilidad $disponibilidade)
+    public function addDisponibilidade(Disponibilidad $disponibilidade): self
     {
         if (!$this->disponibilidades->contains($disponibilidade)) {
-            $this->disponibilidades->add($disponibilidade);
+            $this->disponibilidades[] = $disponibilidade;
             $disponibilidade->setCompetenciaDeportiva($this);
         }
 
         return $this;
     }
 
-    public function removeDisponibilidade(Disponibilidad $disponibilidade) 
+    public function removeDisponibilidade(Disponibilidad $disponibilidade): self
     {
         if ($this->disponibilidades->removeElement($disponibilidade)) {
             // set the owning side to null (unless already changed)
@@ -357,24 +357,24 @@ class CompetenciaDeportiva
         return $this;
     }
 
-    public function getUsuario()
+    public function getUsuario(): ?Usuario
     {
         return $this->usuario;
     }
 
-    public function setUsuario( $usuario)
+    public function setUsuario(?Usuario $usuario): self
     {
         $this->usuario = $usuario;
 
         return $this;
     }
 
-    public function getPuntosPorNoPresentarse()
+    public function getPuntosPorNoPresentarse(): ?int
     {
         return $this->puntosPorNoPresentarse;
     }
 
-    public function setPuntosPorNoPresentarse( $puntosPorNoPresentarse)
+    public function setPuntosPorNoPresentarse(?int $puntosPorNoPresentarse): self
     {
         $this->puntosPorNoPresentarse = $puntosPorNoPresentarse;
 

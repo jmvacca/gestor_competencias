@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/competencia")
+ * @Route("/competencias")
  */
 class CompetenciaDeportivaController extends AbstractController
 {
@@ -26,11 +26,17 @@ class CompetenciaDeportivaController extends AbstractController
     {
         return $this->render('competencia_deportiva/index.html.twig', [
             'competencia_deportivas' => $competenciaDeportivaRepository->findAll(),
+
+
+
+
+
+
         ]);
     }
 
     /**
-     * @Route("/new", name="competencia_deportiva_new", methods={"GET","POST"})
+     * @Route("/nueva", name="competencia_deportiva_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -45,6 +51,8 @@ class CompetenciaDeportivaController extends AbstractController
             $repositorio = $entityManager->getRepository(get_class(new Estado()));
             $competenciaDeportiva->setEstado($repositorio->find(1));
             $competenciaDeportiva->setUsuario($this->getUser());
+
+            dump($competenciaDeportiva);
 
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
@@ -65,6 +73,7 @@ class CompetenciaDeportivaController extends AbstractController
     {
         return $this->render('competencia_deportiva/show.html.twig', [
             'competencia_deportiva' => $competenciaDeportiva,
+
         ]);
     }
 

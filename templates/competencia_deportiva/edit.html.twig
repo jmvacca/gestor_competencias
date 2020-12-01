@@ -1,13 +1,173 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit CompetenciaDeportiva{% endblock %}
+{% block title %}Editar Competencia Deportiva{% endblock %}
 
 {% block body %}
-    <h1>Edit CompetenciaDeportiva</h1>
 
+<div class="container">
+    <h3>Editar Competencia Deportiva</h3>
+    <div class="row">
+        <div class="col">
+            {{ form_label(form.nombre,'Nombre de la competencia:') }}
+            {{ form_widget(form.nombre) }}
+            {{ form_errors(form.nombre) }}
+        </div>
+        <div class="col">
+            {{ form_label(form.deporte,'Deporte:') }}
+            {{ form_widget(form.deporte) }}
+            {{ form_errors(form.deporte) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6" id="disponibilidades" data-prototype="{{ form_widget(form.disponibilidades.vars.prototype)|e('html_attr') }}">
+            {{ form_label(form.disponibilidades, 'Lugar/es y disponibilidad/es necesarias:') }}
+            {{ form_widget(form.disponibilidades,{'attr':{
+                'visible' : 'false'
+            }}) }}
+            {{ form_errors(form.disponibilidades) }}
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-10">
+            {{ form_label(form.modalidad,'Modalidad:') }}
+            {{ form_widget(form.modalidad)}}
+        </div>
+        <div class="col-2 modalidad">
+            <div class="modal fade modalModalidadcfg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content" id="modal">
+                        <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container">
+                                <div id="ocultar">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            {{ form_label(form.permiteEmpate,'Permite empate?')}}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form_widget(form.permiteEmpate) }}
+                                            {{ form_errors(form.permiteEmpate) }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            {{form_label(form.puntosEmpate,'Puntos por empate:')}}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form_widget(form.puntosEmpate) }}
+                                            {{ form_errors(form.puntosEmpate) }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6" >
+                                            {{form_label(form.puntosPorPresentarse,'Puntos por presentarse:')}}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form_widget(form.puntosPorPresentarse) }}
+                                            {{ form_errors(form.puntosPorPresentarse) }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            {{form_label(form.puntosPartidoGanado,'Puntos por ganar un partido')}}
+                                        </div>
+                                        <div class="col-4">
+                                            {{ form_widget(form.puntosPartidoGanado) }}
+                                            {{ form_errors(form.puntosPartidoGanado) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>Forma de puntuacion: </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="radio">
+                                            <input type="radio" name="fpuntuacion" onclick="funcion1();" id="sets" checked> {{ form_label(form.cantidadMaximaSet,'Cantidad de Sets:') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="radio">
+                                            <input type="radio" name="fpuntuacion" onclick="funcion2();" id="puntuacion"> {{ form_label(form.puntosPorNoPresentarse,'Tantos por WO:') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="radio">
+                                            <input type="radio" name="fpuntuacion" onclick="funcion3();" id="resultadofinal"> Resultado Final
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        {{ form_widget(form.cantidadMaximaSet) }}
+                                        {{ form_errors(form.cantidadMaximaSet) }}
+                                    </div>
+                                    <div class="col-4">
+                                        {{ form_widget(form.puntosPorNoPresentarse) }}
+                                        {{ form_errors(form.puntosPorNoPresentarse) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="button" id="buttonAM1" class="btn btn-success btn-block">Guardar</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" id="buttonCM1" class="btn btn-danger btn-block" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Reglamento-->
+    <div class="row">
+        <div class="col">
+            {{ form_label(form.reglamento) }}
+            {{ form_widget(form.reglamento) }}
+            {{ form_errors(form.reglamento) }}
+            <hr>
+        </div>
+    </div>
+    {{ form_widget(form) }}
+    <!-- Botones Aceptar y Cancelar -->
+    <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-success btn-lg btn-block" id="">Actualizar Competencia</button>
+        </div>
+        <div class="col-6">
+            <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{ path('competencia_deportiva_show', {'id': competencia_deportiva.id}) }}">Cancelar</button>
+        </div>
+    </div>
+
+
+
+
+
+    {#
     {{ include('competencia_deportiva/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('competencia_deportiva_index') }}">back to list</a>
 
     {{ include('competencia_deportiva/_delete_form.html.twig') }}
+    #}
+
+</div>
 {% endblock %}

@@ -18,19 +18,19 @@ class Participante
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=255)
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", length=100, unique=true)
+     * @ORM\Column(type="string", length=180)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="binary", nullable=true)
      */
-    private $imagenFileName;
+    private $imagen;
 
     /**
      * @ORM\ManyToOne(targetEntity=CompetenciaDeportiva::class, inversedBy="participante")
@@ -38,53 +38,53 @@ class Participante
      */
     private $competenciaDeportiva;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNombre()
+    public function getNombre(): ?string
     {
         return $this->nombre;
     }
 
-    public function setNombre($nombre)
+    public function setNombre(string $nombre): self
     {
         $this->nombre = $nombre;
 
         return $this;
     }
 
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail($email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getImagenFileName()
+    public function getImagen()
     {
-        return $this->imagenFileName;
+        return $this->imagen;
     }
 
-    public function setImagenFileName($imagenFileName)
+    public function setImagen($imagen): self
     {
-        $this->imagenFileName = $imagenFileName;
+        $this->imagen = $imagen;
 
         return $this;
     }
 
-    public function getCompetenciaDeportiva()
+    public function getCompetenciaDeportiva(): ?CompetenciaDeportiva
     {
         return $this->competenciaDeportiva;
     }
 
-    public function setCompetenciaDeportiva($competenciaDeportiva)
+    public function setCompetenciaDeportiva(?CompetenciaDeportiva $competenciaDeportiva): self
     {
         $this->competenciaDeportiva = $competenciaDeportiva;
 
