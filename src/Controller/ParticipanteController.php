@@ -17,12 +17,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParticipanteController extends AbstractController
 {
     /**
-     * @Route("/", name="participante_index", methods={"GET"})
+     * @Route("/{id_competencia}", name="participante_index", methods={"GET"})
      */
-    public function index(ParticipanteRepository $participanteRepository)
+    public function index(ParticipanteRepository $participanteRepository, $id_competencia)
     {
         return $this->render('participante/index.html.twig', [
-            'participantes' => $participanteRepository->findAll(),
+            'participantes' => $participanteRepository->findByCompetencia($id_competencia),
         ]);
     }
 

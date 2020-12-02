@@ -27,29 +27,34 @@ class Fecha
      */
     private $competenciaDeportiva;
 
-    public function getId(): ?int
+    /**
+     * @ORM\OneToMany(targetEntity=Partido::class, mappedBy="fecha")
+     */
+    private $partidos;
+
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getNumero(): ?int
+    public function getNumero()
     {
         return $this->numero;
     }
 
-    public function setNumero(?int $numero): self
+    public function setNumero($numero)
     {
         $this->numero = $numero;
 
         return $this;
     }
 
-    public function getCompetenciaDeportiva(): ?CompetenciaDeportiva
+    public function getCompetenciaDeportiva()
     {
         return $this->competenciaDeportiva;
     }
 
-    public function setCompetenciaDeportiva(?CompetenciaDeportiva $competenciaDeportiva): self
+    public function setCompetenciaDeportiva($competenciaDeportiva)
     {
         $this->competenciaDeportiva = $competenciaDeportiva;
 

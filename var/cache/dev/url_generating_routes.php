@@ -31,7 +31,7 @@ return [
     'lugar_de_realizacion_show' => [['id'], ['_controller' => 'App\\Controller\\LugarDeRealizacionController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/lugar']], [], []],
     'lugar_de_realizacion_edit' => [['id'], ['_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/lugar']], [], []],
     'lugar_de_realizacion_delete' => [['id'], ['_controller' => 'App\\Controller\\LugarDeRealizacionController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/lugar']], [], []],
-    'participante_index' => [[], ['_controller' => 'App\\Controller\\ParticipanteController::index'], [], [['text', '/participantes/']], [], []],
+    'participante_index' => [['id_competencia'], ['_controller' => 'App\\Controller\\ParticipanteController::index'], [], [['variable', '/', '[^/]++', 'id_competencia', true], ['text', '/participantes']], [], []],
     'participante_new' => [[], ['_controller' => 'App\\Controller\\ParticipanteController::new'], [], [['text', '/participantes/new']], [], []],
     'participante_show' => [['id'], ['_controller' => 'App\\Controller\\ParticipanteController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/participantes']], [], []],
     'participante_edit' => [['id'], ['_controller' => 'App\\Controller\\ParticipanteController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/participantes']], [], []],

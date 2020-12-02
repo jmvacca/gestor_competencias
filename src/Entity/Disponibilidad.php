@@ -30,7 +30,7 @@ class Disponibilidad
     private $competenciaDeportiva;
 
     /**
-     * @ORM\OneToOne(targetEntity=LugarDeRealizacion::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=LugarDeRealizacion::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $lugar;
