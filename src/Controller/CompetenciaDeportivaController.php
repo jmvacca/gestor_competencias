@@ -6,6 +6,7 @@ use App\Entity\CompetenciaDeportiva;
 use App\Entity\Disponibilidad;
 use App\Entity\Estado;
 use App\Entity\LugarDeRealizacion;
+use App\Entity\Participante;
 use App\Entity\Usuario;
 use App\Form\CompetenciaDeportivaType;
 use App\Repository\CompetenciaDeportivaRepository;
@@ -78,8 +79,11 @@ class CompetenciaDeportivaController extends AbstractController
      */
     public function show(CompetenciaDeportiva $competenciaDeportiva): Response
     {
+        $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante()));
+        $listaParticipantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         return $this->render('competencia_deportiva/show.html.twig', [
             'competencia_deportiva' => $competenciaDeportiva,
+            'lista_participantes' => $listaParticipantes,
 
         ]);
     }

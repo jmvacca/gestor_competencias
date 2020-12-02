@@ -150,18 +150,18 @@
                     <th>Email</th>
                 </tr>
                 </thead>
-                <tbody>
+                {# <tbody>
                 <tr>
                     <td>NULL</td>
                     <td>NULL</td>
                     <td>NULL</td>
 
-                </tr>
-                {#
+                </tr> #}
+
                 <tbody>
-                {% for participante in participantes %}
+                {% for participante in lista_participantes %}
                     <tr>
-                        <td>{{ participante.foto }}</td>
+                        <td>{{ participante.imagenFileName }}</td>
                         <td>{{ participante.nombre}}</td>
                         <td>{{ participante.email}}</tds>
                     </tr>
@@ -170,7 +170,7 @@
                         <td colspan="11">No se encontraron participantes.</td>
                     </tr>
                 {% endfor %}
-                </tbody>#}
+                </tbody>
 
             </table>
 
