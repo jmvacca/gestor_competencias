@@ -20,8 +20,6 @@ return [
         '/' => [[['_route' => 'menu', '_controller' => 'App\\Controller\\IndexController::menuPrincipal'], null, null, null, false, false, null]],
         '/lugar' => [[['_route' => 'lugar_de_realizacion_index', '_controller' => 'App\\Controller\\LugarDeRealizacionController::index'], null, ['GET' => 0], null, true, false, null]],
         '/lugar/new' => [[['_route' => 'lugar_de_realizacion_new', '_controller' => 'App\\Controller\\LugarDeRealizacionController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/participantes' => [[['_route' => 'participante_index', '_controller' => 'App\\Controller\\ParticipanteController::index'], null, ['GET' => 0], null, true, false, null]],
-        '/participantes/new' => [[['_route' => 'participante_new', '_controller' => 'App\\Controller\\ParticipanteController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
@@ -58,10 +56,14 @@ return [
                     .'|/edit(*:312)'
                     .'|(*:320)'
                 .')'
-                .'|/participantes/([^/]++)(?'
-                    .'|(*:355)'
-                    .'|/edit(*:368)'
-                    .'|(*:376)'
+                .'|/participantes/(?'
+                    .'|([^/]++)(*:355)'
+                    .'|new(*:366)'
+                    .'|([^/]++)(?'
+                        .'|(*:385)'
+                        .'|/edit(*:398)'
+                        .'|(*:406)'
+                    .')'
                 .')'
             .')/?$}sDu',
     ],
@@ -82,9 +84,11 @@ return [
         299 => [[['_route' => 'lugar_de_realizacion_show', '_controller' => 'App\\Controller\\LugarDeRealizacionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         312 => [[['_route' => 'lugar_de_realizacion_edit', '_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         320 => [[['_route' => 'lugar_de_realizacion_delete', '_controller' => 'App\\Controller\\LugarDeRealizacionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        355 => [[['_route' => 'participante_show', '_controller' => 'App\\Controller\\ParticipanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        368 => [[['_route' => 'participante_edit', '_controller' => 'App\\Controller\\ParticipanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        376 => [
+        355 => [[['_route' => 'participante_index', '_controller' => 'App\\Controller\\ParticipanteController::index'], ['id_competencia'], ['GET' => 0], null, false, true, null]],
+        366 => [[['_route' => 'participante_new', '_controller' => 'App\\Controller\\ParticipanteController::new'], [], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        385 => [[['_route' => 'participante_show', '_controller' => 'App\\Controller\\ParticipanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        398 => [[['_route' => 'participante_edit', '_controller' => 'App\\Controller\\ParticipanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        406 => [
             [['_route' => 'participante_delete', '_controller' => 'App\\Controller\\ParticipanteController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

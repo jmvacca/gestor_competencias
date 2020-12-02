@@ -17,7 +17,19 @@ class Partido
      */
     private $id;
 
-    public function getId(): ?int
+    /**
+     * @ORM\ManyToOne(targetEntity=LugarDeRealizacion::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lugar;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Fecha::class)
+     * @ORM\JoinColumn (nullable=false)
+     */
+    private $fecha;
+
+    public function getId()
     {
         return $this->id;
     }

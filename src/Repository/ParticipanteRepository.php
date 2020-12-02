@@ -19,22 +19,20 @@ class ParticipanteRepository extends ServiceEntityRepository
         parent::__construct($registry, Participante::class);
     }
 
-    // /**
-    //  * @return Participante[] Returns an array of Participante objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Participante[] Returns an array of Participante objects
+      */
+    public function findByCompetencia($id_competencia)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('p.competenciaDeportiva = :val')
+            ->setParameter('val', $id_competencia)
             ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Participante
