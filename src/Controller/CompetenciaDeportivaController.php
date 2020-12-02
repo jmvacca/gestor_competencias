@@ -23,10 +23,17 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/", name="competencia_deportiva_index", methods={"GET"})
      */
-    public function index(CompetenciaDeportivaRepository $competenciaDeportivaRepository): Response
+    public function index()
     {
+        if ($this->getUser()){
+            $competencias = ($this->getUser())->getCompetencias();
+        } else {
+            $entityManager = $this->getDoctrine()->getManager();
+            $repositorio = $entityManager->getRepository(get_class(new Usuario()));
+            $competencias = ($repositorio->find(1))->getCompetencias();
+        }
         return $this->render('competencia_deportiva/index.html.twig', [
-            'competencia_deportivas' => $competenciaDeportivaRepository->findAll(),
+            'competencia_deportivas' => $competencias,
 
 
 
@@ -54,7 +61,6 @@ class CompetenciaDeportivaController extends AbstractController
             if ($this->getUser()){
                 $competenciaDeportiva->setUsuario($this->getUser());
             } else {
-
                 $repositorio = $entityManager->getRepository(get_class(new Usuario()));
                 $competenciaDeportiva->setUsuario($repositorio->find(1));
             }

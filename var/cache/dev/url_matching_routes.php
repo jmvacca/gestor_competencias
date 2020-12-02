@@ -58,11 +58,11 @@ return [
                 .')'
                 .'|/participantes/(?'
                     .'|([^/]++)(*:355)'
-                    .'|new(*:366)'
+                    .'|new/([^/]++)(*:375)'
                     .'|([^/]++)(?'
-                        .'|(*:385)'
-                        .'|/edit(*:398)'
-                        .'|(*:406)'
+                        .'|(*:394)'
+                        .'|/edit(*:407)'
+                        .'|(*:415)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -85,10 +85,10 @@ return [
         312 => [[['_route' => 'lugar_de_realizacion_edit', '_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         320 => [[['_route' => 'lugar_de_realizacion_delete', '_controller' => 'App\\Controller\\LugarDeRealizacionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
         355 => [[['_route' => 'participante_index', '_controller' => 'App\\Controller\\ParticipanteController::index'], ['id_competencia'], ['GET' => 0], null, false, true, null]],
-        366 => [[['_route' => 'participante_new', '_controller' => 'App\\Controller\\ParticipanteController::new'], [], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        385 => [[['_route' => 'participante_show', '_controller' => 'App\\Controller\\ParticipanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        398 => [[['_route' => 'participante_edit', '_controller' => 'App\\Controller\\ParticipanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        406 => [
+        375 => [[['_route' => 'participante_new', '_controller' => 'App\\Controller\\ParticipanteController::new'], ['id_competencia'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        394 => [[['_route' => 'participante_show', '_controller' => 'App\\Controller\\ParticipanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        407 => [[['_route' => 'participante_edit', '_controller' => 'App\\Controller\\ParticipanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        415 => [
             [['_route' => 'participante_delete', '_controller' => 'App\\Controller\\ParticipanteController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

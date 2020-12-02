@@ -10,7 +10,7 @@
             <h3>Lista de Participantes</h3>
         </div>
         <div class="col-4">
-            <button type="button" id="" class="btn btn-outline-success btn-block" onclick=location.href="{{ path('participante_new')}}" > <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <button type="button" id="" class="btn btn-outline-success btn-block" onclick=location.href="{{ path('participante_new', {'id_competencia': id_competencia})}}" > <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                     <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg> Nuevo Participante
@@ -38,8 +38,11 @@
 
                 <td><h6>{{ participante.nombre }}</h6></td>
                 <td><h6>{{ participante.email }}</h6></td>
-                <td>{{ participante.imagenFileName }} //imagen// </td>
-
+                {% if participante.imagenFileName %}
+                    <td><img src="{{ asset('uploads/images/' ~ participante.imagenFilename) }}" width="100" height="100"> </td>
+                {% else %}
+                    <td><img src="{{ asset('uploads/images/default.jpg') }}" width="100" height="100"> </td>
+                {% endif %}
                 <td>
                     {#  <a href="{{ path('participante_show', {'id': participante.id}) }}">show</a> #}
                     <button type="button" id="" class="btn btn-warning btn-block" onclick=location.href="{{ path('participante_edit', {'id': participante.id}) }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -68,10 +71,10 @@
           </div>
           <div class="col-6">
 
-        <button type="button" class="btn btn-info btn-block" onclick=location.href="{{ path('competencia_deportiva_index') }}"> <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <button type="button" class="btn btn-info btn-block" onclick=location.href="{{ path('competencia_deportiva_show',{'id':id_competencia}) }}"> <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                 <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-            </svg> Volver a Listar Competecias</button>
+            </svg> Volver a Competencia</button>
           </div>
 
       </div>

@@ -161,9 +161,13 @@
                 <tbody>
                 {% for participante in lista_participantes %}
                     <tr>
-                        <td>{{ participante.imagenFileName }}</td>
+                        {% if participante.imagenFileName %}
+                        <td><img src="{{ asset('uploads/images/' ~ participante.imagenFilename) }}" width="100" height="100"> </td>
+                        {% else %}
+                        <td><img src="{{ asset('uploads/images/default.jpg') }}" width="100" height="100"> </td>
+                        {% endif %}
                         <td>{{ participante.nombre}}</td>
-                        <td>{{ participante.email}}</tds>
+                        <td>{{ participante.email}}</td>
                     </tr>
                 {% else %}
                     <tr>

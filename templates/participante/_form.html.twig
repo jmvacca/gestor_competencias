@@ -3,14 +3,14 @@
     <div class="col">
         {{ form_label(form.nombre,'Nombre Participante/Equipo:') }}
         {{ form_widget(form.nombre) }}
-        {{ form_errors(form.nombre) }}
+        {#    {{ form_errors(form.nombre) }}#}
     </div>
 </div>
 <div class="row">
     <div class="col">
         {{ form_label(form.email,'Email Participante/Equipo:') }}
         {{ form_widget(form.email) }}
-        {{ form_errors(form.email) }}
+{#    {{ form_errors(form.email) }}#}
     </div>
 </div>
 <div class="row">
@@ -30,7 +30,7 @@
         <button type="submit" class="btn btn-success btn-lg btn-block" id="botonac">{{ button_label|default('ACEPTAR') }}</button>
     </div>
     <div class="col-6">
-        <button class="btn btn-danger btn-lg btn-block" id="CancelarNP" name="Cancelar">CANCELAR</button>
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{ path('participante_index', {id_competencia}) }}" name="Cancelar">CANCELAR</button>
     </div>
 </div>
 {{ form_end(form) }}

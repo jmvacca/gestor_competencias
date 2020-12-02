@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CompetenciaDeportiva;
 use App\Entity\Participante;
 use App\Form\ParticipanteType;
 use App\Repository\ParticipanteRepository;
@@ -23,13 +24,15 @@ class ParticipanteController extends AbstractController
     {
         return $this->render('participante/index.html.twig', [
             'participantes' => $participanteRepository->findByCompetencia($id_competencia),
+            'id_competencia' => $id_competencia,
+
         ]);
     }
 
     /**
-     * @Route("/new", name="participante_new", methods={"GET","POST"})
+     * @Route("/new/{id_competencia}", name="participante_new", methods={"GET","POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, $id_competencia)
     {
         $participante = new Participante();
         $form = $this->createForm(ParticipanteType::class, $participante);
@@ -56,15 +59,19 @@ class ParticipanteController extends AbstractController
                 $participante->setImagenFileName($newFilename);
             }
             $entityManager = $this->getDoctrine()->getManager();
+            $repositorio = $entityManager->getRepository(get_class(new CompetenciaDeportiva()));
+            $participante->setCompetenciaDeportiva($repositorio->find($id_competencia));
+
             $entityManager->persist($participante);
             $entityManager->flush();
 
-            return $this->redirectToRoute('participante_index');
+            return $this->redirectToRoute('participante_index', ['id_competencia' => $id_competencia]);
         }
 
         return $this->render('participante/new.html.twig', [
             'participante' => $participante,
             'form' => $form->createView(),
+            'id_competencia' => $id_competencia,
         ]);
     }
 

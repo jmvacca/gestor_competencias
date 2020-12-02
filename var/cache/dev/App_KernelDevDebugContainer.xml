@@ -72,6 +72,7 @@
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">App_KernelDevDebugContainer</parameter>
+    <parameter key="images_directory">C:\Users\joaqo\Desktop\Proyectos\gestor_competencias/public/uploads/images</parameter>
     <parameter key="event_dispatcher.event_aliases" type="collection">
       <parameter key="Symfony\Component\Console\Event\ConsoleCommandEvent">console.command</parameter>
       <parameter key="Symfony\Component\Console\Event\ConsoleErrorEvent">console.error</parameter>
@@ -5530,12 +5531,6 @@
         <argument key="loader" type="service" id=".errored..service_locator.C9JCBPC.Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator.KQEkocX" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="competenciaDeportivaRepository" type="service" id="App\Repository\CompetenciaDeportivaRepository"/>
-      </argument>
-    </service>
     <service id=".service_locator.eFzgP0o" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5590,12 +5585,11 @@
         <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.lGbTPJt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.f6KAF2m" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CompetenciaDeportivaController::delete" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController::edit" type="service" id=".service_locator.eFzgP0o"/>
-        <argument key="App\Controller\CompetenciaDeportivaController::index" type="service" id=".service_locator.KQEkocX"/>
         <argument key="App\Controller\CompetenciaDeportivaController::show" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\DisponibilidadController::delete" type="service" id=".service_locator.WxfsmzF"/>
         <argument key="App\Controller\DisponibilidadController::edit" type="service" id=".service_locator.WxfsmzF"/>
@@ -5619,7 +5613,6 @@
         <argument key="kernel::terminate" type="service" id=".service_locator.beq5mCo"/>
         <argument key="App\Controller\CompetenciaDeportivaController:delete" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController:edit" type="service" id=".service_locator.eFzgP0o"/>
-        <argument key="App\Controller\CompetenciaDeportivaController:index" type="service" id=".service_locator.KQEkocX"/>
         <argument key="App\Controller\CompetenciaDeportivaController:show" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\DisponibilidadController:delete" type="service" id=".service_locator.WxfsmzF"/>
         <argument key="App\Controller\DisponibilidadController:edit" type="service" id=".service_locator.WxfsmzF"/>
@@ -6147,12 +6140,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.lGbTPJt"/>
+      <argument type="service" id=".service_locator.f6KAF2m"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.lGbTPJt"/>
+      <argument type="service" id=".service_locator.f6KAF2m"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6555,7 +6548,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.lGbTPJt"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.f6KAF2m"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

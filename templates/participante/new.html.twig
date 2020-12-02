@@ -15,7 +15,7 @@
     <script type="text/javascript">
 
         $("#CancelarNP").on("click", function(e) {
-            window.location.href = "{{ path('participante_index') }}"
+            window.location.href = "{{ path('participante_index', {id_competencia}) }}"
         });
 
     </script>

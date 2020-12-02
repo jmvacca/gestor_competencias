@@ -308,7 +308,7 @@ class CompetenciaDeportiva
     public function addParticipante(Participante $participante): self
     {
         if (!$this->participante->contains($participante)) {
-            $this->participante[] = $participante;
+            $this->participante->add($participante);
             $participante->setCompetenciaDeportiva($this);
         }
 
