@@ -35,11 +35,6 @@ class CompetenciaDeportivaController extends AbstractController
         return $this->render('competencia_deportiva/index.html.twig', [
             'competencia_deportivas' => $competencias,
 
-
-
-
-
-
         ]);
     }
 
@@ -71,7 +66,7 @@ class CompetenciaDeportivaController extends AbstractController
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
 
-            return $this->redirectToRoute('competencia_deportiva_index');
+            return $this->redirectToRoute('participante_index', ['id_competencia' => $competenciaDeportiva->getId()]);
         }
 
         return $this->render('competencia_deportiva/new.html.twig', [
