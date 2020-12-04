@@ -102,12 +102,10 @@ class Partido
         $this->resultado = new ArrayCollection();
     }
 
-    /**
-     * @return Collection|Resultado[]
-     */
-    public function getResultado(): Collection
+
+    public function getResultado()
     {
-        return $this->resultado;
+        return $this->resultado->first();
     }
 
     public function addResultado(Resultado $resultado): self

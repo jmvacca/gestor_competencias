@@ -400,6 +400,9 @@
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\ResultadoType" class="App\Form\ResultadoType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\TipoDocumentoType" class="App\Form\TipoDocumentoType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -915,6 +918,7 @@
         <argument>App\Form\LugarDeRealizacionType</argument>
         <argument>App\Form\ParticipanteType</argument>
         <argument>App\Form\RegistrationFormType</argument>
+        <argument>App\Form\ResultadoType</argument>
         <argument>App\Form\TipoDocumentoType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
@@ -1257,7 +1261,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.U5NxHmJ"/>
+      <argument type="service" id=".service_locator.Ks2WzDm"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5252,6 +5256,8 @@
     <service id=".abstract.instanceof.App\Form\ParticipanteType" class="App\Form\ParticipanteType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResultadoType" class="App\Form\ResultadoType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResultadoType" class="App\Form\ResultadoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TipoDocumentoType" class="App\Form\TipoDocumentoType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\TipoDocumentoType" class="App\Form\TipoDocumentoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CompetenciaDeportivaRepository" class="App\Repository\CompetenciaDeportivaRepository" autowire="true" abstract="true"/>
@@ -5702,7 +5708,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.U5NxHmJ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.Ks2WzDm" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\CompetenciaDeportivaType" type="service" id="App\Form\CompetenciaDeportivaType"/>
@@ -5710,6 +5716,7 @@
         <argument key="App\Form\LugarDeRealizacionType" type="service" id="App\Form\LugarDeRealizacionType"/>
         <argument key="App\Form\ParticipanteType" type="service" id="App\Form\ParticipanteType"/>
         <argument key="App\Form\RegistrationFormType" type="service" id="App\Form\RegistrationFormType"/>
+        <argument key="App\Form\ResultadoType" type="service" id="App\Form\ResultadoType"/>
         <argument key="App\Form\TipoDocumentoType" type="service" id="App\Form\TipoDocumentoType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>

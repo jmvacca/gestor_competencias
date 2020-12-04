@@ -22,7 +22,7 @@ class ParticipanteType extends AbstractType
                 ])
             ->add('email', TextType::class,
                 [
-                    'attr'      => ['style' => 'text-transform:uppercase', 'title' => 'Email', 'placeholder' => 'Introduce el email', 'maxlength' => '100', 'class' => 'form-control', 'id' => 'participante_email'],
+                    'attr'      => ['style' => 'text-transform:uppercase', 'type' => 'email', 'title' => 'Email', 'placeholder' => 'Introduce el email', 'maxlength' => '100', 'class' => 'form-control', 'id' => 'participante_email'],
                     'required'  => true,
                 ])
             ->add('imagen', FileType::class,

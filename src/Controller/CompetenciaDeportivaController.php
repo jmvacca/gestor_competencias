@@ -9,8 +9,10 @@ use App\Entity\Fecha;
 use App\Entity\LugarDeRealizacion;
 use App\Entity\Participante;
 use App\Entity\Partido;
+use App\Entity\Resultado;
 use App\Entity\Usuario;
 use App\Form\CompetenciaDeportivaType;
+use App\Form\ResultadoType;
 use App\Repository\CompetenciaDeportivaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -227,16 +229,59 @@ class CompetenciaDeportivaController extends AbstractController
     }
 
     /**
-     * @Route("/{id_competencia}/fixture/{id_partido}/resultado", name="competencia_deportiva_fixture_partido_resultado_gestionar")
+     * @Route("/{id_competencia}/fixture/{id_partido}/resultado", name="competencia_deportiva_fixture_partido_resultado_gestionar", methods={"GET","POST"})
      */
-    public function gestionarResultado($id_partido){
+    public function gestionarResultado($id_partido, $id_competencia, Request $request){
         $em = $this->getDoctrine()->getManager();
+
+        $repositorio = $em->getRepository(CompetenciaDeportiva::class);
+        $competenciaDeportiva = $repositorio->find($id_competencia);
+
         $repositorio = $em->getRepository(Partido::class);
         $partido = $repositorio->find($id_partido);
-        return $this->render('competencia_deportiva/fixture/show.html.twig',
-            [
-                'partido' => $partido,
-            ]);
+
+
+        if ($partido->getResultado())   //EDITAR UN RESULTADO EXISTENTE
+        {
+            $resultado = $partido->getResultado();
+            $form = $this->createForm(ResultadoType::class, $resultado);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
+            }
+            return $this->render('competencia_deportiva/fixture/edit.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'partido' => $partido,
+                    'resultado' => $resultado,
+                    'competencia' => $competenciaDeportiva,
+                ]);
+        }else{                          //CREAR UN RESULTADO
+            $resultado = new Resultado();
+
+            $form = $this->createForm(ResultadoType::class, $resultado);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $partido->addResultado($resultado);
+                $em->persist($partido);
+                $em->flush();
+                return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
+
+            }
+            return $this->render('competencia_deportiva/fixture/new.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'partido' => $partido,
+                    'resultado' => $resultado,
+                    'competencia' => $competenciaDeportiva,
+                ]);
+        }
+
 
     }
 }
