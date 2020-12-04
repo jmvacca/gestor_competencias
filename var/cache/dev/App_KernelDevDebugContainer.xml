@@ -423,6 +423,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\HistorialResultadoRepository" class="App\Repository\HistorialResultadoRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\LugarDeRealizacionRepository" class="App\Repository\LugarDeRealizacionRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -3488,7 +3492,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.6Kp9vvL"/>
+      <argument type="service" id=".service_locator.8aUVzPo"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5260,6 +5264,8 @@
     <service id=".abstract.instanceof.App\Repository\EstadoRepository" class="App\Repository\EstadoRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\FechaRepository" class="App\Repository\FechaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\FechaRepository" class="App\Repository\FechaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\HistorialResultadoRepository" class="App\Repository\HistorialResultadoRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\HistorialResultadoRepository" class="App\Repository\HistorialResultadoRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\LugarDeRealizacionRepository" class="App\Repository\LugarDeRealizacionRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\LugarDeRealizacionRepository" class="App\Repository\LugarDeRealizacionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ModalidadRepository" class="App\Repository\ModalidadRepository" autowire="true" abstract="true"/>
@@ -5585,12 +5591,13 @@
         <argument key="authenticationUtils" type="service" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.lttbpQ4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.fm45GM." class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CompetenciaDeportivaController::delete" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController::edit" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController::generarFixture" type="service" id=".service_locator.eFzgP0o"/>
+        <argument key="App\Controller\CompetenciaDeportivaController::indexFixtureLiga" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController::show" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\DisponibilidadController::delete" type="service" id=".service_locator.WxfsmzF"/>
         <argument key="App\Controller\DisponibilidadController::edit" type="service" id=".service_locator.WxfsmzF"/>
@@ -5615,6 +5622,7 @@
         <argument key="App\Controller\CompetenciaDeportivaController:delete" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController:edit" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController:generarFixture" type="service" id=".service_locator.eFzgP0o"/>
+        <argument key="App\Controller\CompetenciaDeportivaController:indexFixtureLiga" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\CompetenciaDeportivaController:show" type="service" id=".service_locator.eFzgP0o"/>
         <argument key="App\Controller\DisponibilidadController:delete" type="service" id=".service_locator.WxfsmzF"/>
         <argument key="App\Controller\DisponibilidadController:edit" type="service" id=".service_locator.WxfsmzF"/>
@@ -5721,7 +5729,7 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.6Kp9vvL" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.8aUVzPo" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\CompetenciaDeportivaRepository" type="service" id="App\Repository\CompetenciaDeportivaRepository"/>
@@ -5729,6 +5737,7 @@
         <argument key="App\Repository\DisponibilidadRepository" type="service" id="App\Repository\DisponibilidadRepository"/>
         <argument key="App\Repository\EstadoRepository" type="service" id="App\Repository\EstadoRepository"/>
         <argument key="App\Repository\FechaRepository" type="service" id="App\Repository\FechaRepository"/>
+        <argument key="App\Repository\HistorialResultadoRepository" type="service" id="App\Repository\HistorialResultadoRepository"/>
         <argument key="App\Repository\LugarDeRealizacionRepository" type="service" id="App\Repository\LugarDeRealizacionRepository"/>
         <argument key="App\Repository\ModalidadRepository" type="service" id="App\Repository\ModalidadRepository"/>
         <argument key="App\Repository\ParticipanteRepository" type="service" id="App\Repository\ParticipanteRepository"/>
@@ -6142,12 +6151,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.lttbpQ4"/>
+      <argument type="service" id=".service_locator.fm45GM."/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.lttbpQ4"/>
+      <argument type="service" id=".service_locator.fm45GM."/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6550,7 +6559,7 @@
     <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.lttbpQ4"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.fm45GM."/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PartidoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +26,7 @@ class Partido
     private $lugar;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Fecha::class)
+     * @ORM\ManyToOne(targetEntity=Fecha::class, inversedBy="partidos")
      * @ORM\JoinColumn (nullable=false)
      */
     private $fecha;
@@ -40,6 +42,12 @@ class Partido
 * @ORM\JoinColumn (nullable=false)
 */
     private $participante_visitante;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Resultado::class, mappedBy="partido", orphanRemoval=true, cascade={"persist"})
+     */
+    private $resultado;
+    
 
     public function getId()
     {
@@ -91,5 +99,36 @@ class Partido
         $this->setParticipanteLocal($participante_local);
         $this->setParticipanteVisitante($participante_visitante);
         $this->setLugar($lugar);
+        $this->resultado = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Resultado[]
+     */
+    public function getResultado(): Collection
+    {
+        return $this->resultado;
+    }
+
+    public function addResultado(Resultado $resultado): self
+    {
+        if (!$this->resultado->contains($resultado)) {
+            $this->resultado[] = $resultado;
+            $resultado->setPartido($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResultado(Resultado $resultado): self
+    {
+        if ($this->resultado->removeElement($resultado)) {
+            // set the owning side to null (unless already changed)
+            if ($resultado->getPartido() === $this) {
+                $resultado->setPartido(null);
+            }
+        }
+
+        return $this;
     }
 }

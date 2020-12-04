@@ -43,8 +43,9 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/nueva", name="competencia_deportiva_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request)
     {
+
         $competenciaDeportiva = new CompetenciaDeportiva();
 
         $form = $this->createForm(CompetenciaDeportivaType::class, $competenciaDeportiva);
@@ -63,7 +64,19 @@ class CompetenciaDeportivaController extends AbstractController
             }
 
 
+            /*
+             * dump($competenciaDeportiva);
+             */
+
+            $nombreMayusculas = $competenciaDeportiva -> getNombre();
+            $nombreMayusculas = strtoupper($nombreMayusculas);
+            $competenciaDeportiva -> setNombre($nombreMayusculas);
+
+            /*
+             * dump($nombreMayusculas);
             dump($competenciaDeportiva);
+            die()
+            */
 
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
@@ -80,7 +93,7 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}", name="competencia_deportiva_show", methods={"GET"})
      */
-    public function show(CompetenciaDeportiva $competenciaDeportiva): Response
+    public function show(CompetenciaDeportiva $competenciaDeportiva)
     {
         $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante()));
         $listaParticipantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
@@ -94,7 +107,7 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}/edit", name="competencia_deportiva_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, CompetenciaDeportiva $competenciaDeportiva): Response
+    public function edit(Request $request, CompetenciaDeportiva $competenciaDeportiva)
     {
         $form = $this->createForm(CompetenciaDeportivaType::class, $competenciaDeportiva);
         $form->handleRequest($request);
@@ -114,7 +127,7 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}", name="competencia_deportiva_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, CompetenciaDeportiva $competenciaDeportiva): Response
+    public function delete(Request $request, CompetenciaDeportiva $competenciaDeportiva)
     {
         if ($this->isCsrfTokenValid('delete'.$competenciaDeportiva->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -126,7 +139,7 @@ class CompetenciaDeportivaController extends AbstractController
     }
 
     /**
-     * @Route("/fixture/generate/{id}", name="competencia_deportiva_fixture_generate", methods={"GET","POST"})
+     * @Route("/{id}/fixture/generate", name="competencia_deportiva_fixture_generate", methods={"GET","POST"})
      */
     public function generarFixture(CompetenciaDeportiva $competenciaDeportiva)
     {
@@ -199,5 +212,31 @@ class CompetenciaDeportivaController extends AbstractController
             $competenciaDeportiva->addFecha($nuevaFecha);
         }
         $lista_participantes->add($participanteFijo);
+    }
+
+    /**
+     * @Route("/{id}/fixture/mostrar", name="competencia_deportiva_fixture_index")
+     */
+    public function indexFixtureLiga(CompetenciaDeportiva $competenciaDeportiva){
+        $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
+        return $this->render('competencia_deportiva/fixture/index.html.twig',
+            [
+                'fechas' => $repositorio->findByCompetencia($competenciaDeportiva->getId()),
+                'id_competencia' => $competenciaDeportiva->getId(),
+            ]);
+    }
+
+    /**
+     * @Route("/{id_competencia}/fixture/{id_partido}/resultado", name="competencia_deportiva_fixture_partido_resultado_gestionar")
+     */
+    public function gestionarResultado($id_partido){
+        $em = $this->getDoctrine()->getManager();
+        $repositorio = $em->getRepository(Partido::class);
+        $partido = $repositorio->find($id_partido);
+        return $this->render('competencia_deportiva/fixture/show.html.twig',
+            [
+                'partido' => $partido,
+            ]);
+
     }
 }

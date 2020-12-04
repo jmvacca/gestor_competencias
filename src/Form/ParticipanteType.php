@@ -26,6 +26,7 @@ class ParticipanteType extends AbstractType
                     'required'  => true,
                 ])
             ->add('imagen', FileType::class,
+
                 [
                     'label'     => 'Imagen',
                     'mapped'    => false,

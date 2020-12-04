@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fixture{% endblock %}
+
+{% block body %}
+<div class="container">
+    <p></p>
+    <div class="row">
+        <div class="col-8">
+            <h3>Fixture </h3>
+        </div>
+    </div>
+
+    <p></p>
+
+    <table id="myTable" class="table table-striped table-bordered" >
+
+        <thead class="thead-dark">
+        <tr>
+            <th>Local</th>
+            <th></th>
+            <th>vs</th>
+            <th></th>
+            <th>Visitante</th>
+            <th>Lugar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fecha in fechas %}
+            {% for partido in fecha.partidos %}
+            <tr>
+                <td>{{ partido.participanteLocal }}</td>
+                <td><span id="resultado_local"></span></td>
+                <td>vs</td>
+                <td><span id="resultado_visitante"></span></td>
+                <td>{{ partido.participanteVisitante}}</td>
+                <td>{{ partido.lugar}}</td>
+                <td>
+                    <button type="button" id="" class="btn btn-warning btn-block" onclick=location.href="{{ path('competencia_deportiva_fixture_partido_resultado_gestionar', {'id_competencia': id_competencia, 'id_partido': partido.id}) }}"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-eyeglasses" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A1.993 1.993 0 0 0 8 6c-.532 0-1.016.208-1.375.547zM14 8a2 2 0 1 0-4 0 2 2 0 0 0 4 0z"/>
+                        </svg> Gestionar resultado
+                    </button>
+                </td>
+            </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">No se encontraron Partidos..</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="11">No se encontraron Fechas..</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p></p>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <button type="button" class="btn btn-info btn-block" onclick=location.href="{{path('competencia_deportiva_show',{'id': id_competencia})}}"> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                    </svg> Volver a competencia</button>
+            </div>
+            {# <a href="{{ path('competencia_deportiva_index') }}">back to list</a> #}
+        </div>
+        {#
+        <div class="col-6">
+            <div class="form-group">
+                <button type="button" class="btn btn-info btn-block" onclick=location.href="{{ path('competencia_deportiva_index') }}"> <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-list-nested" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"/>
+                    </svg> Mostrar Todas las Competencias</button>
+            </div>#}
+        {# <a href="{{ path('competencia_deportiva_index') }}">back to list</a> #}
+    </div>
+</div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            console.log('JavaScript Listar Fechas Funcionando');
+            $('#myTable').DataTable({
+
+                "language": {
+                    "decimal":        "",
+                    "emptyTable":     "No hay fechas para mostrar...",
+                    "info":           "Mostrando Fechas del _START_ al _END_ de _TOTAL_ Fechas",
+                    "infoEmpty":      "Mostrando 0 de 0 de 0 Fechas",
+                    "infoFiltered":   "(Filtrado de un total de _MAX_ Fechas)",
+                    "infoPostFix":    "",
+                    "thousands":      ",",
+                    "lengthMenu":     "Mostrar _MENU_ Fechas",
+                    "loadingRecords": "Cargando...",
+                    "processing":     "Procesando...",
+                    "search":         "Buscar:",
+                    "zeroRecords":    "No se encontraron fechas...",
+                    "paginate": {
+                        "first":      "Primero",
+                        "last":       "Ultimo",
+                        "next":       "Siguiente",
+                        "previous":   "Anterior"
+                    },
+                    "aria": {
+                        "sortAscending":  ": Columna Ascendente",
+                        "sortDescending": ": Columna Descendente",
+                    }
+                },
+
+                "search": {
+
+                },
+                columnDefs: [
+                    { orderable: false, targets: 4 }
+                ],
+                select: false,
+                paging: true,
+                /*scrollY: 200,*/
+                "info": true,
+                "autoWidth": true,
+                "lengthMenu": [ 5, 10, 15, 20, 30, 100],
+            });
+
+
+
+        </script>
+    {% endblock %}
+
+{% endblock %}
