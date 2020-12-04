@@ -93,16 +93,26 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}", name="competencia_deportiva_show", methods={"GET"})
      */
+
     public function show(CompetenciaDeportiva $competenciaDeportiva)
     {
+
+        $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
+
+        $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        $fecha = $fechas[0];
+
         $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante()));
+
         $listaParticipantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         return $this->render('competencia_deportiva/show.html.twig', [
             'competencia_deportiva' => $competenciaDeportiva,
             'lista_participantes' => $listaParticipantes,
+            'fechaActual' => $fecha,
 
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="competencia_deportiva_edit", methods={"GET","POST"})
@@ -222,6 +232,7 @@ class CompetenciaDeportivaController extends AbstractController
         return $this->render('competencia_deportiva/fixture/index.html.twig',
             [
                 'fechas' => $repositorio->findByCompetencia($competenciaDeportiva->getId()),
+
                 'id_competencia' => $competenciaDeportiva->getId(),
             ]);
     }

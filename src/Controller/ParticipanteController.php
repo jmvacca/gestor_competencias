@@ -58,9 +58,16 @@ class ParticipanteController extends AbstractController
                 }
                 $participante->setImagenFileName($newFilename);
             }
+
+
+            $nombreMayusculas = $participante -> getNombre();
+            $nombreMayusculas = strtoupper($nombreMayusculas);
+            $participante -> setNombre($nombreMayusculas);
+
             $entityManager = $this->getDoctrine()->getManager();
             $repositorio = $entityManager->getRepository(get_class(new CompetenciaDeportiva()));
             $participante->setCompetenciaDeportiva($repositorio->find($id_competencia));
+
 
             $entityManager->persist($participante);
             $entityManager->flush();

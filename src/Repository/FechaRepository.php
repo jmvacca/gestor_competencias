@@ -34,6 +34,30 @@ class FechaRepository extends ServiceEntityRepository
     }
 
     /*
+
+    /**
+     * @return Fecha
+     */
+    /*
+    public function findFechaActual($id_competencia)
+    {
+        return $this->createQueryBuilder('fa')
+            ->andWhere('fa.competenciaDeportiva = :val')
+            ->setParameter('val', $id_competencia)
+            ->orderBy('f.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    */
+
+    /*
+SELECT *
+FROM fecha
+WHERE id = 1 and competencia_deportiva_id=2;
+    */
+
+    /*
     public function findOneBySomeField($value): ?Fecha
     {
         return $this->createQueryBuilder('f')
@@ -44,4 +68,6 @@ class FechaRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }

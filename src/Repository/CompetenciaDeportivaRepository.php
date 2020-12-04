@@ -19,6 +19,11 @@ class CompetenciaDeportivaRepository extends ServiceEntityRepository
         parent::__construct($registry, CompetenciaDeportiva::class);
     }
 
+
+
+
+
+
     // /**
     //  * @return CompetenciaDeportiva[] Returns an array of CompetenciaDeportiva objects
     //  */

@@ -186,6 +186,7 @@
 
                 <thead class="thead-dark">
                 <tr>
+                    <th>Fecha Actual</th>
                     <th>Local</th>
                     <th>vs</th>
                     <th>Visitante</th>
@@ -193,12 +194,21 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for partido in fechaActual.partidos %}
                 <tr>
-                    <td></td>
+
+                    <td>{{fechaActual.id}}</td>
+                    <td>{{ partido.participanteLocal }}</td>
                     <td>vs</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ partido.participanteVisitante}}</td>
+                    <td>{{ partido.lugar}}</td>
                 </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="11">No se encontraron Partidos..</td>
+                    </tr>
+                {% endfor %}
+
 
                 </tbody>
 

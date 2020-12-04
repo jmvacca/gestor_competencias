@@ -13,26 +13,29 @@
 
     <p></p>
 
-    <table id="myTable" class="table table-striped table-bordered" >
+    <table id="myTableFixture" class="table table-striped table-bordered" >
 
         <thead class="thead-dark">
         <tr>
+            <th>Fecha Nro.</th>
             <th>Local</th>
             <th></th>
             <th>vs</th>
             <th></th>
             <th>Visitante</th>
             <th>Lugar</th>
+            <th>Accion</th>
         </tr>
         </thead>
         <tbody>
         {% for fecha in fechas %}
             {% for partido in fecha.partidos %}
             <tr>
+                <td>{{fecha.id}}</td>
                 <td>{{ partido.participanteLocal }}</td>
-                <td><span id="resultado_local"></span></td>
+               <td> {#<span id="resultado_local"></span>#}</td>
                 <td>vs</td>
-                <td><span id="resultado_visitante"></span></td>
+               <td>{# <span id="resultado_visitante"></span>#}</td>
                 <td>{{ partido.participanteVisitante}}</td>
                 <td>{{ partido.lugar}}</td>
                 <td>
@@ -83,21 +86,23 @@
         {{ parent() }}
         <script type="text/javascript">
             console.log('JavaScript Listar Fechas Funcionando');
-            $('#myTable').DataTable({
+            var table;
+            table = $('#myTableFixture').DataTable({
 
+                'destroy': true,
                 "language": {
                     "decimal":        "",
-                    "emptyTable":     "No hay fechas para mostrar...",
-                    "info":           "Mostrando Fechas del _START_ al _END_ de _TOTAL_ Fechas",
-                    "infoEmpty":      "Mostrando 0 de 0 de 0 Fechas",
-                    "infoFiltered":   "(Filtrado de un total de _MAX_ Fechas)",
+                    "emptyTable":     "NO HAY FECHAS NI PARTIDOS PARA MOSTRAR",
+                    "info":           "Mostrando PARTIDOS del _START_ al _END_ de _TOTAL_ PARTIDOS",
+                    "infoEmpty":      "Mostrando 0 de 0 de 0 PARTIDOS",
+                    "infoFiltered":   "(Filtrado de un total de _MAX_ PARTIDOS)",
                     "infoPostFix":    "",
                     "thousands":      ",",
-                    "lengthMenu":     "Mostrar _MENU_ Fechas",
+                    "lengthMenu":     "Mostrar _MENU_ PARTIDOS",
                     "loadingRecords": "Cargando...",
                     "processing":     "Procesando...",
                     "search":         "Buscar:",
-                    "zeroRecords":    "No se encontraron fechas...",
+                    "zeroRecords":    "NO SE ENCONTRAR FECHAS NI PARTIDOS ...",
                     "paginate": {
                         "first":      "Primero",
                         "last":       "Ultimo",
@@ -113,15 +118,13 @@
                 "search": {
 
                 },
+
                 columnDefs: [
-                    { orderable: false, targets: 4 }
+                    { orderable: false, targets: [3,7] }
                 ],
-                select: false,
-                paging: true,
-                /*scrollY: 200,*/
-                "info": true,
-                "autoWidth": true,
-                "lengthMenu": [ 5, 10, 15, 20, 30, 100],
+                searching: false,
+                retrieve: false,
+                lengthChange: false,
             });
 
 
