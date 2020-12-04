@@ -45,6 +45,7 @@ class CompetenciaDeportivaController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         $competenciaDeportiva = new CompetenciaDeportiva();
 
         $form = $this->createForm(CompetenciaDeportivaType::class, $competenciaDeportiva);
@@ -63,7 +64,19 @@ class CompetenciaDeportivaController extends AbstractController
             }
 
 
+            /*
+             * dump($competenciaDeportiva);
+             */
+
+            $nombreMayusculas = $competenciaDeportiva -> getNombre();
+            $nombreMayusculas = strtoupper($nombreMayusculas);
+            $competenciaDeportiva -> setNombre($nombreMayusculas);
+
+            /*
+             * dump($nombreMayusculas);
             dump($competenciaDeportiva);
+            die()
+            */
 
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();

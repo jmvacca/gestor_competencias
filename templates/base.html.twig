@@ -23,22 +23,23 @@
         {% endblock %}
 
     </head>
-    <body>
+    <body style="background-color:#FEFAF7";>
     <header>
         <!-- TP Diseño De Sistemas 2020 Grupo 2A -->
         <hr>
-        <div class="container">
+        <div class="container" >
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
+            <div class="container" >
+                <div class="row"  style="background-color:#FFBF83; border-color:#FCA23B";>
+                    <div class="col">
                         <h6 class="text-right"> TP DISEÑO DE SISTEMAS 2020 GRUPO 2A</h6>
                     </div>
+
                 </div>
             </div>
             <hr>
             <picture>
-                <img src=" {{ asset('images/Logo.jpg') }}" style="max-width:100%;width:auto;height:auto;">
+                <img src=" {{ asset('images/Logo.jpg') }}" style="max-width:100%;width:auto;height:auto;" class="img-thumbnail">
             </picture>
             <hr>
         </div>
@@ -46,8 +47,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-8">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
+                    <nav aria-label="breadcrumb"  style="background-color:#FFBF83;" >
+                        <ol class="breadcrumb"  style="background-color:#FFBF83;">
                             {% for bread in breadcrumbs() %}
                                 {% if bread.0 != null %}
                                     <li class="breadcrumb-item"><a href="{{ bread.0 }}">{{ bread.1 }}</a></li>
@@ -156,14 +157,14 @@
         </div>
 
     </header>
-    <div class="container">
     <hr>
 
-    </div>
+
 
         {% block body %}
         {% endblock %}
-
+    <hr>
+    <div    style="background-color:#D6DBDF">
 
         {% block javascripts %}
 
@@ -196,6 +197,6 @@
     <hr>
 
     <footer class="mt-5 p-3 text-center"> Creado por <a style="color: #444; text-decoration: underline;" href="https://twitter.com/JoaaVacca">Joaquin Vacca</a> y <a style="color: #444; text-decoration: underline;" href="https://twitter.com/Elias_Suiva">Elias José Suiva </a> </footer>
-
+    </div>
     </body>
 </html>

@@ -16,7 +16,7 @@ class DisponibilidadType extends AbstractType
         $builder
             ->add('disponibilidad', IntegerType::class,
                 [
-                    'attr' => ['min'=>1,'placeholder'=>'PLACEHOLDER','name' => 'Disponibilidad', 'title' => 'Disponibilidad', 'class' => 'form-control', 'id' => 'Disponibilidad'],
+                    'attr' => ['min'=>1, 'max'=>9999 ,'placeholder'=>'1 - 999','name' => 'Disponibilidad', 'title' => 'Disponibilidad', 'class' => 'form-control', 'id' => 'Disponibilidad'],
                     'required' => true,
                 ])
             ->add('lugar', EntityType::class,
