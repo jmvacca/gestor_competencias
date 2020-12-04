@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FechaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,7 +29,7 @@ class Fecha
     private $competenciaDeportiva;
 
     /**
-     * @ORM\OneToMany(targetEntity=Partido::class, mappedBy="fecha")
+     * @ORM\OneToMany(targetEntity=Partido::class, mappedBy="fecha", cascade={"persist"})
      */
     private $partidos;
 
@@ -60,4 +61,39 @@ class Fecha
 
         return $this;
     }
+
+
+    public function getPartidos()
+    {
+        return $this->partidos;
+    }
+
+    public function addPartidos(Partido $partido)
+    {
+        if (!$this->partidos->contains($partido)) {
+            $this->partidos->add($partido);
+            $partido->setFecha($this);
+        }
+
+        return $this;
+    }
+
+    public function removePartidos(Partido $partido)
+    {
+        if ($this->partidos->removeElement($partido)) {
+            // set the owning side to null (unless already changed)
+            if ($partido->getFecha() === $this) {
+                $partido->setFecha(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __construct($numero){
+        $this->setNumero($numero);
+        $this->partidos = new ArrayCollection();
+    }
+
+
 }

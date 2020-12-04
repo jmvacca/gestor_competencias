@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\CompetenciaDeportiva;
 use App\Entity\Disponibilidad;
 use App\Entity\Estado;
+use App\Entity\Fecha;
 use App\Entity\LugarDeRealizacion;
 use App\Entity\Participante;
+use App\Entity\Partido;
 use App\Entity\Usuario;
 use App\Form\CompetenciaDeportivaType;
 use App\Repository\CompetenciaDeportivaRepository;
@@ -23,15 +25,17 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/", name="competencia_deportiva_index", methods={"GET"})
      */
-    public function index(CompetenciaDeportivaRepository $competenciaDeportivaRepository): Response
+    public function index()
     {
+        if ($this->getUser()){
+            $competencias = ($this->getUser())->getCompetencias();
+        } else {
+            $entityManager = $this->getDoctrine()->getManager();
+            $repositorio = $entityManager->getRepository(get_class(new Usuario()));
+            $competencias = ($repositorio->find(1))->getCompetencias();
+        }
         return $this->render('competencia_deportiva/index.html.twig', [
-            'competencia_deportivas' => $competenciaDeportivaRepository->findAll(),
-
-
-
-
-
+            'competencia_deportivas' => $competencias,
 
         ]);
     }
@@ -54,7 +58,6 @@ class CompetenciaDeportivaController extends AbstractController
             if ($this->getUser()){
                 $competenciaDeportiva->setUsuario($this->getUser());
             } else {
-
                 $repositorio = $entityManager->getRepository(get_class(new Usuario()));
                 $competenciaDeportiva->setUsuario($repositorio->find(1));
             }
@@ -65,7 +68,7 @@ class CompetenciaDeportivaController extends AbstractController
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
 
-            return $this->redirectToRoute('competencia_deportiva_index');
+            return $this->redirectToRoute('participante_index', ['id_competencia' => $competenciaDeportiva->getId()]);
         }
 
         return $this->render('competencia_deportiva/new.html.twig', [
@@ -120,5 +123,81 @@ class CompetenciaDeportivaController extends AbstractController
         }
 
         return $this->redirectToRoute('competencia_deportiva_index');
+    }
+
+    /**
+     * @Route("/fixture/generate/{id}", name="competencia_deportiva_fixture_generate", methods={"GET","POST"})
+     */
+    public function generarFixture(CompetenciaDeportiva $competenciaDeportiva)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $estado = $competenciaDeportiva->getEstado();
+        if($estado->getId() == 1 or $estado->getId() == 2){
+            if(sizeof($competenciaDeportiva->getParticipante())%2 == 1){
+                $participanteAux = new Participante();
+                $participanteAux->setNombre("NADIE");
+                $participanteAux->setEmail("participanteAux@correo.com");
+                $competenciaDeportiva->addParticipante($participanteAux);
+            }
+            $this->generarFixtureLiga($competenciaDeportiva);
+            $repositorio = $em->getRepository(get_class(new Estado()));
+            $competenciaDeportiva->setEstado($repositorio->find(2));
+            $em->persist($competenciaDeportiva);
+            $em->flush();
+
+            return $this->redirectToRoute('competencia_deportiva_show',['id'=>$competenciaDeportiva->getId()]);
+        }
+    }
+
+    private function generarFixtureLiga(CompetenciaDeportiva $competenciaDeportiva){
+
+        $em = $this->getDoctrine()->getManager();
+        $lista_participantes = $competenciaDeportiva->getParticipante();
+        $lista_disponibilidades = $competenciaDeportiva->getDisponibilidades();
+        $repositorio = $em->getRepository(get_class(new Disponibilidad()));
+        foreach ($lista_disponibilidades as $disponibilidad){
+            $lista_disponibilidades_load[] = $repositorio->find($disponibilidad->getId());
+        }
+        $repositorio = $em->getRepository(get_class(new LugarDeRealizacion()));
+        foreach ($lista_disponibilidades_load as $disponibilidad){
+            $lugar_vacio = $disponibilidad->getLugar();
+            $disponibilidad->setLugar($repositorio->find($lugar_vacio->getId()));
+            //dump($competenciaDeportiva);
+            //die();
+        }
+        //$lista_disponibilidades_load = $lista_disponibilidades_load->toArray();
+        $cantidadParticipantes = sizeof($lista_participantes); // = 4
+        $nroFecha = 1;
+        $participanteFijo = $lista_participantes->first(); // = Boca Jrs
+        $lista_participantes->remove(0); // = Boca Jrs
+
+        while($nroFecha <= $cantidadParticipantes-1){ // 1 <= 3? // 2 <= 3? // 3 <= 3? Si, ultima
+            $disponibilidadUsada = 1;
+            $actual = 0; //disponibilidad actual en el array
+            //dump($lista_disponibilidades_load[$actual]);
+            //die();
+            $participanteAux = $lista_participantes->first(); // = River Plate // = Union // = Colon
+            $lista_participantes->removeElement($participanteAux); // = River Plate // = Union // = Colon
+            $nuevaFecha = new Fecha($nroFecha);
+            $nuevoPartido = new Partido($participanteFijo,$participanteAux,($lista_disponibilidades_load[$actual])->getLugar());
+            $nuevaFecha->addPartidos($nuevoPartido);
+            $index_local = $lista_participantes->indexOf($lista_participantes->first());
+            $index_visitante = $lista_participantes->indexOf($lista_participantes->last()); // 1
+            while ($index_local<$index_visitante){
+                if($disponibilidadUsada > $lista_disponibilidades_load[$actual]->getDisponibilidad()){
+                    $actual++;
+                    $disponibilidadUsada=1;
+                }
+                $nuevoPartido = new Partido($lista_participantes[$index_local],$lista_participantes[$index_visitante],$lista_disponibilidades_load[$actual]->getLugar());
+                $nuevaFecha->addPartidos($nuevoPartido);
+                $index_local++; // 1
+                $index_visitante--; // 0
+                $disponibilidadUsada++; //2
+            }
+            $lista_participantes->add($participanteAux); // = River Plate // = Union
+            $nroFecha++; // 2 // 3
+            $competenciaDeportiva->addFecha($nuevaFecha);
+        }
+        $lista_participantes->add($participanteFijo);
     }
 }

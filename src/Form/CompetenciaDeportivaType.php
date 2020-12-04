@@ -24,12 +24,12 @@ class CompetenciaDeportivaType extends AbstractType
                 [
                     'attr' => ['style' => 'text-transform:uppercase', 'title' => 'Nombre', 'placeholder' => 'Introduce el Nombre', 'maxlength' => '20', 'class' => 'form-control', 'id' => 'NombreCompetencia'],
                     'required' => false,
-                    'invalid_message' => 'Valor Inválido! - Debe tener nombre de al menos %num% caracteres',
+                     'invalid_message' => 'Valor Inválido! - Debe tener nombre de al menos %num% caracteres',
                     'invalid_message_parameters' => array('%num%' => 20),
                 ])
             ->add('deporte', EntityType::class,
                 [
-                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control'],
+                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control','id' => 'deporte'],
                     'class' => 'App\Entity\Deporte',
                 ])
             ->add('modalidad', EntityType::class,
@@ -41,8 +41,9 @@ class CompetenciaDeportivaType extends AbstractType
                 [
                     'choices' =>
                         [
-                            'No' => false,
                             'Si' => true,
+                            'No' => false,
+
                         ],
                     'placeholder' => false,
                     'expanded' => false,
@@ -59,6 +60,7 @@ class CompetenciaDeportivaType extends AbstractType
                 [
                     'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'1 - 999','name' => 'PPG', 'title' => 'Puntos por partidos ganados', 'class' => 'form-control', 'id' => 'PPG'],
                     'required' => false,
+
                 ])
             ->add('puntosPorPresentarse', IntegerType::class,
                 [
@@ -74,8 +76,9 @@ class CompetenciaDeportivaType extends AbstractType
                         '7' => 7,
                         '9' => 9,
                         ],
-                    'attr' => ['id' => 'csets', 'name' => 'sets','placeholder'=> 'Seleccione Set', 'class' => 'form-control'],
+                    'attr' => ['id' => 'csets', 'name' => 'sets', 'class' => 'form-control',],
                     'required' => false,
+                    'placeholder'=>false,
                 ])
             ->add('reglamento', TextareaType::class,
                 [
@@ -84,8 +87,9 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('puntosPorNoPresentarse', IntegerType::class,
                 [
-                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'1 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
+                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
                     'required' => false,
+
                 ])
             ->add('disponibilidades', CollectionType::class,
                 [

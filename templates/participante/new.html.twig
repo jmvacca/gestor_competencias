@@ -13,9 +13,28 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+        console.log('JavaScript Nuevo Participante Funcionando');
+
+        (function (){
+            function filePreview(input){
+                if(input.file && input.file[0]){
+
+                    var reader = new FileReader();
+                    reader.onload = function (e){
+                        $('#imagenPreview').html("<img src='"+e.target.result+"'/>");
+                    }
+                    reader.readAsDataURL(input.file[0]);
+                };
+
+            }
+            $('#imagen').change(function (){
+                console.log('hola');
+                filePreview(this);
+            });
+        })();
 
         $("#CancelarNP").on("click", function(e) {
-            window.location.href = "{{ path('participante_index') }}"
+            window.location.href = "{{ path('participante_index', {id_competencia}) }}"
         });
 
     </script>

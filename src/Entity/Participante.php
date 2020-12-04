@@ -4,9 +4,15 @@ namespace App\Entity;
 
 use App\Repository\ParticipanteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipanteRepository::class)
+ * @UniqueEntity(fields="email",
+ *     message="Correo electronico ya en uso.")
+ * @UniqueEntity(fields="nombre",
+ *     message="Nombre ya en uso.")
+ *
  */
 class Participante
 {
@@ -18,12 +24,13 @@ class Participante
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", length=180)
+     * @ORM\Column(type="string", length=180, unique=true)
+     *
      */
     private $email;
 
@@ -72,19 +79,19 @@ class Participante
         return $this->imagenFileName;
     }
 
-    public function setImagenFileName($imagenFileName): self
+    public function setImagenFileName($imagenFileName)
     {
         $this->imagenFileName = $imagenFileName;
 
         return $this;
     }
 
-    public function getCompetenciaDeportiva(): ?CompetenciaDeportiva
+    public function getCompetenciaDeportiva()
     {
         return $this->competenciaDeportiva;
     }
 
-    public function setCompetenciaDeportiva(?CompetenciaDeportiva $competenciaDeportiva): self
+    public function setCompetenciaDeportiva( $competenciaDeportiva)
     {
         $this->competenciaDeportiva = $competenciaDeportiva;
 

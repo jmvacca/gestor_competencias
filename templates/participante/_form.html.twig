@@ -1,36 +1,41 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col">
+    <div class="col-6">
         {{ form_label(form.nombre,'Nombre Participante/Equipo:') }}
         {{ form_widget(form.nombre) }}
-        {{ form_errors(form.nombre) }}
+        {#    {{ form_errors(form.nombre) }}#}
     </div>
-</div>
-<div class="row">
-    <div class="col">
+    <div class="col-6">
         {{ form_label(form.email,'Email Participante/Equipo:') }}
         {{ form_widget(form.email) }}
-        {{ form_errors(form.email) }}
+        {#    {{ form_errors(form.email) }}#}
     </div>
+
 </div>
+<br>
 <div class="row">
-    <div class="col">
+    <div class="col-8">
         {{ form_label(form.imagen) }}
         {{ form_widget(form.imagen) }}
         {{ form_errors(form.imagen) }}
+    </div>
+
+    <div class="col-4">
+        <div id="imagenPreview">
+            <img src="{{ asset('uploads/images/default.jpg') }}" width="150" height="150"class="img-thumbnail">
+        </div>
     </div>
 </div>
 
 {{ form_widget(form) }}
 
-<br>
-
+<hr>
 <div class="row">
     <div class="col-6">
         <button type="submit" class="btn btn-success btn-lg btn-block" id="botonac">{{ button_label|default('ACEPTAR') }}</button>
     </div>
     <div class="col-6">
-        <button class="btn btn-danger btn-lg btn-block" id="CancelarNP" name="Cancelar">CANCELAR</button>
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{ path('participante_index', {id_competencia}) }}" name="Cancelar">CANCELAR</button>
     </div>
 </div>
 {{ form_end(form) }}

@@ -68,7 +68,7 @@ class CompetenciaDeportiva
     private $horaBaja;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fecha::class, mappedBy="competenciaDeportiva")
+     * @ORM\OneToMany(targetEntity=Fecha::class, mappedBy="competenciaDeportiva", cascade={"persist"})
      */
     private $fecha;
 
@@ -308,7 +308,7 @@ class CompetenciaDeportiva
     public function addParticipante(Participante $participante): self
     {
         if (!$this->participante->contains($participante)) {
-            $this->participante[] = $participante;
+            $this->participante->add($participante);
             $participante->setCompetenciaDeportiva($this);
         }
 
@@ -338,7 +338,7 @@ class CompetenciaDeportiva
     public function addDisponibilidade(Disponibilidad $disponibilidade): self
     {
         if (!$this->disponibilidades->contains($disponibilidade)) {
-            $this->disponibilidades[] = $disponibilidade;
+            $this->disponibilidades -> add ($disponibilidade);
             $disponibilidade->setCompetenciaDeportiva($this);
         }
 

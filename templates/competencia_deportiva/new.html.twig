@@ -14,6 +14,31 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+        console.log('JavaScript Nueva Competencia Funcionando');
+        document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+        var modalidadBool = false;
+        var cantidadDisponibilidades = 0;
+        var selectModalidad = document.getElementById('competencia_deportiva_modalidad');
+        selectModalidad.addEventListener('change',
+            function() {
+                modalidadBool = false;
+                console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
+            });
+        var selectPermiteEmpate = document.getElementById('competencia_deportiva_permiteEmpate');
+        selectPermiteEmpate.addEventListener('change',
+            function() {
+
+            if (selectPermiteEmpate.value==0){
+                document.getElementById('competencia_deportiva_puntosEmpate').disabled = true;
+                document.getElementById('competencia_deportiva_puntosEmpate').value = null;
+
+
+            } else {
+                document.getElementById('competencia_deportiva_puntosEmpate').disabled = false;
+            }
+            });
+
+
         //Como añadir DISPONIBILIDADES
         var $coleccionDisponibilidades;
         // setup an "add a disponibilidad" link
@@ -31,9 +56,13 @@
                 addDisponibilidadFormDeleteLink($(this));
             });
             $addDisponibilidadButton.on('click', function(e) {
+
+                cantidadDisponibilidades++;
                 e.preventDefault();
+
                 // add a new disponibilidad form (see next code block)
                 addDisponibilidadForm();
+
             });
         });
 
@@ -53,6 +82,7 @@
             $card.append($cardBody);
             addDisponibilidadFormDeleteLink($card);
             $addDisponibilidadButton.before($card);
+            cantidadDisponibilidades++;
         }
         /**
          * @param $card
@@ -60,11 +90,12 @@
         function addDisponibilidadFormDeleteLink($card) {
             var $removeFormButton = $('<button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash"></i> ELIMINAR</button>');
             var $cardFooter = $('<div class="card-footer"></div>').append($removeFormButton);
-
+            cantidadDisponibilidades--;
             $removeFormButton.on('click', function(e) {
                 // remove the tr for the tag form
                 $(e.target).parents('#card-disponibilidad').slideUp(1000, function (){
                     $(this).remove();
+                    cantidadDisponibilidades--;
                 });
             });
             $card.append($cardFooter);
@@ -79,14 +110,46 @@
             $modalidadSelect = $('div.modalidad');
             $modalidadSelect.append($addModalidadButton);
             $addModalidadButton.on('click', function(e) {
+                resetModalidad();
                 var select = document.getElementById('competencia_deportiva_modalidad');
                 var modalidadS = [select.selectedIndex];
-                if(modalidadS!=0){
-                    document.getElementById('ocultar').style.display = 'none';
-                } else {
+                console.log('Modalidad: ' +modalidadS);
+                if(modalidadS==0){
+
                     document.getElementById('ocultar').style.display = '';
+
+
+                    let template1 = '';
+                    template1 +=
+                        ` Modalidad Liga `
+                    $('#tituloModalidad').html(template1);
+
                 }
+                if(modalidadS==1){
+                    document.getElementById('ocultar').style.display = 'none';
+
+                    let template1 = '';
+                    template1 +=
+
+                        ` Modalidad Eliminacion Simple 	`
+                    $('#tituloModalidad').html(template1);
+
+                }
+
+                if(modalidadS==2){
+
+                    document.getElementById('ocultar').style.display = 'none';
+
+                    let template1 = '';
+                    template1 +=
+
+                        ` Modalidad Eliminacion Doble `
+                    $('#tituloModalidad').html(template1);
+
+                }
+
                 $('div.modalModalidadcfg').modal();
+
             });
         });
 
@@ -94,6 +157,7 @@
         function funcion1() {
             document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value = null;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = false;
+            document.getElementById("competencia_deportiva_cantidadMaximaSet").selectedIndex = 0;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
         }
 
@@ -101,6 +165,7 @@
             document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = false;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
+
         }
 
         function funcion3() {
@@ -137,29 +202,132 @@
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
         }
+        function resetModalidad(){
+            modalidadBool = false;
+
+        };
 
         $("#buttonAM1").on("click", function(e) {
             e.preventDefault();
-            $('div.modalModalidadcfg').modal('hide');
-            modalidadBool = true;
-            console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+            var select = document.getElementById('competencia_deportiva_modalidad');
+            var modalidadS = [select.selectedIndex];
+            var puntosEmpate = document.getElementById('competencia_deportiva_puntosEmpate').value;
+            var puntosPorPresentarce = document.getElementById('competencia_deportiva_puntosPorPresentarse').value;
+            var puntosPartidoGanado = document.getElementById('competencia_deportiva_puntosPartidoGanado').value;
+            var datosModalidadCompletos=false;
+
+            if(modalidadS==0){
+                                if (selectPermiteEmpate.value==0){
+                                    if(puntosPorPresentarce != '' && puntosPartidoGanado != ''){
+                                        datosModalidadCompletos=true;
+                                    } else {
+                                        datosModalidadCompletos=false;
+                                    }
+
+                                } else {
+                                    if((puntosPorPresentarce != '') && (puntosPartidoGanado != '') && (puntosEmpate != '')){
+                                        datosModalidadCompletos=true;
+                                      } else{
+                                    datosModalidadCompletos=false;}
+                                }
+
+                if (datosModalidadCompletos==true){
+
+                    $('div.modalModalidadcfg').modal('hide');
+                    modalidadBool = true;
+                    $('#alertmodal').modal();
+                    console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+
+                }else {
+
+                    $('#alertmodal2').modal({
+                        backdrop:'static',
+                        keyboard: false,
+                    });
+                    console.log('Por Favor Complerte la Configuracion... ');
+
+                }
+
+
+            } else {
+
+                $('div.modalModalidadcfg').modal('hide');
+                modalidadBool = true;
+                $('#alertmodal').modal();
+                console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+
+            }
+
+
+
         });
 
         $("#buttonCM1").on("click", function(e) {
             e.preventDefault();
-            $('#modalLiga').modal('hide');
+            $('#modalcam').modal();
+
             modalidadBool = false;
             console.log('Advertencia! Modalidad No Configurada! Estado:' + modalidadBool);
         });
+        $("#AceptarBNC").on("click", function(e) {
+            e.preventDefault();
+            var nombreCompetencia =  document.getElementById("competencia_deportiva_nombre").value;
+            nombreCompetencia = nombreCompetencia.toUpperCase();
+
+            var modalidadSeleccionada = document.getElementById('competencia_deportiva_modalidad');
+            var nombreModalidad = modalidadSeleccionada.options[modalidadSeleccionada.selectedIndex].text;
+
+            var deporteSeleccionado = document.getElementById('competencia_deportiva_deporte');
+            var nombreDeporte = deporteSeleccionado.options[deporteSeleccionado.selectedIndex].text;
+
+            console.log('Nombre Competencia: ' +nombreCompetencia);
+            console.log('Deporte Seleccionado: ' +nombreDeporte);
+            console.log('Cantidad Disponibilidades: ' +cantidadDisponibilidades);
+            console.log('Modalidad Seleccionada: ' +nombreModalidad);
+
+            if ( nombreCompetencia == '') {
+
+                $('#nombreNoSel').modal();
+
+            } else { if(cantidadDisponibilidades ==0){
+                  $('#disponibilidadNoSet').modal();
+            } else { if(modalidadBool == false){
+                    $('#modalidadNSOC').modal();
+            } else {
+
+                let template2 = '';
+                template2 +=
+
+                    `
+											<h6> Nombre Competencia:                 ${nombreCompetencia} </h6>
+                                            <h6> Deporte Seleccionado:               ${nombreDeporte}   </h6>
+                                            <h6> Modalidad Seleccionada:             ${nombreModalidad}  </h6>
+                                            <h6> Lugares/Disponibilidades Agregados: ${cantidadDisponibilidades}  </h6>
 
 
-        $("#CancelarNC").on("click", function(e) {
-            window.location.href = "{{ path('competencia_deportiva_index') }}"
+
+													`
+                $('#BodyDatosCompetencia').html(template2);
+
+                    $('#modalAceptarNC').modal();
+
+
+
+
+                }
+
+            }
+            }
+
+
         });
+
+
 
         /*$("#buttonAceptarCompetencia").on("click", function (e) {
             console.log('presionaste el boton para guardar competencia');
         })*/
+
     </script>
 
 
