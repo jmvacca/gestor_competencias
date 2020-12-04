@@ -45,6 +45,12 @@ class Participante
      */
     private $competenciaDeportiva;
 
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getNombre();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

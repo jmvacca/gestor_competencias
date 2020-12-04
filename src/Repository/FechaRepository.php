@@ -19,22 +19,19 @@ class FechaRepository extends ServiceEntityRepository
         parent::__construct($registry, Fecha::class);
     }
 
-    // /**
-    //  * @return Fecha[] Returns an array of Fecha objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Fecha[] Returns an array of Fecha objects
+     */
+    public function findByCompetencia($id_competencia)
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('f.competenciaDeportiva = :val')
+            ->setParameter('val', $id_competencia)
             ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Fecha
