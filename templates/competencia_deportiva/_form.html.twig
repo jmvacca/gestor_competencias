@@ -80,39 +80,48 @@
                                         {{ form_errors(form.puntosPartidoGanado) }}
                                     </div>
                                 </div>
+                                <hr>
                              </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <p>Forma de puntuacion: </p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-6">
                                     <div class="radio">
                                         <input type="radio" name="fpuntuacion" onclick="funcion1();" id="sets" checked> {{ form_label(form.cantidadMaximaSet,'Cantidad de Sets:') }}
                                     </div>
                                 </div>
                                 <div class="col-4">
+
+                                    {{ form_widget(form.cantidadMaximaSet) }}
+                                    {{ form_errors(form.cantidadMaximaSet) }}
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
                                     <div class="radio">
                                         <input type="radio" name="fpuntuacion" onclick="funcion2();" id="puntuacion"> {{ form_label(form.puntosPorNoPresentarse,'Tantos por WO:') }}
                                     </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="radio">
-                                        <input type="radio" name="fpuntuacion" onclick="funcion3();" id="resultadofinal"> Resultado Final
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    {{ form_widget(form.cantidadMaximaSet) }}
-                                    {{ form_errors(form.cantidadMaximaSet) }}
+
                                 </div>
                                 <div class="col-4">
                                     {{ form_widget(form.puntosPorNoPresentarse) }}
                                     {{ form_errors(form.puntosPorNoPresentarse) }}
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="radio">
+                                        <input type="radio" name="fpuntuacion" onclick="funcion3();" id="resultadofinal"> Resultado Final
+                                    </div>
+                                </div>
+                            </div>
+
  </div>
                         <hr>
 <div class="row">

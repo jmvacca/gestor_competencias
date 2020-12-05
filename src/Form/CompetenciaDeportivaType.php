@@ -53,18 +53,18 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('puntosEmpate', IntegerType::class,
                 [
-                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','name' => 'PPE', 'title' => 'Puntos por empate', 'class' => 'form-control', 'id' => 'PPE'],
+                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999', 'onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'PPE', 'title' => 'Puntos por empate', 'class' => 'form-control', 'id' => 'PPE'],
                     'required' => false,
                 ])
             ->add('puntosPartidoGanado', IntegerType::class,
                 [
-                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'1 - 999','name' => 'PPG', 'title' => 'Puntos por partidos ganados', 'class' => 'form-control', 'id' => 'PPG'],
+                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'1 - 999', 'onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'PPG', 'title' => 'Puntos por partidos ganados', 'class' => 'form-control', 'id' => 'PPG'],
                     'required' => false,
 
                 ])
             ->add('puntosPorPresentarse', IntegerType::class,
                 [
-                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','name' => 'PPPRE', 'title' => 'Puntos por presentarse', 'class' => 'form-control', 'id' => 'PPPRE'],
+                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'PPPRE', 'title' => 'Puntos por presentarse', 'class' => 'form-control', 'id' => 'PPPRE'],
                     'required' => false,
                 ])
             ->add('cantidadMaximaSet', ChoiceType::class,
@@ -87,7 +87,7 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('puntosPorNoPresentarse', IntegerType::class,
                 [
-                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'0 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
+                    'attr' => ['max'=> 999,'min'=>1, 'onkeyup' => "this.value = mMaxV(this,this.value)", 'placeholder'=>'1 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
                     'required' => false,
 
                 ])

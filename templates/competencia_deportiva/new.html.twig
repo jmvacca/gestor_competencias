@@ -159,12 +159,20 @@
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = false;
             document.getElementById("competencia_deportiva_cantidadMaximaSet").selectedIndex = 0;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+            var radioBool = document.getElementById("puntuacion").checked;
+            console.log('PWO: ' +radioBool);
+            var puntuacionWO = document.getElementById("puntuacionwo");
+            console.log('PuntuacionWO: ' +puntuacionWO);
         }
 
         function funcion2() {
             document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = false;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
+            var radioBool = document.getElementById("puntuacion").checked;
+            console.log('PWO: ' +radioBool);
+            var puntuacionWO = document.getElementById("puntuacionwo");
+            console.log('PuntuacionWO: ' +puntuacionWO);
 
         }
 
@@ -173,6 +181,10 @@
             document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
+            var radioBool = document.getElementById("puntuacion").checked;
+            console.log('PWO: ' +radioBool);
+            var puntuacionWO = document.getElementById("puntuacionwo");
+            console.log('PuntuacionWO: ' +puntuacionWO);
         }
 
         function funcion4() {
@@ -188,12 +200,14 @@
             document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value = null;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = false;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+
         }
 
         function funcion7() {
             document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = false;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
+
         }
 
         function funcion8() {
@@ -201,6 +215,7 @@
             document.getElementById("competencia_deportiva_cantidadMaximaSet").value = null;
             document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
             document.getElementById('competencia_deportiva_cantidadMaximaSet').disabled = true;
+
         }
         function resetModalidad(){
             modalidadBool = false;
@@ -215,11 +230,24 @@
             var puntosPorPresentarce = document.getElementById('competencia_deportiva_puntosPorPresentarse').value;
             var puntosPartidoGanado = document.getElementById('competencia_deportiva_puntosPartidoGanado').value;
             var datosModalidadCompletos=false;
+            var radioBool = document.getElementById("puntuacion").checked;
+            console.log('PWO: ' +radioBool);
+            var puntuacionWO = document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value;
+            console.log('PuntuacionWO: ' +puntuacionWO);
 
             if(modalidadS==0){
                                 if (selectPermiteEmpate.value==0){
                                     if(puntosPorPresentarce != '' && puntosPartidoGanado != ''){
                                         datosModalidadCompletos=true;
+                                        if (radioBool == true){
+                                            if (puntuacionWO == '') {
+                                                datosModalidadCompletos=false;
+                                            } else {
+                                                datosModalidadCompletos=true;
+                                            }
+                                        } else {
+                                            datosModalidadCompletos=true;
+                                        }
                                     } else {
                                         datosModalidadCompletos=false;
                                     }
@@ -227,9 +255,47 @@
                                 } else {
                                     if((puntosPorPresentarce != '') && (puntosPartidoGanado != '') && (puntosEmpate != '')){
                                         datosModalidadCompletos=true;
+                                        if (radioBool == true){
+                                            if (puntuacionWO == '') {
+                                                datosModalidadCompletos=false;
+                                            } else {
+                                                datosModalidadCompletos=true;
+                                            }
+                                        } else {
+                                            datosModalidadCompletos=true;
+                                        }
                                       } else{
-                                    datosModalidadCompletos=false;}
+                                    datosModalidadCompletos=false;
+                                    }
                                 }
+
+
+
+                                if (datosModalidadCompletos==true){
+
+                                    $('div.modalModalidadcfg').modal('hide');
+                                    modalidadBool = true;
+                                    $('#alertmodal').modal();
+                                    console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+
+                                } else {
+                                    $('#alertmodal2').modal({
+                                        backdrop:'static',
+                                        keyboard: false,
+                                    });
+                                    console.log('Por Favor Complerte la Configuracion... ');
+                                }
+            } else {
+
+                if (radioBool == true){
+                    if (puntuacionWO == '') {
+                        datosModalidadCompletos=false;
+                    } else {
+                        datosModalidadCompletos=true;
+                    }
+                } else {
+                    datosModalidadCompletos=true;
+                }
 
                 if (datosModalidadCompletos==true){
 
@@ -239,25 +305,14 @@
                     console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
 
                 }else {
-
                     $('#alertmodal2').modal({
                         backdrop:'static',
                         keyboard: false,
                     });
                     console.log('Por Favor Complerte la Configuracion... ');
-
                 }
 
-
-            } else {
-
-                $('div.modalModalidadcfg').modal('hide');
-                modalidadBool = true;
-                $('#alertmodal').modal();
-                console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
-
             }
-
 
 
         });
@@ -304,8 +359,6 @@
                                             <h6> Modalidad Seleccionada:             ${nombreModalidad}  </h6>
                                             <h6> Lugares/Disponibilidades Agregados: ${cantidadDisponibilidades}  </h6>
 
-
-
 													`
                 $('#BodyDatosCompetencia').html(template2);
 
@@ -321,7 +374,20 @@
 
 
         });
+        function mMaxV(that, value) {
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
 
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+        }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        };
 
 
         /*$("#buttonAceptarCompetencia").on("click", function (e) {
