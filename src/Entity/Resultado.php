@@ -22,12 +22,12 @@ class Resultado
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $resultado_local;
+    private $ausenteLocal;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $resultado_visitante;
+    private $ausenteVisitante;
 
     /**
      * @ORM\ManyToOne(targetEntity=Partido::class, inversedBy="resultado")
@@ -50,26 +50,26 @@ class Resultado
         return $this->id;
     }
 
-    public function getResultadoLocal()
+    public function getAusenteLocal()
     {
-        return $this->resultado_local;
+        return $this->ausenteLocal;
     }
 
-    public function setResultadoLocal( $resultado_local)
+    public function setAusenteLocal($ausenteLocal)
     {
-        $this->resultado_local = $resultado_local;
+        $this->ausenteLocal = $ausenteLocal;
 
         return $this;
     }
 
-    public function getResultadoVisitante()
+    public function getAusenteVisitante()
     {
-        return $this->resultado_visitante;
+        return $this->ausenteVisitante;
     }
 
-    public function setResultadoVisitante( $resultado_visitante)
+    public function setAusenteVisitante($ausenteVisitante)
     {
-        $this->resultado_visitante = $resultado_visitante;
+        $this->ausenteVisitante = $ausenteVisitante;
 
         return $this;
     }

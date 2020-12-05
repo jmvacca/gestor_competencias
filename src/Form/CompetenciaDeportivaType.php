@@ -87,7 +87,7 @@ class CompetenciaDeportivaType extends AbstractType
                 ])
             ->add('puntosPorNoPresentarse', IntegerType::class,
                 [
-                    'attr' => ['max'=> 999,'min'=>0,'placeholder'=>'0 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
+                    'attr' => ['max'=> 999,'min'=>1,'placeholder'=>'0 - 999','name' => 'puntuacionwo', 'title' => 'Puntos por no presentarse', 'class' => 'form-control', 'id' => 'puntuacionwo'],
                     'required' => false,
 
                 ])

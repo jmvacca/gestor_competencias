@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+<div class="row">
+    {{ form_widget(form) }}
+</div>
+<div class="row">
+    <div class="col-6">
+        <button type="button" id="AceptarBNC" class="btn btn-success btn-lg btn-block">ACEPTAR</button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{path('competencia_deportiva_fixture_index',{'id':competencia.id})}}" name="Cancelar">CANCELAR</button>
+    </div>
+</div>
+{{ form_end(form) }}

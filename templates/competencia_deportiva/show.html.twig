@@ -152,7 +152,9 @@
                 </thead>
 
                 <tbody>
-                {% for participante in lista_participantes %}
+
+                    {% for participante in competencia_deportiva.participante %}
+
                     <tr>
 
                         <td>{{ participante.nombre}}</td>
@@ -178,7 +180,9 @@
     <hr>
     <p></p>
     <div class="row">
+
         <div class="col-12">
+
             <h5>Proximos Encuentros: </h5>
 
 
@@ -194,28 +198,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for partido in fechaActual.partidos %}
-                <tr>
-
-                    <td>{{fechaActual.id}}</td>
-                    <td>{{ partido.participanteLocal }}</td>
-                    <td>vs</td>
-                    <td>{{ partido.participanteVisitante}}</td>
-                    <td>{{ partido.lugar}}</td>
-                </tr>
-                {% else %}
+                {% if (fechaActual == -1) %}
                     <tr>
-                        <td colspan="11">No se encontraron Partidos..</td>
+                    <td colspan="11">No se encontraron Partidos..</td>
                     </tr>
-                {% endfor %}
+                {% else %}
+                    {% for fecha in competencia_deportiva.fecha %}
+                        {% if (fechaActual == fecha.numero) %}
+                            {% for partido in fecha.partidos %}
 
+                            <tr>
 
+                                <td>{{fechaActual}}</td>
+                                <td>{{ partido.participanteLocal }}</td>
+                                <td>vs</td>
+                                <td>{{ partido.participanteVisitante}}</td>
+                                <td>{{ partido.lugar}}</td>
+
+                            </tr>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
                 </tbody>
 
             </table>
 
 
         </div>
+
     </div>
 
 

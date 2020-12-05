@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionar Resultado{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="panel panel-warning">
+            {{ include('competencia_deportiva/fixture/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
