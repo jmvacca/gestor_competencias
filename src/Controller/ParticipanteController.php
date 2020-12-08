@@ -75,7 +75,7 @@ class ParticipanteController extends AbstractController
             return $this->redirectToRoute('participante_index', ['id_competencia' => $id_competencia]);
         }
 
-        return $this->render('participante/new.html.twig', [
+        return $this->render('participante/show.html.twig', [
             'participante' => $participante,
             'form' => $form->createView(),
             'id_competencia' => $id_competencia,

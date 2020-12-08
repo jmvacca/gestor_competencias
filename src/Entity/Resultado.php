@@ -6,9 +6,17 @@ use App\Repository\ResultadoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
 
 /**
- * @ORM\Entity(repositoryClass=ResultadoRepository::class)
+ * ORM\Entity(repositoryClass=ResultadoRepository::class)
+ *
+ * @ORM\Entity
+ * @ORM\InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="discr", type="string")
+ * @DiscriminatorMap({"resultado" = "Resultado", "resultado_puntuacion" = "ResultadoPuntuacion", "resultado_final" = "ResultadoFinal", "resultado_sets" = "ResultadoSets"})
+ *
  */
 class Resultado
 {

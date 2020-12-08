@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HistorialResultadoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +64,16 @@ class HistorialResultado
      * @ORM\JoinColumn(nullable=false)
      */
     private $resultado;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Set::class, mappedBy="historialResultado")
+     */
+    private $sets;
+
+    public function __construct()
+    {
+        $this->sets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,6 +184,36 @@ class HistorialResultado
     public function setResultado(?Resultado $resultado): self
     {
         $this->resultado = $resultado;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Set[]
+     */
+    public function getSets(): Collection
+    {
+        return $this->sets;
+    }
+
+    public function addSet(Set $set): self
+    {
+        if (!$this->sets->contains($set)) {
+            $this->sets[] = $set;
+            $set->setHistorialResultado($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSet(Set $set): self
+    {
+        if ($this->sets->removeElement($set)) {
+            // set the owning side to null (unless already changed)
+            if ($set->getHistorialResultado() === $this) {
+                $set->setHistorialResultado(null);
+            }
+        }
 
         return $this;
     }

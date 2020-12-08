@@ -31,7 +31,7 @@
         {% for fecha in fechas %}
             {% for partido in fecha.partidos %}
             <tr>
-                <td>{{fecha.id}}</td>
+                <td>{{fecha.numero}}</td>
                 <td>{{ partido.participanteLocal }}</td>
                <td> {#<span id="resultado_local"></span>#}</td>
                 <td>vs</td>

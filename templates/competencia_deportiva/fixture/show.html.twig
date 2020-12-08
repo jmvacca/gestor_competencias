@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestionar Resultado{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="panel panel-warning">
+            {% if (competencia.formaPuntuacion == 'TIPO_FINAL') %}
+                {{ include('competencia_deportiva/fixture/_form_final.html.twig') }}
+            {% elseif (competencia.formaPuntuacion == 'TIPO_PUNTUACION') %}
+                {{ include('competencia_deportiva/fixture/_form_puntuacion.html.twig') }}
+            {% elseif (competencia.formaPuntuacion == 'TIPO_SETS') %}
+                {{ include('competencia_deportiva/fixture/_form_sets.html.twig') }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

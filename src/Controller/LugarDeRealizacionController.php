@@ -42,7 +42,7 @@ class LugarDeRealizacionController extends AbstractController
             return $this->redirectToRoute('lugar_de_realizacion_index');
         }
 
-        return $this->render('lugar_de_realizacion/new.html.twig', [
+        return $this->render('lugar_de_realizacion/show.html.twig', [
             'lugar_de_realizacion' => $lugarDeRealizacion,
             'form' => $form->createView(),
         ]);

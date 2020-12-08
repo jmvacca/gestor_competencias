@@ -33,6 +33,16 @@ class Set
      */
     private $numero_de_set;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ResultadoSets::class, inversedBy="sets")
+     */
+    private $resultadoSets;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=HistorialResultado::class, inversedBy="sets")
+     */
+    private $historialResultado;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +80,30 @@ class Set
     public function setNumeroDeSet(?int $numero_de_set): self
     {
         $this->numero_de_set = $numero_de_set;
+
+        return $this;
+    }
+
+    public function getResultadoSets(): ?ResultadoSets
+    {
+        return $this->resultadoSets;
+    }
+
+    public function setResultadoSets(?ResultadoSets $resultadoSets): self
+    {
+        $this->resultadoSets = $resultadoSets;
+
+        return $this;
+    }
+
+    public function getHistorialResultado(): ?HistorialResultado
+    {
+        return $this->historialResultado;
+    }
+
+    public function setHistorialResultado(?HistorialResultado $historialResultado): self
+    {
+        $this->historialResultado = $historialResultado;
 
         return $this;
     }
