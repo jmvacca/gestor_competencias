@@ -98,8 +98,17 @@ class CompetenciaDeportivaController extends AbstractController
 
     public function show(CompetenciaDeportiva $competenciaDeportiva)
     {
+
         $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
         $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante(0)));
+        $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+
+        if (empty($lista_participantes)){
+            $participantesBool = 0;
+        } else {
+            $participantesBool = 1;
+        }
 
         if(empty($fechas)){
             $nroFecha = -1;
@@ -125,6 +134,8 @@ class CompetenciaDeportivaController extends AbstractController
         return $this->render('competencia_deportiva/show.html.twig', [
             'competencia_deportiva' => $competenciaDeportiva,
             'fechaActual' => $nroFecha,
+            'participantesBool' => $participantesBool,
+
 
         ]);
     }
@@ -304,9 +315,34 @@ class CompetenciaDeportivaController extends AbstractController
                     'partido' => $partido,
                     'resultado' => $resultado,
                     'competencia' => $competenciaDeportiva,
+
                 ]);
         }
 
+
+    }
+
+    /**
+     * @Route("/verificarParticipantes", options={"expose"=true}, name="verificarParticipantes")
+     */
+
+    public function verificarParticipantes(Request $request)  {
+
+    if($request->isXmlHttpRequest()){
+
+        $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante(0)));
+        $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+
+        if (empty($lista_participantes)){
+            $participantes == FALSE;
+        } else {
+            $participantes == TRUE;
+        }
+
+        return new JsonResponse(['participantes'=>$participantes]);
+        } else {
+            throw new \Exception('Me estas tratando de hackear?');
+            }
 
     }
 }

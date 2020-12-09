@@ -1,4 +1,13 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="row">
+    <div class="col-6">
+        <button   type="button" class="btn btn-success btn-lg btn-block">{{ button_label|default('Save') }}</button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{ path('lugar_de_realizacion_index') }}">Cancelar</button>
+    </div>
+</div>
+
 {{ form_end(form) }}

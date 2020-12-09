@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit LugarDeRealizacion{% endblock %}
+{% block title %}Editar Lugar De Realizacion{% endblock %}
 
 {% block body %}
-    <h1>Edit LugarDeRealizacion</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+    <h3>Editar Lugar De Realizacion</h3>
+        </div>
+    </div>
 
-    {{ include('lugar_de_realizacion/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('lugar_de_realizacion/_form.html.twig', {'button_label': 'Actualizar Lugar'}) }}
 
-    <a href="{{ path('lugar_de_realizacion_index') }}">back to list</a>
 
-    {{ include('lugar_de_realizacion/_delete_form.html.twig') }}
+
+</div>
+
+
 {% endblock %}

@@ -129,6 +129,10 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
             'Knp\\Component\\' => 14,
             'Knp\\Bundle\\PaginatorBundle\\' => 27,
         ),
+        'F' => 
+        array (
+            'FOS\\JsRoutingBundle\\' => 20,
+        ),
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
@@ -143,7 +147,6 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
             'Doctrine\\Inflector\\' => 19,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
-            'Doctrine\\Common\\Inflector\\' => 26,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
@@ -493,6 +496,10 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         array (
             0 => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src',
         ),
+        'FOS\\JsRoutingBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
@@ -528,10 +535,6 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Doctrine\\Common\\Lexer\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
-        ),
-        'Doctrine\\Common\\Inflector\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector',
         ),
         'Doctrine\\Common\\Collections\\' => 
         array (
@@ -569,6 +572,16 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'J' => 
+        array (
+            'JsonpCallbackValidator' => 
+            array (
+                0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'App\\Controller\\CompetenciaDeportivaController' => __DIR__ . '/../..' . '/src/Controller/CompetenciaDeportivaController.php',
         'App\\Controller\\DisponibilidadController' => __DIR__ . '/../..' . '/src/Controller/DisponibilidadController.php',
@@ -583,6 +596,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'App\\Entity\\Disponibilidad' => __DIR__ . '/../..' . '/src/Entity/Disponibilidad.php',
         'App\\Entity\\Estado' => __DIR__ . '/../..' . '/src/Entity/Estado.php',
         'App\\Entity\\Fecha' => __DIR__ . '/../..' . '/src/Entity/Fecha.php',
+        'App\\Entity\\HistorialResultado' => __DIR__ . '/../..' . '/src/Entity/HistorialResultado.php',
         'App\\Entity\\LugarDeRealizacion' => __DIR__ . '/../..' . '/src/Entity/LugarDeRealizacion.php',
         'App\\Entity\\Modalidad' => __DIR__ . '/../..' . '/src/Entity/Modalidad.php',
         'App\\Entity\\Pais' => __DIR__ . '/../..' . '/src/Entity/Pais.php',
@@ -598,6 +612,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'App\\Form\\LugarDeRealizacionType' => __DIR__ . '/../..' . '/src/Form/LugarDeRealizacionType.php',
         'App\\Form\\ParticipanteType' => __DIR__ . '/../..' . '/src/Form/ParticipanteType.php',
         'App\\Form\\RegistrationFormType' => __DIR__ . '/../..' . '/src/Form/RegistrationFormType.php',
+        'App\\Form\\ResultadoType' => __DIR__ . '/../..' . '/src/Form/ResultadoType.php',
         'App\\Form\\TipoDocumentoType' => __DIR__ . '/../..' . '/src/Form/TipoDocumentoType.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'App\\Repository\\CompetenciaDeportivaRepository' => __DIR__ . '/../..' . '/src/Repository/CompetenciaDeportivaRepository.php',
@@ -605,6 +620,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'App\\Repository\\DisponibilidadRepository' => __DIR__ . '/../..' . '/src/Repository/DisponibilidadRepository.php',
         'App\\Repository\\EstadoRepository' => __DIR__ . '/../..' . '/src/Repository/EstadoRepository.php',
         'App\\Repository\\FechaRepository' => __DIR__ . '/../..' . '/src/Repository/FechaRepository.php',
+        'App\\Repository\\HistorialResultadoRepository' => __DIR__ . '/../..' . '/src/Repository/HistorialResultadoRepository.php',
         'App\\Repository\\LugarDeRealizacionRepository' => __DIR__ . '/../..' . '/src/Repository/LugarDeRealizacionRepository.php',
         'App\\Repository\\ModalidadRepository' => __DIR__ . '/../..' . '/src/Repository/ModalidadRepository.php',
         'App\\Repository\\ParticipanteRepository' => __DIR__ . '/../..' . '/src/Repository/ParticipanteRepository.php',
@@ -644,6 +660,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Doctrine\\Bundle\\DoctrineBundle\\DataCollector\\DoctrineDataCollector' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/DataCollector/DoctrineDataCollector.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\BlacklistSchemaAssetFilter' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/BlacklistSchemaAssetFilter.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\Logging\\BacktraceLogger' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/Logging/BacktraceLogger.php',
+        'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\ManagerRegistryAwareConnectionProvider' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/ManagerRegistryAwareConnectionProvider.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\RegexSchemaAssetFilter' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/RegexSchemaAssetFilter.php',
         'Doctrine\\Bundle\\DoctrineBundle\\Dbal\\SchemaAssetsFilterManager' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/Dbal/SchemaAssetsFilterManager.php',
         'Doctrine\\Bundle\\DoctrineBundle\\DependencyInjection\\Compiler\\CacheSchemaSubscriberPass' => __DIR__ . '/..' . '/doctrine/doctrine-bundle/DependencyInjection/Compiler/CacheSchemaSubscriberPass.php',
@@ -740,7 +757,6 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Doctrine\\Common\\EventArgs' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventArgs.php',
         'Doctrine\\Common\\EventManager' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventManager.php',
         'Doctrine\\Common\\EventSubscriber' => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common/EventSubscriber.php',
-        'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
         'Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
         'Doctrine\\Common\\Persistence\\PersistentObject' => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common/Persistence/PersistentObject.php',
         'Doctrine\\Common\\Proxy\\AbstractProxyFactory' => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common/Proxy/AbstractProxyFactory.php',
@@ -1535,6 +1551,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Doctrine\\ORM\\Query\\AST\\Subselect' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/Subselect.php',
         'Doctrine\\ORM\\Query\\AST\\SubselectFromClause' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/SubselectFromClause.php',
         'Doctrine\\ORM\\Query\\AST\\SubselectIdentificationVariableDeclaration' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/SubselectIdentificationVariableDeclaration.php',
+        'Doctrine\\ORM\\Query\\AST\\TypedExpression' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/TypedExpression.php',
         'Doctrine\\ORM\\Query\\AST\\UpdateClause' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/UpdateClause.php',
         'Doctrine\\ORM\\Query\\AST\\UpdateItem' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/UpdateItem.php',
         'Doctrine\\ORM\\Query\\AST\\UpdateStatement' => __DIR__ . '/..' . '/doctrine/orm/lib/Doctrine/ORM/Query/AST/UpdateStatement.php',
@@ -1742,8 +1759,22 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/Warning.php',
+        'FOS\\JsRoutingBundle\\Command\\DumpCommand' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Command/DumpCommand.php',
+        'FOS\\JsRoutingBundle\\Command\\RouterDebugExposedCommand' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Command/RouterDebugExposedCommand.php',
+        'FOS\\JsRoutingBundle\\Controller\\Controller' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Controller/Controller.php',
+        'FOS\\JsRoutingBundle\\DependencyInjection\\Configuration' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/DependencyInjection/Configuration.php',
+        'FOS\\JsRoutingBundle\\DependencyInjection\\FOSJsRoutingExtension' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/DependencyInjection/FOSJsRoutingExtension.php',
+        'FOS\\JsRoutingBundle\\Extractor\\ExposedRoutesExtractor' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Extractor/ExposedRoutesExtractor.php',
+        'FOS\\JsRoutingBundle\\Extractor\\ExposedRoutesExtractorInterface' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Extractor/ExposedRoutesExtractorInterface.php',
+        'FOS\\JsRoutingBundle\\FOSJsRoutingBundle' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/FOSJsRoutingBundle.php',
+        'FOS\\JsRoutingBundle\\Response\\RoutesResponse' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Response/RoutesResponse.php',
+        'FOS\\JsRoutingBundle\\Serializer\\Denormalizer\\RouteCollectionDenormalizer' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Serializer/Denormalizer/RouteCollectionDenormalizer.php',
+        'FOS\\JsRoutingBundle\\Serializer\\Normalizer\\RouteCollectionNormalizer' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Serializer/Normalizer/RouteCollectionNormalizer.php',
+        'FOS\\JsRoutingBundle\\Serializer\\Normalizer\\RoutesResponseNormalizer' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Serializer/Normalizer/RoutesResponseNormalizer.php',
+        'FOS\\JsRoutingBundle\\Util\\CacheControlConfig' => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle/Util/CacheControlConfig.php',
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/IntlDateFormatter.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'JsonpCallbackValidator' => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src/JsonpCallbackValidator.php',
         'Knp\\Bundle\\PaginatorBundle\\Definition\\AbstractPaginatorAware' => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src/Definition/AbstractPaginatorAware.php',
         'Knp\\Bundle\\PaginatorBundle\\Definition\\PaginatorAware' => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src/Definition/PaginatorAware.php',
         'Knp\\Bundle\\PaginatorBundle\\Definition\\PaginatorAwareInterface' => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src/Definition/PaginatorAwareInterface.php',
@@ -1760,7 +1791,6 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Knp\\Bundle\\PaginatorBundle\\Twig\\Extension\\PaginationExtension' => __DIR__ . '/..' . '/knplabs/knp-paginator-bundle/src/Twig/Extension/PaginationExtension.php',
         'Knp\\Component\\Pager\\Event\\AfterEvent' => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component/Pager/Event/AfterEvent.php',
         'Knp\\Component\\Pager\\Event\\BeforeEvent' => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component/Pager/Event/BeforeEvent.php',
-        'Knp\\Component\\Pager\\Event\\Event' => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component/Pager/Event/Event.php',
         'Knp\\Component\\Pager\\Event\\ItemsEvent' => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component/Pager/Event/ItemsEvent.php',
         'Knp\\Component\\Pager\\Event\\PaginationEvent' => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component/Pager/Event/PaginationEvent.php',
         'Knp\\Component\\Pager\\Event\\Subscriber\\Filtration\\Doctrine\\ORM\\QuerySubscriber' => __DIR__ . '/..' . '/knplabs/knp-components/src/Knp/Component/Pager/Event/Subscriber/Filtration/Doctrine/ORM/QuerySubscriber.php',
@@ -1826,6 +1856,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Laminas\\Code\\Generator\\DocBlock\\Tag\\TagInterface' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/DocBlock/Tag/TagInterface.php',
         'Laminas\\Code\\Generator\\DocBlock\\Tag\\ThrowsTag' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/DocBlock/Tag/ThrowsTag.php',
         'Laminas\\Code\\Generator\\DocBlock\\Tag\\VarTag' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/DocBlock/Tag/VarTag.php',
+        'Laminas\\Code\\Generator\\Exception\\ClassNotFoundException' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/Exception/ClassNotFoundException.php',
         'Laminas\\Code\\Generator\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/Exception/ExceptionInterface.php',
         'Laminas\\Code\\Generator\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/Exception/InvalidArgumentException.php',
         'Laminas\\Code\\Generator\\Exception\\RuntimeException' => __DIR__ . '/..' . '/laminas/laminas-code/src/Generator/Exception/RuntimeException.php',
@@ -2777,6 +2808,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Symfony\\Bundle\\MakerBundle\\Util\\ComposeFileManipulator' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/ComposeFileManipulator.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\ComposerAutoloaderFinder' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/ComposerAutoloaderFinder.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\MakerFileLinkFormatter' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/MakerFileLinkFormatter.php',
+        'Symfony\\Bundle\\MakerBundle\\Util\\PhpCompatUtil' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/PhpCompatUtil.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\PrettyPrinter' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/PrettyPrinter.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\YamlManipulationFailedException' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/YamlManipulationFailedException.php',
         'Symfony\\Bundle\\MakerBundle\\Util\\YamlSourceManipulator' => __DIR__ . '/..' . '/symfony/maker-bundle/src/Util/YamlSourceManipulator.php',
@@ -3086,6 +3118,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Symfony\\Component\\Console\\Output\\Output' => __DIR__ . '/..' . '/symfony/console/Output/Output.php',
         'Symfony\\Component\\Console\\Output\\OutputInterface' => __DIR__ . '/..' . '/symfony/console/Output/OutputInterface.php',
         'Symfony\\Component\\Console\\Output\\StreamOutput' => __DIR__ . '/..' . '/symfony/console/Output/StreamOutput.php',
+        'Symfony\\Component\\Console\\Output\\TrimmedBufferOutput' => __DIR__ . '/..' . '/symfony/console/Output/TrimmedBufferOutput.php',
         'Symfony\\Component\\Console\\Question\\ChoiceQuestion' => __DIR__ . '/..' . '/symfony/console/Question/ChoiceQuestion.php',
         'Symfony\\Component\\Console\\Question\\ConfirmationQuestion' => __DIR__ . '/..' . '/symfony/console/Question/ConfirmationQuestion.php',
         'Symfony\\Component\\Console\\Question\\Question' => __DIR__ . '/..' . '/symfony/console/Question/Question.php',
@@ -3570,6 +3603,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Symfony\\Component\\Form\\Extension\\Validator\\ViolationMapper\\ViolationMapperInterface' => __DIR__ . '/..' . '/symfony/form/Extension/Validator/ViolationMapper/ViolationMapperInterface.php',
         'Symfony\\Component\\Form\\Extension\\Validator\\ViolationMapper\\ViolationPath' => __DIR__ . '/..' . '/symfony/form/Extension/Validator/ViolationMapper/ViolationPath.php',
         'Symfony\\Component\\Form\\Extension\\Validator\\ViolationMapper\\ViolationPathIterator' => __DIR__ . '/..' . '/symfony/form/Extension/Validator/ViolationMapper/ViolationPathIterator.php',
+        'Symfony\\Component\\Form\\FileUploadError' => __DIR__ . '/..' . '/symfony/form/FileUploadError.php',
         'Symfony\\Component\\Form\\Form' => __DIR__ . '/..' . '/symfony/form/Form.php',
         'Symfony\\Component\\Form\\FormBuilder' => __DIR__ . '/..' . '/symfony/form/FormBuilder.php',
         'Symfony\\Component\\Form\\FormBuilderInterface' => __DIR__ . '/..' . '/symfony/form/FormBuilderInterface.php',
@@ -5003,6 +5037,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         'Symfony\\Flex\\Lock' => __DIR__ . '/..' . '/symfony/flex/src/Lock.php',
         'Symfony\\Flex\\Options' => __DIR__ . '/..' . '/symfony/flex/src/Options.php',
         'Symfony\\Flex\\PackageFilter' => __DIR__ . '/..' . '/symfony/flex/src/PackageFilter.php',
+        'Symfony\\Flex\\PackageJsonSynchronizer' => __DIR__ . '/..' . '/symfony/flex/src/PackageJsonSynchronizer.php',
         'Symfony\\Flex\\PackageResolver' => __DIR__ . '/..' . '/symfony/flex/src/PackageResolver.php',
         'Symfony\\Flex\\ParallelDownloader' => __DIR__ . '/..' . '/symfony/flex/src/ParallelDownloader.php',
         'Symfony\\Flex\\Path' => __DIR__ . '/..' . '/symfony/flex/src/Path.php',
@@ -5300,6 +5335,7 @@ class ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit4b86affd40eee7332b377eeb1897d8dc::$classMap;
 
         }, null, ClassLoader::class);

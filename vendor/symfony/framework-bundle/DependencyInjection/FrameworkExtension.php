@@ -493,6 +493,14 @@ class FrameworkExtension extends Extension
 
         $container->registerForAutoconfiguration(RouteLoaderInterface::class)
             ->addTag('routing.route_loader');
+
+        $container->setParameter('container.behavior_describing_tags', [
+            'container.service_locator',
+            'container.service_subscriber',
+            'kernel.event_subscriber',
+            'kernel.locale_aware',
+            'kernel.reset',
+        ]);
     }
 
     /**
@@ -609,7 +617,7 @@ class FrameworkExtension extends Extension
         $container->setParameter('profiler_listener.only_master_requests', $config['only_master_requests']);
 
         // Choose storage class based on the DSN
-        list($class) = explode(':', $config['dsn'], 2);
+        [$class] = explode(':', $config['dsn'], 2);
         if ('file' !== $class) {
             throw new \LogicException(sprintf('Driver "%s" is not supported for the profiler.', $class));
         }

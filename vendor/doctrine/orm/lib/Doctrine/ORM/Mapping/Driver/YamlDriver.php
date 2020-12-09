@@ -845,5 +845,3 @@ class YamlDriver extends FileDriver
         return Yaml::parse(file_get_contents($file));
     }
 }
-
-interface_exists(ClassMetadata::class);

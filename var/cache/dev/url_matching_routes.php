@@ -41,37 +41,41 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/competencias/([^/]++)(?'
-                    .'|(*:194)'
-                    .'|/(?'
-                        .'|edit(*:210)'
-                        .'|fixture/(?'
-                            .'|generate(*:237)'
-                            .'|mostrar(*:252)'
-                            .'|([^/]++)/resultado(*:278)'
+                .'|/competencias/(?'
+                    .'|([^/]++)(?'
+                        .'|(*:197)'
+                        .'|/(?'
+                            .'|edit(*:213)'
+                            .'|fixture/(?'
+                                .'|generate(*:240)'
+                                .'|mostrar(*:255)'
+                                .'|([^/]++)/resultado(*:281)'
+                            .')'
                         .')'
+                        .'|(*:291)'
                     .')'
-                    .'|(*:288)'
+                    .'|verificarParticipantes(*:322)'
                 .')'
                 .'|/disponibilidad/([^/]++)(?'
-                    .'|(*:324)'
-                    .'|/edit(*:337)'
-                    .'|(*:345)'
+                    .'|(*:358)'
+                    .'|/edit(*:371)'
+                    .'|(*:379)'
                 .')'
                 .'|/lugar/([^/]++)(?'
-                    .'|(*:372)'
-                    .'|/edit(*:385)'
-                    .'|(*:393)'
+                    .'|(*:406)'
+                    .'|/edit(*:419)'
+                    .'|(*:427)'
                 .')'
                 .'|/participantes/(?'
-                    .'|([^/]++)(*:428)'
-                    .'|new/([^/]++)(*:448)'
+                    .'|([^/]++)(*:462)'
+                    .'|new/([^/]++)(*:482)'
                     .'|([^/]++)(?'
-                        .'|(*:467)'
-                        .'|/edit(*:480)'
-                        .'|(*:488)'
+                        .'|(*:501)'
+                        .'|/edit(*:514)'
+                        .'|(*:522)'
                     .')'
                 .')'
+                .'|/js/routing(?:\\.(js|json))?(*:559)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -82,24 +86,26 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        194 => [[['_route' => 'competencia_deportiva_show', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        210 => [[['_route' => 'competencia_deportiva_edit', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        237 => [[['_route' => 'competencia_deportiva_fixture_generate', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::generarFixture'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        252 => [[['_route' => 'competencia_deportiva_fixture_index', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::indexFixtureLiga'], ['id'], null, null, false, false, null]],
-        278 => [[['_route' => 'competencia_deportiva_fixture_partido_resultado_gestionar', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::gestionarResultado'], ['id_competencia', 'id_partido'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        288 => [[['_route' => 'competencia_deportiva_delete', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        324 => [[['_route' => 'disponibilidad_show', '_controller' => 'App\\Controller\\DisponibilidadController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        337 => [[['_route' => 'disponibilidad_edit', '_controller' => 'App\\Controller\\DisponibilidadController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        345 => [[['_route' => 'disponibilidad_delete', '_controller' => 'App\\Controller\\DisponibilidadController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        372 => [[['_route' => 'lugar_de_realizacion_show', '_controller' => 'App\\Controller\\LugarDeRealizacionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        385 => [[['_route' => 'lugar_de_realizacion_edit', '_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        393 => [[['_route' => 'lugar_de_realizacion_delete', '_controller' => 'App\\Controller\\LugarDeRealizacionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        428 => [[['_route' => 'participante_index', '_controller' => 'App\\Controller\\ParticipanteController::index'], ['id_competencia'], ['GET' => 0], null, false, true, null]],
-        448 => [[['_route' => 'participante_new', '_controller' => 'App\\Controller\\ParticipanteController::new'], ['id_competencia'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        467 => [[['_route' => 'participante_show', '_controller' => 'App\\Controller\\ParticipanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        480 => [[['_route' => 'participante_edit', '_controller' => 'App\\Controller\\ParticipanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        488 => [
-            [['_route' => 'participante_delete', '_controller' => 'App\\Controller\\ParticipanteController::delete'], ['id'], ['DELETE' => 0], null, false, true, null],
+        197 => [[['_route' => 'competencia_deportiva_show', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        213 => [[['_route' => 'competencia_deportiva_edit', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        240 => [[['_route' => 'competencia_deportiva_fixture_generate', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::generarFixture'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        255 => [[['_route' => 'competencia_deportiva_fixture_index', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::indexFixtureLiga'], ['id'], null, null, false, false, null]],
+        281 => [[['_route' => 'competencia_deportiva_fixture_partido_resultado_gestionar', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::gestionarResultado'], ['id_competencia', 'id_partido'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        291 => [[['_route' => 'competencia_deportiva_delete', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        322 => [[['_route' => 'verificarParticipantes', '_controller' => 'App\\Controller\\CompetenciaDeportivaController::verificarParticipantes'], [], null, null, false, false, null]],
+        358 => [[['_route' => 'disponibilidad_show', '_controller' => 'App\\Controller\\DisponibilidadController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        371 => [[['_route' => 'disponibilidad_edit', '_controller' => 'App\\Controller\\DisponibilidadController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        379 => [[['_route' => 'disponibilidad_delete', '_controller' => 'App\\Controller\\DisponibilidadController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        406 => [[['_route' => 'lugar_de_realizacion_show', '_controller' => 'App\\Controller\\LugarDeRealizacionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        419 => [[['_route' => 'lugar_de_realizacion_edit', '_controller' => 'App\\Controller\\LugarDeRealizacionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        427 => [[['_route' => 'lugar_de_realizacion_delete', '_controller' => 'App\\Controller\\LugarDeRealizacionController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        462 => [[['_route' => 'participante_index', '_controller' => 'App\\Controller\\ParticipanteController::index'], ['id_competencia'], ['GET' => 0], null, false, true, null]],
+        482 => [[['_route' => 'participante_new', '_controller' => 'App\\Controller\\ParticipanteController::new'], ['id_competencia'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        501 => [[['_route' => 'participante_show', '_controller' => 'App\\Controller\\ParticipanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        514 => [[['_route' => 'participante_edit', '_controller' => 'App\\Controller\\ParticipanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        522 => [[['_route' => 'participante_delete', '_controller' => 'App\\Controller\\ParticipanteController::delete'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        559 => [
+            [['_route' => 'fos_js_routing_js', '_controller' => 'fos_js_routing.controller::indexAction', '_format' => 'js'], ['_format'], ['GET' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

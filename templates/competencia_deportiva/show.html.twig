@@ -11,7 +11,7 @@
         <h3>Ver Competencia</h3>
         </div>
         <div class="col-2">
-            <button type="button" id="" class="btn btn-success btn-block" onclick=location.href="{{ path('competencia_deportiva_fixture_generate', {'id': competencia_deportiva.id}) }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-table" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <button type="button" id="" class="btn btn-success btn-block" onclick=verificarGenerarFixture() ><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-table" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
                 </svg> Generar Fixture
             </button>
@@ -167,7 +167,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="11">No se encontraron participantes.</td>
+                        <td colspan="11">NO SE ENCONTRARON PARTICIPANTES.</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -200,7 +200,7 @@
                 <tbody>
                 {% if (fechaActual == -1) %}
                     <tr>
-                    <td colspan="11">No se encontraron Partidos..</td>
+                    <td colspan="11">NO SE ENCONTRARON PARTIDOS/ENCUENTROS.</td>
                     </tr>
                 {% else %}
                     {% for fecha in competencia_deportiva.fecha %}
@@ -229,17 +229,159 @@
 
     </div>
 
+    <div class="modal fade" id="competenciaError1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="alert alert-danger" role="alert">
+                        "NO SE PUEDE GENERAR FIXTURE, ESTADO DE COMPETENCIA EN DISPUTA O FINALIZADA"
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
+                        </div>
+                    </div>
+                </div>
 
 
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="competenciaError2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="alert alert-danger" role="alert">
+                        "NO SE PUEDE GENERAR FIXTURE, LA COMPETENCIA NO TIENE PARTICIPANTES"
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="FIXTUREOK" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="alert alert-success" role="alert">
+                        "FIXTURE GENERADO EXITOSAMENTE"
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
 </div>
+
+
 {% endblock %}
 
         {% block javascripts %}
             {{ parent() }}
 
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+           {#  <script src="{{ asset('bundles/fosjsrouting/js/ajax-call.js')}}"></script> #}
             <script type="text/javascript">
 
                 console.log('JavaScript Ver Competencia Deportiva Funcionando');
+                var competenciaID = {{ competencia_deportiva.id }};
+                var competenciaEstado = '{{ competencia_deportiva.estado }}';
+                var competenciaNombre = '{{ competencia_deportiva.nombre }}';
+
+                console.log('ID Competencia: ' +competenciaID);
+                console.log('ID Competencia: ' +competenciaNombre);
+                console.log('Estado Competencia: ' +competenciaEstado);
+                var participantesBool = {{ participantesBool }};
+                console.log('Existen Participantes: ' +participantesBool);
+
+
+
+                function verificarGenerarFixture(){
+
+                    if ((competenciaEstado == 'EN DISPUTA') || (competenciaEstado == 'FINALIZADA'))  {
+
+                        $('#competenciaError1').modal();
+
+
+                    } else { if (participantesBool==0) {
+                        $('#competenciaError2').modal();
+
+
+                    } else {
+                        window.location.href = "{{ path('competencia_deportiva_fixture_generate', {'id': competencia_deportiva.id}) }}";
+                        $('#FIXTUREOK').modal();
+                    }
+
+
+
+                    }
+                }
+
+                function verificarParticipantes (competenciaID) {
+                    var Ruta = Routing.generate('verificarParticipantes');
+                    console.log('URL AJAX: ' + Ruta);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: Ruta,
+                        data: ({id: competenciaID}),
+                        async: true,
+                        dataType: "json",
+                        succces: function (data) {
+                            console.log(data['participantes']);
+                        }
+
+
+                    });
+                }
+
+                verificarParticipantes({{competencia_deportiva.id}});
+
+
+
+
+
+
 
                 $("#EliminarCompetencia").on("click", function(e) {
                     e.preventDefault();
@@ -276,7 +418,7 @@
                     searching: false,
                     select: false,
                     paging: false,
-                    scrollY: 470,
+                    scrollY: 440,
                     "info": false,
                     columnDefs: [
                         { orderable: false, targets: [1,2]}

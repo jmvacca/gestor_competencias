@@ -23,6 +23,7 @@ return [
     'competencia_deportiva_fixture_generate' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::generarFixture'], [], [['text', '/fixture/generate'], ['variable', '/', '[^/]++', 'id', true], ['text', '/competencias']], [], []],
     'competencia_deportiva_fixture_index' => [['id'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::indexFixtureLiga'], [], [['text', '/fixture/mostrar'], ['variable', '/', '[^/]++', 'id', true], ['text', '/competencias']], [], []],
     'competencia_deportiva_fixture_partido_resultado_gestionar' => [['id_competencia', 'id_partido'], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::gestionarResultado'], [], [['text', '/resultado'], ['variable', '/', '[^/]++', 'id_partido', true], ['text', '/fixture'], ['variable', '/', '[^/]++', 'id_competencia', true], ['text', '/competencias']], [], []],
+    'verificarParticipantes' => [[], ['_controller' => 'App\\Controller\\CompetenciaDeportivaController::verificarParticipantes'], [], [['text', '/competencias/verificarParticipantes']], [], []],
     'disponibilidad_index' => [[], ['_controller' => 'App\\Controller\\DisponibilidadController::index'], [], [['text', '/disponibilidad/']], [], []],
     'disponibilidad_new' => [[], ['_controller' => 'App\\Controller\\DisponibilidadController::new'], [], [['text', '/disponibilidad/new']], [], []],
     'disponibilidad_show' => [['id'], ['_controller' => 'App\\Controller\\DisponibilidadController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/disponibilidad']], [], []],
@@ -42,4 +43,5 @@ return [
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], []],
+    'fos_js_routing_js' => [['_format'], ['_controller' => 'fos_js_routing.controller::indexAction', '_format' => 'js'], ['_format' => 'js|json'], [['variable', '.', 'js|json', '_format', true], ['text', '/js/routing']], [], []],
 ];

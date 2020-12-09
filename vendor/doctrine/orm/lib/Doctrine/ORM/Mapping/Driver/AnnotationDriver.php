@@ -342,7 +342,7 @@ class AnnotationDriver extends AbstractAnnotationDriver
                             'initialValue' => $seqGeneratorAnnot->initialValue
                         ]
                     );
-                } else if ($this->reader->getPropertyAnnotation($property, 'Doctrine\ORM\Mapping\TableGenerator')) {
+                } elseif ($this->reader->getPropertyAnnotation($property, 'Doctrine\ORM\Id\TableGenerator')) {
                     throw MappingException::tableIdGeneratorNotImplemented($className);
                 } else if ($customGeneratorAnnot = $this->reader->getPropertyAnnotation($property, Mapping\CustomIdGenerator::class)) {
                     $metadata->setCustomGeneratorDefinition(
@@ -693,5 +693,3 @@ class AnnotationDriver extends AbstractAnnotationDriver
         return new self($reader, $paths);
     }
 }
-
-interface_exists(ClassMetadata::class);

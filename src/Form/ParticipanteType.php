@@ -28,14 +28,16 @@ class ParticipanteType extends AbstractType
             ->add('imagen', FileType::class,
 
                 [
-                    'label'     => 'Imagen',
+
+                    'label'     => 'Seleccionar Imagen',
                     'mapped'    => false,
                     'required'  => false,
                     'attr' =>
                         [
+                            'type' => 'file',
+                            'lang' => 'es',
                             'accept' => 'image/png, image/jpeg, image/gif',
-                            'class' => "custom-file-input",
-                            'title'   => 'Seleccione una imagen',
+
                         ],
                     'constraints' =>
                         [

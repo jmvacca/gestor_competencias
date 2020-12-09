@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New LugarDeRealizacion{% endblock %}
+{% block title %}Nuevo Lugar De Realizacion{% endblock %}
 
 {% block body %}
-    <h1>Create new LugarDeRealizacion</h1>
+
+<div class="container">
+
+    <h3>Nuevo Lugar De Realizacion</h3>
 
     {{ include('lugar_de_realizacion/_form.html.twig') }}
 
-    <a href="{{ path('lugar_de_realizacion_index') }}">back to list</a>
+</div>
 {% endblock %}
