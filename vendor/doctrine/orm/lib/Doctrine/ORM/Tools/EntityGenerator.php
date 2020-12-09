@@ -20,11 +20,13 @@
 namespace Doctrine\ORM\Tools;
 
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Inflector\Inflector;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\Inflector\Inflector;
+use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use ReflectionClass;
 use const E_USER_DEPRECATED;
+use const PHP_VERSION_ID;
 use function str_replace;
 use function trigger_error;
 use function var_export;
@@ -336,6 +338,9 @@ public function __construct(<params>)
 }
 ';
 
+    /** @var Inflector */
+    protected $inflector;
+
     /**
      * Constructor.
      */
@@ -344,6 +349,7 @@ public function __construct(<params>)
         @trigger_error(self::class . ' is deprecated and will be removed in Doctrine ORM 3.0', E_USER_DEPRECATED);
 
         $this->annotationsPrefix = 'ORM\\';
+        $this->inflector         = InflectorFactory::create()->build();
     }
 
     /**
@@ -593,6 +599,11 @@ public function __construct(<params>)
         $this->backupExisting = $bool;
     }
 
+    public function setInflector(Inflector $inflector) : void
+    {
+        $this->inflector = $inflector;
+    }
+
     /**
      * @param string $type
      *
@@ -809,6 +820,8 @@ public function __construct(<params>)
     /**
      * @todo this won't work if there is a namespace in brackets and a class outside of it.
      *
+     * @psalm-suppress UndefinedConstant
+     *
      * @param string $src
      *
      * @return void
@@ -831,6 +844,8 @@ public function __construct(<params>)
 
             if ($inNamespace) {
                 if (in_array($token[0], [T_NS_SEPARATOR, T_STRING], true)) {
+                    $lastSeenNamespace .= $token[1];
+                } elseif (PHP_VERSION_ID >= 80000 && ($token[0] === T_NAME_QUALIFIED || $token[0] === T_NAME_FULLY_QUALIFIED)) {
                     $lastSeenNamespace .= $token[1];
                 } elseif (is_string($token) && in_array($token, [';', '{'], true)) {
                     $inNamespace = false;
@@ -1380,11 +1395,12 @@ public function __construct(<params>)
      */
     protected function generateEntityStubMethod(ClassMetadataInfo $metadata, $type, $fieldName, $typeHint = null, $defaultValue = null)
     {
-        $methodName = $type . Inflector::classify($fieldName);
-        $variableName = Inflector::camelize($fieldName);
+        $methodName   = $type . $this->inflector->classify($fieldName);
+        $variableName = $this->inflector->camelize($fieldName);
+
         if (in_array($type, ["add", "remove"])) {
-            $methodName = Inflector::singularize($methodName);
-            $variableName = Inflector::singularize($variableName);
+            $methodName   = $this->inflector->singularize($methodName);
+            $variableName = $this->inflector->singularize($variableName);
         }
 
         if ($this->hasMethod($methodName, $metadata)) {

@@ -33,7 +33,6 @@ use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Doctrine\Persistence\Mapping\ReflectionService;
 use ReflectionClass;
 use ReflectionException;
-use function assert;
 use function interface_exists;
 
 /**
@@ -804,6 +803,3 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
         return $this->targetPlatform;
     }
 }
-
-interface_exists(ClassMetadataInterface::class);
-interface_exists(ReflectionService::class);

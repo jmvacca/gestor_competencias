@@ -23,6 +23,7 @@ class ResultadoPuntuacionType extends AbstractType
                         [
                             'SI' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
                     'multiple'  => true,
                     'required'  => false,
@@ -34,11 +35,25 @@ class ResultadoPuntuacionType extends AbstractType
                         [
                             'SI' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
                     'multiple'  => true,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante']
                 ])
+            /*->add('ausente', ChoiceType::class,
+                [
+                    'choices'   =>
+                        [
+                            'PARTICIPANTE 1' => 'ausenteLocal',
+                            'PARTICIPANTE 2' => 'ausenteVisitante',
+                        ],
+                    'mapped'   => false,
+                    'expanded' => true,
+                    'multiple' => true,
+                    'required' => false,
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente']
+                ])*/
             ->add('resultadoLocal', IntegerType::class,
                 [
                     'attr'      => ['min'=>0,'onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'Resultado Local', 'title' => 'Resultado Local', 'class' => 'form-control', 'id' => 'resultadoLocal'],

@@ -22,7 +22,7 @@ class ResultadoFinalType extends AbstractType
                             'SI' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local']
                 ])
@@ -33,7 +33,7 @@ class ResultadoFinalType extends AbstractType
                             'SI' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante']
                 ])
@@ -44,7 +44,7 @@ class ResultadoFinalType extends AbstractType
                             'SI' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ganador Local']
                 ])
@@ -55,7 +55,7 @@ class ResultadoFinalType extends AbstractType
                             'SI' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ganador Visitante']
                 ])
@@ -66,7 +66,7 @@ class ResultadoFinalType extends AbstractType
                             'EMPATE' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Empate']
                 ]);

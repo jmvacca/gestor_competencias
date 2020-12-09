@@ -28,11 +28,15 @@ class Resultado
     private $id;
 
     /**
+     * @var array
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $ausenteLocal;
 
     /**
+     * @var array
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $ausenteVisitante;

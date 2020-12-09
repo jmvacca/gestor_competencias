@@ -66,16 +66,17 @@ class ParticipanteController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $repositorio = $entityManager->getRepository(get_class(new CompetenciaDeportiva()));
-            $participante->setCompetenciaDeportiva($repositorio->find($id_competencia));
+            $competenciaDeportiva = $repositorio->find($id_competencia);
+            $competenciaDeportiva->addParticipante($participante);
 
 
-            $entityManager->persist($participante);
+            $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
 
             return $this->redirectToRoute('participante_index', ['id_competencia' => $id_competencia]);
         }
 
-        return $this->render('participante/show.html.twig', [
+        return $this->render('participante/new.html.twig', [
             'participante' => $participante,
             'form' => $form->createView(),
             'id_competencia' => $id_competencia,

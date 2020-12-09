@@ -22,6 +22,7 @@ use App\Form\ResultadoSetsType;
 use App\Form\ResultadoType;
 use App\Repository\CompetenciaDeportivaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -93,7 +94,7 @@ class CompetenciaDeportivaController extends AbstractController
             return $this->redirectToRoute('participante_index', ['id_competencia' => $competenciaDeportiva->getId()]);
         }
 
-        return $this->render('competencia_deportiva/show.html.twig', [
+        return $this->render('competencia_deportiva/new.html.twig', [
             'form' => $form->createView(),
             'competenciaDeportiva' => $competenciaDeportiva,
         ]);
@@ -332,14 +333,19 @@ class CompetenciaDeportivaController extends AbstractController
         $repositorio = $em->getRepository(Partido::class);
         $partido = $repositorio->find($id_partido);
 
-        $form = $this->createForm(ResultadoSetsType::class, $resultadoSets);
 
+
+        //$repositorio = $em->getRepository(ResultadoSets::class);
+        //$resultadoSets = $repositorio->find($resultadoSets->getId());
+
+        $form = $this->createForm(ResultadoSetsType::class, $resultadoSets);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
         }
+
         return $this->render('competencia_deportiva/fixture/show.html.twig',
             [
                 'form' => $form->createView(),
@@ -366,6 +372,13 @@ class CompetenciaDeportivaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('ausenteLocal')->getData()=='ausenteLocal'){
+                $resultadoPuntuacion->setAusenteLocal(true);
+            }elseif ($form->get('ausenteVisitante')->getData()=='ausenteVisitante') {
+                $resultadoPuntuacion->setAusenteVisitante(true);
+            }
+
+
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
         }

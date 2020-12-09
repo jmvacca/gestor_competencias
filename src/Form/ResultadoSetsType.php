@@ -23,7 +23,7 @@ class ResultadoSetsType extends AbstractType
                             'SI' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local']
                 ])
@@ -34,7 +34,7 @@ class ResultadoSetsType extends AbstractType
                             'SI' => true,
                         ],
                     'expanded'  => true,
-                    'multiple'  => true,
+                    'multiple'  => false,
                     'required'  => false,
                     'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante']
                 ])
