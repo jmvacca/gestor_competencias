@@ -1,5 +1,31 @@
 {{ form_start(form) }}
 <div class="row">
+    <div class="col">
+        <table class="table table-bordered text-center">
+            <thead class="thead-dark">
+            <tr>
+                <th></th>
+                <th>{{ partido.participanteLocal }}</th>
+                <th>{{ partido.participanteVisitante }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>GANADOR</td>
+                <td>{{ form_widget(form.ganadorLocal) }}</td>
+                <td>{{ form_widget(form.ganadorVisitante) }}</td>
+            </tr>
+            <tr>
+                <td>AUSENTE</td>
+                <td>{{ form_widget(form.ausenteLocal) }}</td>
+                <td>{{ form_widget(form.ausenteVisitante) }}</td>
+            </tr>
+            <tr>
+                <td colspan="3">{{ form_widget(form.empate) }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     {{ form_widget(form) }}
 </div>
 <div class="row">

@@ -21,17 +21,17 @@ class Set
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $puntaje_local;
+    private $puntajeLocal;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $puntaje_visitante;
+    private $puntajeVisitante;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $numero_de_set;
+    private $numeroDeSet;
 
     /**
      * @ORM\ManyToOne(targetEntity=ResultadoSets::class, inversedBy="sets")
@@ -43,6 +43,10 @@ class Set
      */
     private $historialResultado;
 
+    public function __construct($numeroDeSet){
+        $this->setNumeroDeSet($numeroDeSet);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,36 +54,36 @@ class Set
 
     public function getPuntajeLocal(): ?int
     {
-        return $this->puntaje_local;
+        return $this->puntajeLocal;
     }
 
-    public function setPuntajeLocal(?int $puntaje_local): self
+    public function setPuntajeLocal(?int $puntajeLocal): self
     {
-        $this->puntaje_local = $puntaje_local;
+        $this->puntajeLocal = $puntajeLocal;
 
         return $this;
     }
 
     public function getPuntajeVisitante(): ?int
     {
-        return $this->puntaje_visitante;
+        return $this->puntajeVisitante;
     }
 
-    public function setPuntajeVisitante(?int $puntaje_visitante): self
+    public function setPuntajeVisitante(?int $puntajeVisitante): self
     {
-        $this->puntaje_visitante = $puntaje_visitante;
+        $this->puntajeVisitante = $puntajeVisitante;
 
         return $this;
     }
 
     public function getNumeroDeSet(): ?int
     {
-        return $this->numero_de_set;
+        return $this->numeroDeSet;
     }
 
-    public function setNumeroDeSet(?int $numero_de_set): self
+    public function setNumeroDeSet(?int $numeroDeSet): self
     {
-        $this->numero_de_set = $numero_de_set;
+        $this->numeroDeSet = $numeroDeSet;
 
         return $this;
     }

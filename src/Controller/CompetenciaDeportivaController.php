@@ -13,6 +13,7 @@ use App\Entity\Resultado;
 use App\Entity\ResultadoFinal;
 use App\Entity\ResultadoPuntuacion;
 use App\Entity\ResultadoSets;
+use App\Entity\Set;
 use App\Entity\Usuario;
 use App\Form\CompetenciaDeportivaType;
 use App\Form\ResultadoFinalType;
@@ -273,7 +274,7 @@ class CompetenciaDeportivaController extends AbstractController
 
         $puntuacion = $competenciaDeportiva->getFormaPuntuacion();
 
-        if (!($partido->getResultado()))   //CREA UN RESULTADO
+        if ($partido->getResultado() == NULL)   //CREA UN RESULTADO
         {
             if($puntuacion == 'TIPO_FINAL'){
                 $resultado = new ResultadoFinal();
@@ -281,6 +282,12 @@ class CompetenciaDeportivaController extends AbstractController
                 $resultado = new ResultadoPuntuacion();
             }elseif ($puntuacion == 'TIPO_SETS'){
                 $resultado = new ResultadoSets();
+                $contador = 1;
+                $maximo = $competenciaDeportiva->getCantidadMaximaSet();
+                while ($contador <= $maximo){
+                    $resultado->addSet(new Set($contador));
+                    $contador++;
+                }
             }
             $partido->addResultado($resultado);
             $this->getDoctrine()->getManager()->persist($partido);

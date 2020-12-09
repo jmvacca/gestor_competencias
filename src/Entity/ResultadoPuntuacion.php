@@ -29,7 +29,7 @@ class ResultadoPuntuacion extends Resultado
 
     public function getId(): ?int
     {
-        return $this->id;
+        return parent::getId();
     }
 
     public function getResultadoLocal(): ?int

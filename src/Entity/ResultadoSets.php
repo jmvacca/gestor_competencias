@@ -20,7 +20,7 @@ class ResultadoSets extends Resultado
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Set::class, mappedBy="resultadoSets", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Set::class, mappedBy="resultadoSets", orphanRemoval=true, cascade="persist")
      */
     private $sets;
 
@@ -31,7 +31,7 @@ class ResultadoSets extends Resultado
 
     public function getId(): ?int
     {
-        return $this->id;
+        return parent::getId();
     }
 
     /**
