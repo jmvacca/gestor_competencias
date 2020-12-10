@@ -37,6 +37,8 @@ class ParticipanteType extends AbstractType
                             'type' => 'file',
                             'lang' => 'es',
                             'accept' => 'image/png, image/jpeg, image/gif',
+                            'class' => "form-control",
+                            'title'   => 'Seleccione una imagen',
 
                         ],
                     'constraints' =>

@@ -111,6 +111,21 @@ class CompetenciaDeportiva
      */
     private $puntosPorNoPresentarse;
 
+    /**
+     * @ORM\Column(name="forma_puntuacion", type="string", columnDefinition="enum('TIPO_SETS', 'TIPO_PUNTUACION', 'TIPO_FINAL')")
+     */
+    private $formaPuntuacion;
+
+    public function getFormaPuntuacion()
+    {
+        return $this->formaPuntuacion;
+    }
+
+    public function setFormaPuntuacion($formaPuntuacion)
+    {
+        $this->formaPuntuacion = $formaPuntuacion;
+    }
+
     public function __construct()
     {
         $this->fecha = new ArrayCollection();

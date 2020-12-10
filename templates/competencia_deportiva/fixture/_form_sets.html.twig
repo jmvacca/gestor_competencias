@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col">
+        <table class="table table-bordered text-center">
+            <thead class="thead-dark">
+            <tr>
+                <th>SET</th>
+                <th>{{ partido.participanteLocal }}</th>
+                <th>{{ partido.participanteVisitante }}</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for set in form.sets %}
+                <tr>
+                    <td>{{ form_widget(set.numeroDeSet) }}</td>
+                    <td>{{ form_widget(set.puntajeLocal) }}</td>
+                    <td>{{ form_widget(set.puntajeVisitante) }}</td>
+                </tr>
+                {% endfor %}
+            <tr>
+                <td>AUSENTE</td>
+                <td>{{ form_widget(form.ausenteLocal) }}</td>
+                <td>{{ form_widget(form.ausenteVisitante) }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    {{ form_widget(form) }}
+</div>
+<div class="row">
+    <div class="col-6">
+        <button type="submit" id="AceptarBNC" class="btn btn-success btn-lg btn-block">ACEPTAR</button>
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{path('competencia_deportiva_fixture_index',{'id':competencia.id})}}" name="Cancelar">CANCELAR</button>
+    </div>
+</div>
+{{ form_end(form) }}

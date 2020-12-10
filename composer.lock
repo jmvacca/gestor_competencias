@@ -1394,6 +1394,7 @@
                 }
             ],
             "time": "2020-11-14T15:56:27+00:00"
+
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -1456,6 +1457,7 @@
                 "routing"
             ],
             "time": "2020-11-20T10:38:12+00:00"
+
         },
         {
             "name": "knplabs/knp-components",
