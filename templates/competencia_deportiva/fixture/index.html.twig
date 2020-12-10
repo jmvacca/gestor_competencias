@@ -30,9 +30,9 @@
         <tr>
             <th>Fecha Nro.</th>
             <th>Local</th>
-            <th></th>
+            <th>Pts</th>
             <th>vs</th>
-            <th></th>
+            <th>Pts</th>
             <th>Visitante</th>
             <th>Lugar</th>
             <th>Accion</th>
@@ -43,10 +43,20 @@
             {% for partido in fecha.partidos %}
             <tr>
                 <td>{{fecha.numero}}</td>
+
                 <td>{{ partido.participanteLocal }}</td>
-               <td> {#<span id="resultado_local"></span>#}</td>
+                {% if (partido.resultado != NULL) %}
+
+                  <td> {{ partido.resultado.resultadoLocal }}</td>
+                    <td>vs</td>
+                        <td> {{ partido.resultado.resultadoVisitante }}</td>
+               {% else %}
+                  <td> -- </td>
+
                 <td>vs</td>
-               <td>{# <span id="resultado_visitante"></span>#}</td>
+               <td> -- </td>
+
+                {% endif %}
                 <td>{{ partido.participanteVisitante}}</td>
                 <td>{{ partido.lugar}}</td>
                 <td>
@@ -120,16 +130,18 @@
                         "sortAscending":  ": Columna Ascendente",
                         "sortDescending": ": Columna Descendente",
                     }
+
                 },
 
-
+                "bFilter": false,
                 columnDefs: [
                     { orderable: false, targets: [3,7] },
-                    {searchable: false, targets:[1,2,3,4,5,6] },
+                    {searchable: false, targets:[1,2,3,4,5,6]},
             ],
                 searching: true,
                 retrieve: false,
                 lengthChange: true,
+
             });
 
 
