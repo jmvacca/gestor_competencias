@@ -137,7 +137,8 @@ class CompetenciaDeportivaController extends AbstractController
                     $nroFecha = $fecha->getNumero();
                     break;
                 }else{
-                    $nroFecha = -1;
+
+                    $nroFecha = -2;
                     $partidos_sin_resultado=true;
                 }
             }
@@ -297,12 +298,12 @@ class CompetenciaDeportivaController extends AbstractController
 
             $partidos = $fecha -> getPartidos();
             $cantidadPartidos = sizeof($partidos);
-            dump($fecha);
-            dump($cantidadPartidos);
+            /*dump($fecha);
+            dump($cantidadPartidos);*/
 
             foreach ($partidos as $partido) {
 
-                dump($partido);
+                /*dump($partido);*/
                 $em->remove($partido);
                 $em->flush();
 
@@ -331,7 +332,7 @@ class CompetenciaDeportivaController extends AbstractController
                 'fechas' => $repositorio->findByCompetencia($competenciaDeportiva->getId()),
                 'id_competencia' => $competenciaDeportiva->getId(),
                 'formaPuntuacion' => $competenciaDeportiva->getFormaPuntuacion(),
-
+                'cantidadSets'    => $competenciaDeportiva-> getCantidadMaximaSet(),
 
 
             ]);
@@ -392,6 +393,8 @@ class CompetenciaDeportivaController extends AbstractController
                     'id_competencia' => $competenciaDeportiva->getId(),
                     'id_partido' => $partido->getId(),
                     'id' => $resultado->getId(),
+                    'competencia_deportiva' => $competenciaDeportiva,
+
                 ]);
         }
 
@@ -419,7 +422,12 @@ class CompetenciaDeportivaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
+            return $this->redirectToRoute('competencia_deportiva_fixture_index',
+                [
+                'id' => $competenciaDeportiva->getId(),
+                    'competencia_deportiva' => $competenciaDeportiva,
+
+            ]);
         }
 
         return $this->render('competencia_deportiva/fixture/show.html.twig',

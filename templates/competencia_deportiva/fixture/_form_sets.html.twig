@@ -18,7 +18,7 @@
                 </tr>
                 {% endfor %}
             <tr>
-                <td>AUSENTE</td>
+                <td><h6>AUSENTE:</h6></td>
                 <td>{{ form_widget(form.ausenteLocal) }}</td>
                 <td>{{ form_widget(form.ausenteVisitante) }}</td>
             </tr>
@@ -29,10 +29,74 @@
 </div>
 <div class="row">
     <div class="col-6">
-        <button type="submit" id="AceptarBNC" class="btn btn-success btn-lg btn-block">GUARDAR RESULTADO</button>
+        <button type="button" id="AceptarGNR" class="btn btn-success btn-lg btn-block">GUARDAR RESULTADO</button>
     </div>
     <div class="col-6">
         <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{path('competencia_deportiva_fixture_index',{'id':competencia.id})}}" name="Cancelar">CANCELAR</button>
     </div>
 </div>
+
+
+<div class="modal fade" id="modalAceptarNR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <div class="alert alert-info" role="alert">
+                    <div id="bodyAceptarNC"> </div>
+                    <h4> ¿SEGURO QUE DESEA GUARDAR NUEVO RESULTADO? </h4>
+
+                </div>
+                <hr>
+                <div id="BodyDatosResultadoNuevo">
+                </div>
+                <hr>
+                <div class="row">
+
+
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+
+                        <button type="submit" class="btn btn-outline-success btn-block" id="CNR">SI</button>
+
+                    </div>
+
+
+
+                    <div class="col-4">
+                        <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+    console.log('JavaScript Gestionar Resultado SET');
+
+
+    $('#AceptarGNR').on('click', function() {
+
+
+
+        $('#modalAceptarNR').modal();
+
+
+    });
+
+
+
+</script>
+
+
+{% endblock %}

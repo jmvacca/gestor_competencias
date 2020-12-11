@@ -17,12 +17,12 @@ class SetType extends AbstractType
         $builder
             ->add('puntajeLocal', IntegerType::class,
                 [
-                    'attr'      => ['min'=>0, 'max'=>7 ,'placeholder'=>'0 - 7','name' => 'Puntaje Local', 'title' => 'Puntaje Local', 'class' => 'form-control', 'id' => 'puntajeLocal','onkeyup' => "this.value = mMaxV(this,this.value)"],
+                    'attr'      => ['min'=>0, 'max'=>11 ,'placeholder'=>'0 - 11','name' => 'Puntaje Local', 'title' => 'Puntaje Local', 'class' => 'form-control', 'id' => 'puntajeLocal','onkeyup' => "this.value = mMaxV(this,this.value)"],
                     'required'  => false,
                 ])
             ->add('puntajeVisitante', IntegerType::class,
                 [
-                    'attr'      => ['min'=>0, 'max'=>7 ,'placeholder'=>'0 - 7','name' => 'Puntaje Visitante', 'title' => 'Puntaje Visitante', 'class' => 'form-control', 'id' => 'puntajeVisitante','onkeyup' => "this.value = mMaxV(this,this.value)"],
+                    'attr'      => ['min'=>0, 'max'=>11 ,'placeholder'=>'0 - 11','name' => 'Puntaje Visitante', 'title' => 'Puntaje Visitante', 'class' => 'form-control', 'id' => 'puntajeVisitante','onkeyup' => "this.value = mMaxV(this,this.value)"],
                     'required'  => false,
                 ])
             ->add('numeroDeSet', IntegerType::class,
