@@ -91,7 +91,7 @@ class CompetenciaDeportiva
     private $deporte;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participante::class, mappedBy="competenciaDeportiva", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Participante::class, mappedBy="competenciaDeportiva", orphanRemoval=true , cascade={"persist"})
      */
     private $participante;
 

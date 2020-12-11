@@ -111,6 +111,8 @@ class CompetenciaDeportivaController extends AbstractController
         $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante(0)));
         $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        $cantidadFechas= sizeof($fechas);
+
 
         if (empty($lista_participantes)){
             $participantesBool = 0;
@@ -123,6 +125,7 @@ class CompetenciaDeportivaController extends AbstractController
         }else{
             $partidos_sin_resultado = true;
             foreach ($fechas as $fecha){
+
                 $partidos = $fecha->getPartidos();
                 foreach ($partidos as $partido){
                     if ($partido->getResultado()){
@@ -134,12 +137,14 @@ class CompetenciaDeportivaController extends AbstractController
                     $nroFecha = $fecha->getNumero();
                     break;
                 }else{
+                    $nroFecha = -1;
                     $partidos_sin_resultado=true;
                 }
             }
         }
 
         return $this->render('competencia_deportiva/show.html.twig', [
+
             'competencia_deportiva' => $competenciaDeportiva,
             'fechaActual' => $nroFecha,
             'participantesBool' => $participantesBool,
@@ -186,10 +191,17 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}/fixture/generate", name="competencia_deportiva_fixture_generate", methods={"GET","POST"})
      */
+
+
+
     public function generarFixture(CompetenciaDeportiva $competenciaDeportiva)
     {
+
         $em = $this->getDoctrine()->getManager();
+        $this->borrarFixtureActual($competenciaDeportiva);
         $estado = $competenciaDeportiva->getEstado();
+
+
         if($estado->getId() == 1 or $estado->getId() == 2){
             if(sizeof($competenciaDeportiva->getParticipante())%2 == 1){
                 $participanteAux = new Participante();
@@ -259,6 +271,55 @@ class CompetenciaDeportivaController extends AbstractController
         $lista_participantes->add($participanteFijo);
     }
 
+    public function borrarFixtureActual(CompetenciaDeportiva $competenciaDeportiva)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
+        $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+
+
+        /*
+         $cantidadFechas = sizeof($fechas);
+
+
+        dump($cantidadFechas);
+        dump($fechas);
+        */
+        /*if ($cantidadFechas == 0 ) {
+
+            dump($cantidadFechas);
+            dump($fechas);
+            die();
+
+         }*/
+
+        foreach ($fechas as $fecha) {
+
+            $partidos = $fecha -> getPartidos();
+            $cantidadPartidos = sizeof($partidos);
+            dump($fecha);
+            dump($cantidadPartidos);
+
+            foreach ($partidos as $partido) {
+
+                dump($partido);
+                $em->remove($partido);
+                $em->flush();
+
+            }
+            $em->remove($fecha);
+            $em->flush();
+
+
+        }
+        /*
+            dump($cantidadFechas);
+                dump($fechas);
+                 die();
+    */
+    }
+
+
     /**
      * @Route("/{id}/fixture/mostrar", name="competencia_deportiva_fixture_index")
      */
@@ -269,7 +330,7 @@ class CompetenciaDeportivaController extends AbstractController
             [
                 'fechas' => $repositorio->findByCompetencia($competenciaDeportiva->getId()),
                 'id_competencia' => $competenciaDeportiva->getId(),
-
+                'formaPuntuacion' => $competenciaDeportiva->getFormaPuntuacion(),
 
 
 

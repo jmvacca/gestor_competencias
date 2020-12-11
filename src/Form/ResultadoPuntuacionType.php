@@ -27,7 +27,7 @@ class ResultadoPuntuacionType extends AbstractType
                     'expanded'  => true,
                     'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local', 'onclick' => "checkedLocalFunction()"]
                 ])
             ->add('ausenteVisitante', ChoiceType::class,
                 [
@@ -39,7 +39,7 @@ class ResultadoPuntuacionType extends AbstractType
                     'expanded'  => true,
                     'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante', 'onclick' => "checkedVisitanteFunction()"]
                 ])
             /*->add('ausente', ChoiceType::class,
                 [
@@ -56,12 +56,12 @@ class ResultadoPuntuacionType extends AbstractType
                 ])*/
             ->add('resultadoLocal', IntegerType::class,
                 [
-                    'attr'      => ['min'=>0,'onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'Resultado Local', 'title' => 'Resultado Local', 'class' => 'form-control', 'id' => 'resultadoLocal'],
+                    'attr'      => ['min'=>0, 'max'=>9999, 'placeholder'=>'0 - 9999','onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'Resultado Local', 'title' => 'Resultado Local', 'class' => 'form-control', 'id' => 'resultadoLocal',],
                     'required'  => false,
                 ])
             ->add('resultadoVisitante', IntegerType::class,
                 [
-                    'attr'      => ['min'=>0,'onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'Resultado Visitante', 'title' => 'Resultado Visitante', 'class' => 'form-control', 'id' => 'resultadoVisitante'],
+                    'attr'      => ['min'=>0, 'max'=>9999, 'placeholder'=>'0 - 9999', 'onkeyup' => "this.value = mMaxV(this,this.value)", 'name' => 'Resultado Visitante', 'title' => 'Resultado Visitante', 'class' => 'form-control', 'id' => 'resultadoVisitante'],
                     'required'  => false,
                 ]);
     }

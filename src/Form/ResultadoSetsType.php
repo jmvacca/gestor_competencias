@@ -22,10 +22,11 @@ class ResultadoSetsType extends AbstractType
                         [
                             'SI' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local', 'onclick' => "checkedLocalSetFunction()"]
                 ])
             ->add('ausenteVisitante', ChoiceType::class,
                 [
@@ -33,10 +34,11 @@ class ResultadoSetsType extends AbstractType
                         [
                             'SI' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante', 'onclick' => "checkedVisitanteSetFunction()"]
                 ])
             ->add('sets', CollectionType::class,
                 [

@@ -190,7 +190,7 @@
 
                 <thead class="thead-dark">
                 <tr>
-                    <th>Fecha Actual</th>
+                    <th>Fecha Siguiente</th>
                     <th>Local</th>
                     <th>vs</th>
                     <th>Visitante</th>
@@ -310,6 +310,46 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="FIXTURECONFIRMAR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="alert alert-info" role="alert">
+                        <div id="bodyAceptarNC"> </div>
+                        <h4> ¿SEGURO QUE DESEA GENERAR UN NUEVO FIXTURE? </h4>
+
+                    </div>
+                    <hr>
+                    <div id="BodyDatosCompetenciaFixture">
+                    </div>
+                    <hr>
+                    <div class="row">
+
+
+                        <div class="col-2">
+                        </div>
+                        <div class="col-4">
+
+                            <button type="button" class="btn btn-outline-success btn-block" id="CNFixture" onclick=ConfirmarGenerarFixture()>SI</button>
+
+                        </div>
+
+
+
+                        <div class="col-4">
+                            <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">NO</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -327,6 +367,8 @@
                 var competenciaID = {{ competencia_deportiva.id }};
                 var competenciaEstado = '{{ competencia_deportiva.estado }}';
                 var competenciaNombre = '{{ competencia_deportiva.nombre }}';
+                var competenciaDeporte = '{{ competencia_deportiva.deporte }}';
+                var competenciaModalidad = '{{ competencia_deportiva.modalidad }}';
 
                 console.log('ID Competencia: ' +competenciaID);
                 console.log('ID Competencia: ' +competenciaNombre);
@@ -348,8 +390,20 @@
 
 
                     } else {
-                        window.location.href = "{{ path('competencia_deportiva_fixture_generate', {'id': competencia_deportiva.id}) }}";
-                        $('#FIXTUREOK').modal();
+                        let template2 = '';
+                        template2 +=
+
+                            `
+											<h6> Nombre Competencia:                 ${competenciaNombre} </h6>
+		                                	<h6> Deporte:                 ${competenciaDeporte} </h6>
+	                                        <h6> Modalidad:                 ${competenciaModalidad} </h6>
+                                            <h6> Estado Competencia:             ${competenciaEstado}  </h6>
+
+													`
+                        $('#BodyDatosCompetenciaFixture').html(template2);
+
+                        $('#FIXTURECONFIRMAR').modal();
+
                     }
 
 
@@ -357,6 +411,14 @@
                     }
                 }
 
+                function ConfirmarGenerarFixture(){
+                window.location.href = "{{ path('competencia_deportiva_fixture_generate', {'id': competencia_deportiva.id}) }}";
+                    $('#FIXTURECONFIRMAR').modal('hide');
+                $('#FIXTUREOK').modal();
+                }
+
+
+                /*
                 function verificarParticipantes (competenciaID) {
                     var Ruta = Routing.generate('verificarParticipantes');
                     console.log('URL AJAX: ' + Ruta);
@@ -376,7 +438,7 @@
                 }
 
                 verificarParticipantes({{competencia_deportiva.id}});
-
+                */
 
 
 

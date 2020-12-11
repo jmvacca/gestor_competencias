@@ -73,8 +73,6 @@ class CompetenciaDeportivaType extends AbstractType
                         '1' => 1,
                         '3' => 3,
                         '5' => 5,
-                        '7' => 7,
-                        '9' => 9,
                         ],
                     'attr' => ['id' => 'csets', 'name' => 'sets', 'class' => 'form-control',],
                     'required' => false,
