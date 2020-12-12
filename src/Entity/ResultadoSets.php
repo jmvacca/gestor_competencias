@@ -34,6 +34,17 @@ class ResultadoSets extends Resultado
         return parent::getId();
     }
 
+    public function isEmpty(){
+        if ( parent::isEmpty()){
+            foreach ($this->getSets() as $set){
+                if ($set->isEmpty()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * @return Collection|Set[]
      */

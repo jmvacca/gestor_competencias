@@ -47,6 +47,13 @@ class Set
         $this->setNumeroDeSet($numeroDeSet);
     }
 
+    public function isEmpty(){
+        if (($this->getPuntajeLocal() == NULL) and ($this->getPuntajeVisitante() == NULL)){
+            return true;
+        }
+        return false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

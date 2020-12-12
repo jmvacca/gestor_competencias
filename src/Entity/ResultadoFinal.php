@@ -37,6 +37,16 @@ class ResultadoFinal extends Resultado
         return parent::getId();
     }
 
+    public function isEmpty(){
+        if ( (parent::isEmpty()) and
+            ($this->getGanadorLocal()==NULL)
+            and ($this->getGanadorVisitante()==NULL)
+            and ($this->getEmpate()==NULL)){
+            return true;
+        }
+        return false;
+    }
+
     public function getEmpate(): ?bool
     {
         return $this->empate;

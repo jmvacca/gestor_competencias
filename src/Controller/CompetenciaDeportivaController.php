@@ -21,6 +21,7 @@ use App\Form\ResultadoPuntuacionType;
 use App\Form\ResultadoSetsType;
 use App\Form\ResultadoType;
 use App\Repository\CompetenciaDeportivaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -120,29 +121,8 @@ class CompetenciaDeportivaController extends AbstractController
             $participantesBool = 1;
         }
 
-        if(empty($fechas)){
-            $nroFecha = -1;
-        }else{
-            $partidos_sin_resultado = true;
-            foreach ($fechas as $fecha){
+        $nroFecha = $this->fechaActual($fechas);
 
-                $partidos = $fecha->getPartidos();
-                foreach ($partidos as $partido){
-                    if ($partido->getResultado()){
-                        $partidos_sin_resultado = false;
-                        break;
-                    }
-                }
-                if($partidos_sin_resultado){
-                    $nroFecha = $fecha->getNumero();
-                    break;
-                }else{
-
-                    $nroFecha = -2;
-                    $partidos_sin_resultado=true;
-                }
-            }
-        }
 
         return $this->render('competencia_deportiva/show.html.twig', [
 
@@ -192,9 +172,6 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}/fixture/generate", name="competencia_deportiva_fixture_generate", methods={"GET","POST"})
      */
-
-
-
     public function generarFixture(CompetenciaDeportiva $competenciaDeportiva)
     {
 
@@ -204,12 +181,6 @@ class CompetenciaDeportivaController extends AbstractController
 
 
         if($estado->getId() == 1 or $estado->getId() == 2){
-            if(sizeof($competenciaDeportiva->getParticipante())%2 == 1){
-                $participanteAux = new Participante();
-                $participanteAux->setNombre("NADIE");
-                $participanteAux->setEmail("participanteAux@correo.com");
-                $competenciaDeportiva->addParticipante($participanteAux);
-            }
             $this->generarFixtureLiga($competenciaDeportiva);
             $repositorio = $em->getRepository(get_class(new Estado()));
             $competenciaDeportiva->setEstado($repositorio->find(2));
@@ -223,7 +194,14 @@ class CompetenciaDeportivaController extends AbstractController
     private function generarFixtureLiga(CompetenciaDeportiva $competenciaDeportiva){
 
         $em = $this->getDoctrine()->getManager();
+
         $lista_participantes = $competenciaDeportiva->getParticipante();
+        $participantes_shuffle =  $lista_participantes->toArray();
+        shuffle($participantes_shuffle);
+        $lista_participantes_shuffle = new ArrayCollection();
+        foreach ($participantes_shuffle as $participante){
+            $lista_participantes_shuffle->add($participante);
+        }
         $lista_disponibilidades = $competenciaDeportiva->getDisponibilidades();
         $repositorio = $em->getRepository(get_class(new Disponibilidad()));
         foreach ($lista_disponibilidades as $disponibilidad){
@@ -233,43 +211,53 @@ class CompetenciaDeportivaController extends AbstractController
         foreach ($lista_disponibilidades_load as $disponibilidad){
             $lugar_vacio = $disponibilidad->getLugar();
             $disponibilidad->setLugar($repositorio->find($lugar_vacio->getId()));
-            //dump($competenciaDeportiva);
-            //die();
         }
-        //$lista_disponibilidades_load = $lista_disponibilidades_load->toArray();
-        $cantidadParticipantes = sizeof($lista_participantes); // = 4
+
+        if(sizeof($lista_participantes_shuffle)%2 == 1){
+            $participanteAux = new Participante();
+            $participanteAux->setNombre("NADIE");
+            $participanteAux->setEmail("participanteAux@correo.com");
+            $participanteFijo = $participanteAux; // = Boca Jrs
+            $cantidadParticipantes = sizeof($lista_participantes_shuffle) + 1; // = 3 + 1
+        }else{
+            $cantidadParticipantes = sizeof($lista_participantes_shuffle); // = 4
+            $participanteFijo = $lista_participantes_shuffle->first(); // = Boca Jrs
+            $lista_participantes_shuffle->remove(0); // = Boca Jrs
+        }
+
         $nroFecha = 1;
-        $participanteFijo = $lista_participantes->first(); // = Boca Jrs
-        $lista_participantes->remove(0); // = Boca Jrs
 
         while($nroFecha <= $cantidadParticipantes-1){ // 1 <= 3? // 2 <= 3? // 3 <= 3? Si, ultima
             $disponibilidadUsada = 1;
             $actual = 0; //disponibilidad actual en el array
             //dump($lista_disponibilidades_load[$actual]);
             //die();
-            $participanteAux = $lista_participantes->first(); // = River Plate // = Union // = Colon
-            $lista_participantes->removeElement($participanteAux); // = River Plate // = Union // = Colon
+            $participanteAux = $lista_participantes_shuffle->first(); // = River Plate // = Union // = Colon
+            $lista_participantes_shuffle->removeElement($participanteAux); // = River Plate // = Union // = Colon
             $nuevaFecha = new Fecha($nroFecha);
-            $nuevoPartido = new Partido($participanteFijo,$participanteAux,($lista_disponibilidades_load[$actual])->getLugar());
-            $nuevaFecha->addPartidos($nuevoPartido);
-            $index_local = $lista_participantes->indexOf($lista_participantes->first());
-            $index_visitante = $lista_participantes->indexOf($lista_participantes->last()); // 1
+            if($participanteFijo->getNombre() != "NADIE"){
+                $nuevoPartido = new Partido($participanteFijo,$participanteAux,($lista_disponibilidades_load[$actual])->getLugar());
+                $nuevaFecha->addPartidos($nuevoPartido);
+            }
+            $index_local = $lista_participantes_shuffle->indexOf($lista_participantes_shuffle->first());
+            $index_visitante = $lista_participantes_shuffle->indexOf($lista_participantes_shuffle->last()); // 1
             while ($index_local<$index_visitante){
                 if($disponibilidadUsada > $lista_disponibilidades_load[$actual]->getDisponibilidad()){
                     $actual++;
                     $disponibilidadUsada=1;
                 }
-                $nuevoPartido = new Partido($lista_participantes[$index_local],$lista_participantes[$index_visitante],$lista_disponibilidades_load[$actual]->getLugar());
+                $nuevoPartido = new Partido($lista_participantes_shuffle[$index_local],$lista_participantes_shuffle[$index_visitante],$lista_disponibilidades_load[$actual]->getLugar());
                 $nuevaFecha->addPartidos($nuevoPartido);
                 $index_local++; // 1
                 $index_visitante--; // 0
                 $disponibilidadUsada++; //2
             }
-            $lista_participantes->add($participanteAux); // = River Plate // = Union
+            $lista_participantes_shuffle->add($participanteAux); // = River Plate // = Union
             $nroFecha++; // 2 // 3
             $competenciaDeportiva->addFecha($nuevaFecha);
         }
-        $lista_participantes->add($participanteFijo);
+        $lista_participantes_shuffle->add($participanteFijo);
+
     }
 
     public function borrarFixtureActual(CompetenciaDeportiva $competenciaDeportiva)
@@ -278,48 +266,53 @@ class CompetenciaDeportivaController extends AbstractController
         $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
         $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
 
-
-        /*
-         $cantidadFechas = sizeof($fechas);
-
-
-        dump($cantidadFechas);
-        dump($fechas);
-        */
-        /*if ($cantidadFechas == 0 ) {
-
-            dump($cantidadFechas);
-            dump($fechas);
-            die();
-
-         }*/
-
         foreach ($fechas as $fecha) {
 
-            $partidos = $fecha -> getPartidos();
-            $cantidadPartidos = sizeof($partidos);
-            /*dump($fecha);
-            dump($cantidadPartidos);*/
-
+            /*$partidos = $fecha -> getPartidos();
             foreach ($partidos as $partido) {
-
-                /*dump($partido);*/
                 $em->remove($partido);
                 $em->flush();
+            }*/
 
-            }
             $em->remove($fecha);
             $em->flush();
-
-
         }
-        /*
-            dump($cantidadFechas);
-                dump($fechas);
-                 die();
-    */
     }
 
+    /**
+     * @param $fechas
+     * @return int
+     * Retorna el valor de la fecha actual sin resultados.<br>
+     * En caso de no haber fechas creadas, retorna -1.<br>
+     * En caso de que no haya fechas sin resultados retorna -2.<br>
+     *
+     */
+    private function fechaActual($fechas){
+        if(empty($fechas)){
+            $nroFecha = -1;
+        }else{
+            $partidos_sin_resultado = true;
+            foreach ($fechas as $fecha){
+
+                $partidos = $fecha->getPartidos();
+                foreach ($partidos as $partido){
+                    if ($partido->getResultado() and !($partido->getResultado()->isEmpty())){
+                        $partidos_sin_resultado = false;
+                        break;
+                    }
+                }
+                if($partidos_sin_resultado){
+                    $nroFecha = $fecha->getNumero();
+                    break;
+                }else{
+
+                    $nroFecha = -2;
+                    $partidos_sin_resultado=true;
+                }
+            }
+        }
+        return $nroFecha;
+    }
 
     /**
      * @Route("/{id}/fixture/mostrar", name="competencia_deportiva_fixture_index")
@@ -421,6 +414,13 @@ class CompetenciaDeportivaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $repositorio = $em->getRepository(Estado::class);
+            if($this->fechaActual($competenciaDeportiva->getFecha())==-2){
+
+                $competenciaDeportiva->setEstado($repositorio->find(4));
+            }else{
+                $competenciaDeportiva->setEstado($repositorio->find(3));
+            }
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('competencia_deportiva_fixture_index',
                 [
@@ -461,8 +461,13 @@ class CompetenciaDeportivaController extends AbstractController
             } elseif ($form->get('ausenteVisitante')->getData() == 'ausenteVisitante') {
                 $resultadoPuntuacion->setAusenteVisitante(true);
             }
+            $repositorio = $em->getRepository(Estado::class);
+            if($this->fechaActual($competenciaDeportiva->getFecha())==-2){
 
-
+                $competenciaDeportiva->setEstado($repositorio->find(4));
+            }else{
+                $competenciaDeportiva->setEstado($repositorio->find(3));
+            }
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
         }
@@ -492,6 +497,13 @@ class CompetenciaDeportivaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $repositorio = $em->getRepository(Estado::class);
+            if($this->fechaActual($competenciaDeportiva->getFecha())==-2){
+
+                $competenciaDeportiva->setEstado($repositorio->find(4));
+            }else{
+                $competenciaDeportiva->setEstado($repositorio->find(3));
+            }
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('competencia_deportiva_fixture_index', ['id' => $competenciaDeportiva->getId()]);
         }

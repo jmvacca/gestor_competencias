@@ -29,7 +29,7 @@ class Fecha
     private $competenciaDeportiva;
 
     /**
-     * @ORM\OneToMany(targetEntity=Partido::class, mappedBy="fecha", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Partido::class, mappedBy="fecha",orphanRemoval=true, cascade={"persist"})
      */
     private $partidos;
 

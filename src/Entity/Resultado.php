@@ -62,6 +62,13 @@ class Resultado
         return $this->id;
     }
 
+    public function isEmpty(){
+        if (($this->getAusenteLocal()==NULL) and ($this->getAusenteVisitante()==NULL)){
+            return true;
+        }
+        return false;
+    }
+
     public function getAusenteLocal()
     {
         return $this->ausenteLocal;

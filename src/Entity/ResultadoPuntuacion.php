@@ -32,6 +32,15 @@ class ResultadoPuntuacion extends Resultado
         return parent::getId();
     }
 
+    public function isEmpty(){
+        if ( (parent::isEmpty()) and
+            ($this->getResultadoLocal()==NULL)
+            and ($this->getResultadoVisitante()==NULL)){
+            return true;
+        }
+        return false;
+    }
+
     public function getResultadoLocal(): ?int
     {
         return $this->resultadoLocal;
