@@ -43,7 +43,7 @@ class DisponibilidadController extends AbstractController
             return $this->redirectToRoute('disponibilidad_index');
         }
 
-        return $this->render('disponibilidad/show.html.twig', [
+        return $this->render('disponibilidad/new.html.twig', [
             'disponibilidad' => $disponibilidad,
             'form' => $form->createView(),
         ]);

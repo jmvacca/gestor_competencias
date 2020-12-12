@@ -3,16 +3,36 @@
 namespace App\Form;
 
 use App\Entity\Disponibilidad;
+use App\Entity\LugarDeRealizacion;
+use App\Repository\LugarDeRealizacionRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class DisponibilidadType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $user = $this->security->getUser();
+        if (!$user) {
+            throw new \LogicException(
+                'The FriendMessageFormType cannot be used without an authenticated user!'
+            );
+        }
+
         $builder
             ->add('disponibilidad', IntegerType::class,
                 [
@@ -23,9 +43,17 @@ class DisponibilidadType extends AbstractType
                 [
                     'attr' => ['name' => 'Lugar','title' => 'Lugar', 'class' => 'form-control','id' => 'lugar'],
                     'class' => 'App\Entity\LugarDeRealizacion',
+                    'query_builder' => function (LugarDeRealizacionRepository $lugarDeRealizacionRepository) use ($user){
+                        return $lugarDeRealizacionRepository->createQueryBuilder('ldr')
+                            ->andWhere('ldr.usuario = :val')
+                            ->setParameter('val', $user->getId())
+                            ->orderBy('ldr.id', 'ASC')
+                            ;
+                    }
                 ])
         ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver)
     {
