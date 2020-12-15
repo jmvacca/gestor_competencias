@@ -22,8 +22,15 @@ class ParticipanteController extends AbstractController
      */
     public function index(ParticipanteRepository $participanteRepository, $id_competencia)
     {
+
+        $repositorio = $this->getDoctrine()->getRepository(CompetenciaDeportiva::class);
+
+        $competenciaDeportiva = $repositorio->find($id_competencia);
+        $estado = $competenciaDeportiva->getEstado();
         return $this->render('participante/index.html.twig', [
+
             'participantes' => $participanteRepository->findByCompetencia($id_competencia),
+            'estado' => $estado,
             'id_competencia' => $id_competencia,
 
         ]);
@@ -63,6 +70,10 @@ class ParticipanteController extends AbstractController
             $nombreMayusculas = $participante -> getNombre();
             $nombreMayusculas = strtoupper($nombreMayusculas);
             $participante -> setNombre($nombreMayusculas);
+
+            $emailMayusculas = $participante -> getEmail();
+            $emailMayusculas = strtoupper($emailMayusculas);
+            $participante -> setEmail($emailMayusculas);
 
             $entityManager = $this->getDoctrine()->getManager();
             $repositorio = $entityManager->getRepository(get_class(new CompetenciaDeportiva()));

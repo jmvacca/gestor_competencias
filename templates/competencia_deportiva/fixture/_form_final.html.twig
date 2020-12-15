@@ -11,7 +11,7 @@
             </thead>
             <tbody>
             <tr>
-                <td>GANADOR</td>
+                <td><h6>GANADOR</h6></td>
                 <td>{{ form_widget(form.ganadorLocal) }}</td>
                 <td>{{ form_widget(form.ganadorVisitante) }}</td>
             </tr>
@@ -30,10 +30,270 @@
 </div>
 <div class="row">
     <div class="col-6">
-        <button type="submit" id="AceptarBNC" class="btn btn-success btn-lg btn-block">GUARDAR RESULTADO</button>
+        <button type="button" id="AceptarGRF" class="btn btn-success btn-lg btn-block">GUARDAR RESULTADO</button>
     </div>
     <div class="col-6">
         <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{path('competencia_deportiva_fixture_index',{'id':competencia.id})}}" name="Cancelar">CANCELAR</button>
     </div>
 </div>
+
+<div class="modal fade" id="resultadoFinalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <div class="alert alert-danger" role="alert">
+                    "POR FAVOR SELECCIONE UN RESULTADO FINAL PARA GUARDAR"
+                </div>
+
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                    </div>
+
+                    <div class="col-4">
+                        <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
 {{ form_end(form) }}
+
+{% block javascripts %}
+
+
+<script type="text/javascript">
+
+    console.log('JavaScript Gestionar Resultado Puntuacion Funcionando');
+    var ganadorLocal = {{ ganadorLocal }};
+    var ganadorVisitante = {{ ganadorVisitante }};
+    var ausenteLocal = {{ ausenteLocal }};
+    var ausenteVisitante = {{ ausenteVisitante }};
+    var empate = {{ empate }};
+    var permiteEmpate = {{ permiteEmpate }};
+    console.log('Permite Empate: ' +permiteEmpate);
+
+
+
+    $("#AceptarGRF").click(function(event){
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked;
+        var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked;
+        var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked;
+
+        if ((checkBoxEmpate==false)&&(ganadarLocal==false)&&(ganadorVisitante==false)){
+            $('#resultadoFinalError').modal();
+        } else {
+            document.resultado_final.submit();
+        }
+    });
+
+
+    if (ausenteLocal==1){
+        var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=true;
+        var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+        var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+        var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=true;
+
+    }else {
+        if (ausenteVisitante==1){
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=true;
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+            var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=true;
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+
+
+
+        } else { if (ganadorLocal==1) {
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+            var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=true;
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+
+
+        } else { { if (ganadorVisitante==1) {
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+            var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=true;
+
+        }
+        }
+
+        }
+        }
+
+    }
+
+
+    if (empate==1){
+
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=true;
+        empateFunction();
+    };
+
+
+    function empateFunction() {
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0");
+
+        if (checkBoxEmpate.checked == true){
+
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+
+
+
+        }
+
+
+    }
+    function ganadorLocalFunction() {
+        var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0");
+        var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0");
+        if (ganadarLocal.checked == true){
+
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+            var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+
+        }
+
+
+    }
+    function ganadorVisitanteFunction() {
+        var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0");
+        var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0");
+        if (ganadorVisitante.checked == true){
+
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+            var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+
+        }
+
+    }
+
+
+    function checkedLocalFunction() {
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+
+        var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0");
+        var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0");
+
+        if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == true)){
+
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=true;
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+
+
+            var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+
+        } else {
+            if ((checkBoxLocal.checked == false) && (checkBoxVisitante.checked == true)){
+
+                var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+                var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+
+                var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=true;
+
+
+            } else { if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == false)){
+
+                var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=true;
+                var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+
+
+                var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0").checked=false;
+
+
+            } else     if ((checkBoxLocal.checked == false) && (checkBoxVisitante.checked == false)){
+
+                var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+                var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+
+
+
+            } else {
+
+            }
+
+            }
+
+        }
+
+    }
+
+
+    function checkedVisitanteFunction() {
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+
+        var checkBoxVisitante = document.getElementById("resultado_final_ausenteVisitante_0");
+        var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0");
+
+        if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == true)){
+            var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+            var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=true;
+
+            var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+
+        } else {
+            if ((checkBoxLocal.checked == false && checkBoxVisitante.checked == true)){
+
+                var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+                var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=true;
+
+                var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+
+
+            } else { if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == false)){
+
+                var ganadorVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var ganadarLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+
+                var checkBoxLocal = document.getElementById("resultado_final_ausenteLocal_0").checked=false;
+
+
+            } else     if ((checkBoxLocal.checked == false) && (checkBoxVisitante.checked == false)){
+
+                var ganadorVisitante =  document.getElementById("resultado_final_ganadorVisitante_0").checked=false;
+                var ganadarLocal =  document.getElementById("resultado_final_ganadorLocal_0").checked=false;
+
+
+
+            } else {
+
+            }
+
+            }
+
+        }
+
+    }
+
+    if (permiteEmpate==0){
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").checked=false;
+        var checkBoxEmpate = document.getElementById("resultado_final_empate_0").disabled=true;
+    }
+
+</script>
+
+
+{% endblock %}

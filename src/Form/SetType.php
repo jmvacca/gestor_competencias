@@ -17,12 +17,12 @@ class SetType extends AbstractType
         $builder
             ->add('puntajeLocal', IntegerType::class,
                 [
-                    'attr'      => ['min'=>0, 'max'=>11 ,'placeholder'=>'0 - 11','name' => 'Puntaje Local', 'title' => 'Puntaje Local', 'class' => 'form-control', 'id' => 'puntajeLocal','onkeyup' => "this.value = mMaxV(this,this.value)"],
+                    'attr'      => ['required'  => true, 'min'=>0, 'max'=>31 ,'placeholder'=>'0 - 31','name' => 'Puntaje Local', 'title' => 'Puntaje Local', 'class' => 'form-control', 'id' => 'puntajeLocal','onkeyup' => "this.value = mMaxL(this,this.value)", 'onchange'=>"this.value = igualLocal(this,this.value)"],
                     'required'  => false,
                 ])
             ->add('puntajeVisitante', IntegerType::class,
                 [
-                    'attr'      => ['min'=>0, 'max'=>11 ,'placeholder'=>'0 - 11','name' => 'Puntaje Visitante', 'title' => 'Puntaje Visitante', 'class' => 'form-control', 'id' => 'puntajeVisitante','onkeyup' => "this.value = mMaxV(this,this.value)"],
+                    'attr'      => ['required'  => true,'min'=>0, 'max'=>31 ,'placeholder'=>'0 - 31','name' => 'Puntaje Visitante', 'title' => 'Puntaje Visitante', 'class' => 'form-control', 'id' => 'puntajeVisitante','onkeyup' => "this.value = mMaxV(this,this.value)",'onchange'=>"this.value = igualVisitante(this,this.value)"],
                     'required'  => false,
                 ])
             ->add('numeroDeSet', IntegerType::class,

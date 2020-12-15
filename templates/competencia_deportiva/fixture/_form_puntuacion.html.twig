@@ -11,7 +11,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>PUNTUACION</td>
+                    <th><h6>PUNTUACION:</h6></th>
                     <td>{{ form_widget(form.resultadoLocal) }}</td>
                     <td>{{ form_widget(form.resultadoVisitante) }}</td>
                 </tr>
@@ -46,24 +46,332 @@
 <script type="text/javascript">
 
     console.log('JavaScript Gestionar Resultado Puntuacion Funcionando');
+    var puntosWO = {{ puntajeWO }};
+    var ausenteLocal = {{ ausenteLocal }};
+    var ausenteVisitante = {{ ausenteVisitante }};
+    var permiteEmpate = {{ permiteEmpate }};
+    console.log('Puntos WO: ' +puntosWO);
+    console.log('Ausente Local: ' +ausenteLocal);
+    console.log('Ausente Visitante: ' +ausenteVisitante);
+    console.log('Permite Empate: ' +permiteEmpate);
 
-/*{#
-    if ( {{ (resultado.resultadoLocal) }} == '') {
+    if (ausenteLocal==1){
 
-  var resultadoLocal = null;
-  var resultadoVisitante = null;
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=true;
 
-     } else {
-         var resultadoLocal = {{ (resultado.resultadoLocal) }};
-         var resultadoVisitante = {{ (resultado.resultadoVisitante) }};
-     }
+    };
+    if (ausenteVisitante==1){
+
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=true;
+
+    };
+
+
+    function checkedLocalFunction() {
+
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0");
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0");
+
+        if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == true)){
+            var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+            var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+            puntajeVisitante.value = puntosWO;
+            puntajeLocal.value = 0;
+            var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=false;
+
+        } else {
+            if ((checkBoxLocal.checked == false) && (checkBoxVisitante.checked == true)){
+
+
+                var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+                puntajeVisitante.value = 0;
+                puntajeLocal.value = puntosWO;
+                var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=true;
+
+
+            } else { if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == false)){
+
+                var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+                puntajeVisitante.value = puntosWO;
+                puntajeLocal.value = 0;
+                var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=false;
+
+
+            } else     if ((checkBoxLocal.checked == false) && (checkBoxVisitante.checked == false)){
+
+                var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+                puntajeVisitante.value = 0;
+                puntajeLocal.value = 0;
+
+
+            } else {
+
+            }
+
+            }
+
+        }
+
+    }
+
+
+    function checkedVisitanteFunction() {
+
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0");
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0");
+
+        if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == true)){
+            var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+            var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+            puntajeVisitante.value = 0;
+            puntajeLocal.value = puntosWO;
+            var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+
+        } else {
+            if ((checkBoxLocal.checked == false && checkBoxVisitante.checked == true)){
+
+
+                var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+                puntajeVisitante.value = 0;
+                puntajeLocal.value = puntosWO;
+                var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+
+
+            } else { if ((checkBoxLocal.checked == true) && (checkBoxVisitante.checked == false)){
+
+                var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+                puntajeVisitante.value = 0;
+                puntajeLocal.value = puntosWO;
+                var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+
+
+            } else     if ((checkBoxLocal.checked == false) && (checkBoxVisitante.checked == false)){
+
+                var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+                var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+                puntajeVisitante.value = 0;
+                puntajeLocal.value = 0;
+
+
+            } else {
+
+            }
+
+            }
+
+        }
+
+    }
+
+
+    function mMaxVPuntuacionLocal(that, value) {
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=false;
+        if (permiteEmpate==1){
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+
+
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        } else {
+            var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+            if ((puntajeVisitante.value == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante.value == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante.value == val){
+                let val2 = val+1;
+                return val2;
+            }
+
+            }
+
+            }
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        }
 
 
 
-    console.log('Puntuacion Local '    +resultadoLocal);
-    console.log('Puntuacion Visitante ' +resultadoVisitante);
-#}
-*/
+    };
+
+    function mMaxVPuntuacionVisitante(that, value) {
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=false;
+        if (permiteEmpate==1){
+
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        } else {
+            var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+            if ((puntajeLocal.value == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal.value == min) && (val <= min)){
+                let val2 = min+1;
+                return  val2;
+            } else { if(puntajeLocal.value == val){
+                let val2 = val+1;
+                return val2;
+            }
+
+            }
+
+            }
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        }
+
+
+
+    };
+
+    function igualLocalFunction(that,value) {
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=false;
+
+        if (permiteEmpate==1){
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+
+
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        } else {
+            var puntajeVisitante =  document.getElementById("resultado_puntuacion_resultadoVisitante");
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+            if ((puntajeVisitante.value == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante.value == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante.value == val){
+                let val2 = val+1;
+                return val2;
+            }
+
+            }
+
+            }
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        }
+
+
+
+    }
+
+    function igualVisitanteFunction(that,value) {
+        var checkBoxLocal = document.getElementById("resultado_puntuacion_ausenteLocal_0").checked=false;
+        var checkBoxVisitante = document.getElementById("resultado_puntuacion_ausenteVisitante_0").checked=false;
+        if (permiteEmpate==1){
+
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        } else {
+            var puntajeLocal =  document.getElementById("resultado_puntuacion_resultadoLocal");
+
+            let min = parseInt(that.getAttribute("min"));
+            let max = parseInt(that.getAttribute("max"));
+            let val = parseInt(value);
+            if ((puntajeLocal.value == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal.value == min) && (val <= min)){
+                let val2 = min+1;
+                return  val2;
+            } else { if(puntajeLocal.value == val){
+                let val2 = val+1;
+                return val2;
+            }
+
+            }
+
+            }
+            if ( (val < min) || isNaN(val)) {
+                return min;
+
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }
+        }
+
+    }
+
+
 
 
 

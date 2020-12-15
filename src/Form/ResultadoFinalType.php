@@ -21,10 +21,11 @@ class ResultadoFinalType extends AbstractType
                         [
                             'SI' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Local', 'onclick' => "checkedLocalFunction()" ]
                 ])
             ->add('ausenteVisitante', ChoiceType::class,
                 [
@@ -32,32 +33,35 @@ class ResultadoFinalType extends AbstractType
                         [
                             'SI' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ausente Visitante', 'onclick' => "checkedVisitanteFunction()"]
                 ])
             ->add('ganadorLocal', ChoiceType::class,
                 [
                     'choices'   =>
                         [
-                            'SI' => true,
+                            'WIN' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ganador Local']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ganador Local','onclick' => "ganadorLocalFunction()"]
                 ])
             ->add('ganadorVisitante', ChoiceType::class,
                 [
                     'choices'   =>
                         [
-                            'SI' => true,
+                            'WIN' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Ganador Visitante']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Ganador Visitante','onclick' => "ganadorVisitanteFunction()"]
                 ])
             ->add('empate', ChoiceType::class,
                 [
@@ -65,10 +69,11 @@ class ResultadoFinalType extends AbstractType
                         [
                             'EMPATE' => true,
                         ],
+                    'mapped'   => false,
                     'expanded'  => true,
-                    'multiple'  => false,
+                    'multiple'  => true,
                     'required'  => false,
-                    'attr'      => ['class' => 'form-control', 'name' => 'Empate']
+                    'attr'      => ['class' => 'form-control', 'name' => 'Empate','onclick' => "empateFunction()"]
                 ]);
     }
 

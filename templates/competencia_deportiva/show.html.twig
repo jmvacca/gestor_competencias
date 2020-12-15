@@ -18,7 +18,7 @@
             {#  "{{'id': competencia_deportiva.id}) }}" #}
         </div>
         <div class="col-2">
-            <button type="button" id="" class="btn btn-warning btn-block" onclick=location.href="{{ path('competencia_deportiva_edit', {'id': competencia_deportiva.id}) }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <button type="button" id="" class="btn btn-warning btn-block" {# onclick=location.href="{{ path('competencia_deportiva_edit', {'id': competencia_deportiva.id}) }}" #}><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                 </svg> Editar
             </button>
@@ -256,6 +256,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="competenciaError2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -283,6 +284,35 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="competenciaError3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-body">
+
+                    <div class="alert alert-danger" role="alert">
+                        "NO SE PUEDE GENERAR FIXTURE, LA COMPETENCIA SOLO TIENE UN PARTICIPANTE"
+                    </div>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                        </div>
+
+                        <div class="col-4">
+                            <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="FIXTUREOK" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -310,6 +340,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="FIXTURECONFIRMAR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -369,13 +400,13 @@
                 var competenciaNombre = '{{ competencia_deportiva.nombre }}';
                 var competenciaDeporte = '{{ competencia_deportiva.deporte }}';
                 var competenciaModalidad = '{{ competencia_deportiva.modalidad }}';
-
-                console.log('ID Competencia: ' +competenciaID);
-                console.log('ID Competencia: ' +competenciaNombre);
-                console.log('Estado Competencia: ' +competenciaEstado);
                 var participantesBool = {{ participantesBool }};
+                var cantidadParticipantes = {{ cantidadParticipantes }};
+                console.log('ID Competencia: ' +competenciaID);
+                console.log('Nombre Competencia: ' +competenciaNombre);
+                console.log('Estado Competencia: ' +competenciaEstado);
                 console.log('Existen Participantes: ' +participantesBool);
-
+                console.log('Cantidad Participantes: ' +cantidadParticipantes);
 
 
                 function verificarGenerarFixture(){
@@ -390,22 +421,25 @@
 
 
                     } else {
-                        let template2 = '';
-                        template2 +=
+                        if (cantidadParticipantes <= 1) {
+                            $('#competenciaError3').modal();
+                        } else {
+                            let template2 = '';
+                            template2 +=
 
-                            `
+                                `
 											<h6> Nombre Competencia:                 ${competenciaNombre} </h6>
 		                                	<h6> Deporte:                 ${competenciaDeporte} </h6>
 	                                        <h6> Modalidad:                 ${competenciaModalidad} </h6>
                                             <h6> Estado Competencia:             ${competenciaEstado}  </h6>
 
 													`
-                        $('#BodyDatosCompetenciaFixture').html(template2);
+                            $('#BodyDatosCompetenciaFixture').html(template2);
 
-                        $('#FIXTURECONFIRMAR').modal();
+                            $('#FIXTURECONFIRMAR').modal();
 
+                        }
                     }
-
 
 
                     }

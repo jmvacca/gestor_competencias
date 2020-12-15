@@ -39,7 +39,10 @@
             </div>
             <hr>
             <picture>
-                <img src="{{ asset('images/LOGO.PNG') }}" style="max-width:100%;width:auto;height:auto;" class="img-thumbnail">
+                <a  onclick=location.href="{{path('menu')}}">
+                    <img src="{{ asset('images/LOGO.PNG') }}" style="max-width:100%;width:auto;height:auto;" class="img-thumbnail">
+                </a>
+
             </picture>
             <hr>
         </div>
@@ -51,7 +54,7 @@
                         <ol class="breadcrumb"  style="background-color:#FFBF83;">
                             {% for bread in breadcrumbs() %}
                                 {% if bread.0 != null %}
-                                    <li class="breadcrumb-item"><a href="{{ bread.0 }}">{{ bread.1 }}</a></li>
+                                    <li class="breadcrumb-item"><a{{ bread.0 }}>{{ bread.1 }}</a></li>
                                 {% else %}
                                     <li class="breadcrumb-item active">{{ bread.1 }}</li>
                                 {% endif %}

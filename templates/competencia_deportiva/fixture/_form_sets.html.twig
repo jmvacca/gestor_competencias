@@ -29,44 +29,30 @@
 </div>
 <div class="row">
     <div class="col-6">
-        <button type="button" id="AceptarGNR" class="btn btn-success btn-lg btn-block">GUARDAR RESULTADO</button>
+        <button type="submit" id="AceptarGRS" class="btn btn-success btn-lg btn-block">GUARDAR RESULTADO</button>
     </div>
     <div class="col-6">
         <button type="button" class="btn btn-danger btn-lg btn-block" id="" onclick=location.href="{{path('competencia_deportiva_fixture_index',{'id':competencia.id})}}" name="Cancelar">CANCELAR</button>
     </div>
 </div>
 
-
-<div class="modal fade" id="modalAceptarNR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="resultadoSetsError1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
 
             <div class="modal-body">
 
-                <div class="alert alert-info" role="alert">
-                    <div id="bodyAceptarNC"> </div>
-                    <h4> ¿SEGURO QUE DESEA GUARDAR NUEVO RESULTADO? </h4>
+                <div class="alert alert-danger" role="alert">
+                    "POR FAVOR SELECCIONE UN RESULTADO SETS PARA GUARDAR"
+                </div>
 
-                </div>
-                <hr>
-                <div id="BodyDatosResultadoNuevo">
-                </div>
                 <hr>
                 <div class="row">
-
-
-                    <div class="col-2">
-                    </div>
                     <div class="col-4">
-
-                        <button type="submit" class="btn btn-outline-success btn-block" id="CNR">SI</button>
-
                     </div>
 
-
-
                     <div class="col-4">
-                        <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">NO</button>
+                        <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
@@ -77,6 +63,11 @@
         </div>
     </div>
 </div>
+
+
+
+
+
 {{ form_end(form) }}
 
 {% block javascripts %}
@@ -84,15 +75,590 @@
 <script type="text/javascript">
     console.log('JavaScript Gestionar Resultado SET');
 
+    var cantidadSets = {{ cantidadSets }};
+    var ausenteLocal = {{ ausenteLocal }};
+    var ausenteVisitante = {{ ausenteVisitante }};
+    console.log('Cantidad Sets: '+cantidadSets);
+    console.log('Ausente Local: '+ausenteLocal);
+    console.log('Ausente Visitante: '+ausenteVisitante);
 
-    $('#AceptarGNR').on('click', function() {
+    var idRL1 = 'resultado_sets_sets_0_puntajeLocal';
+    var idRL2 = 'resultado_sets_sets_1_puntajeLocal';
+    var idRL3 = 'resultado_sets_sets_2_puntajeLocal';
+    var idRL4 = 'resultado_sets_sets_3_puntajeLocal';
+    var idRL5 = 'resultado_sets_sets_4_puntajeLocal';
+
+
+    var idRV1 = 'resultado_sets_sets_0_puntajeVisitante';
+    var idRV2 = 'resultado_sets_sets_1_puntajeVisitante';
+    var idRV3 = 'resultado_sets_sets_2_puntajeVisitante';
+    var idRV4 = 'resultado_sets_sets_3_puntajeVisitante';
+    var idRV5 = 'resultado_sets_sets_4_puntajeVisitante';
+
+    if (ausenteLocal==1) {
+        disabledSets();
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").checked=true;
+
+    }
+    if (ausenteVisitante==1) {
+        disabledSets();
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").checked=true;
+    }
+
+    function checkedLocalSetFunction() {
+
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0");
+
+        if (checkBoxSetLocal.checked == true){
+            disabledSets();
+            var checkBoxVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").checked=false;
+        } else {
+            enableSets();
+        }
+    }
+
+
+    function checkedVisitanteSetFunction() {
+
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0");
+
+        if (checkBoxSetVisitante.checked == true){
+            disabledSets();
+            var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").checked=false;
+        } else {
+            enableSets();
+        }
+    }
+
+    function disabledSets(){
+
+        if (cantidadSets==1) {
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").disabled=true;
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").disabled=true;
+        }
+        if (cantidadSets==3) {
+
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").disabled=true;
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").disabled=true;
+
+            var puntajeLocal2 = document.getElementById("resultado_sets_sets_1_puntajeLocal").disabled=true;
+            var puntajeVisitante2 = document.getElementById("resultado_sets_sets_1_puntajeVisitante").disabled=true;
+
+            var puntajeLocal3 = document.getElementById("resultado_sets_sets_2_puntajeLocal").disabled=true;
+            var puntajeVisitante3 = document.getElementById("resultado_sets_sets_2_puntajeVisitante").disabled=true;
+        }
+
+        if (cantidadSets==5) {
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").value=null;
+            var puntajeLocal2 = document.getElementById("resultado_sets_sets_1_puntajeLocal").value=null;
+            var puntajeLocal3 = document.getElementById("resultado_sets_sets_2_puntajeLocal").value=null;
+            var puntajeLocal4 = document.getElementById("resultado_sets_sets_3_puntajeLocal").value=null;
+            var puntajeLocal5 = document.getElementById("resultado_sets_sets_4_puntajeLocal").value=null;
+
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").disabled=true;
+            var puntajeLocal2 = document.getElementById("resultado_sets_sets_1_puntajeLocal").disabled=true;
+            var puntajeLocal3 = document.getElementById("resultado_sets_sets_2_puntajeLocal").disabled=true;
+            var puntajeLocal4 = document.getElementById("resultado_sets_sets_3_puntajeLocal").disabled=true;
+            var puntajeLocal5 = document.getElementById("resultado_sets_sets_4_puntajeLocal").disabled=true;
+
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").value=null;
+            var puntajeVisitante2 = document.getElementById("resultado_sets_sets_1_puntajeVisitante").value=null;
+            var puntajeVisitante3 = document.getElementById("resultado_sets_sets_2_puntajeVisitante").value=null;
+            var puntajeVisitante4 = document.getElementById("resultado_sets_sets_3_puntajeVisitante").value=null;
+            var puntajeVisitante5 = document.getElementById("resultado_sets_sets_4_puntajeVisitante").value=null;
+
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").disabled=true;
+            var puntajeVisitante2 = document.getElementById("resultado_sets_sets_1_puntajeVisitante").disabled=true;
+            var puntajeVisitante3 = document.getElementById("resultado_sets_sets_2_puntajeVisitante").disabled=true;
+            var puntajeVisitante4 = document.getElementById("resultado_sets_sets_3_puntajeVisitante").disabled=true;
+            var puntajeVisitante5 = document.getElementById("resultado_sets_sets_4_puntajeVisitante").disabled=true;
+
+        }
+
+    }
+
+    function enableSets(){
+
+        if (cantidadSets==1) {
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").disabled=false;
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").disabled=false;
+        }
+
+        if (cantidadSets==3) {
+
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").disabled=false;
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").disabled=false;
+
+            var puntajeLocal2 = document.getElementById("resultado_sets_sets_1_puntajeLocal").disabled=false;
+            var puntajeVisitante2 = document.getElementById("resultado_sets_sets_1_puntajeVisitante").disabled=false;
+
+            var puntajeLocal3 = document.getElementById("resultado_sets_sets_2_puntajeLocal").disabled=false;
+            var puntajeVisitante3 = document.getElementById("resultado_sets_sets_2_puntajeVisitante").disabled=false;
+        }
+
+        if (cantidadSets==5) {
+
+            var puntajeLocal1 = document.getElementById("resultado_sets_sets_0_puntajeLocal").disabled=false;
+            var puntajeVisitante1 = document.getElementById("resultado_sets_sets_0_puntajeVisitante").disabled=false;
+
+            var puntajeLocal2 = document.getElementById("resultado_sets_sets_1_puntajeLocal").disabled=false;
+            var puntajeVisitante2 = document.getElementById("resultado_sets_sets_1_puntajeVisitante").disabled=false;
+
+            var puntajeLocal3 = document.getElementById("resultado_sets_sets_2_puntajeLocal").disabled=false;
+            var puntajeVisitante3 = document.getElementById("resultado_sets_sets_2_puntajeVisitante").disabled=false;
+
+            var puntajeLocal4 = document.getElementById("resultado_sets_sets_3_puntajeLocal").disabled=false;
+            var puntajeVisitante4 = document.getElementById("resultado_sets_sets_3_puntajeVisitante").disabled=false;
+
+            var puntajeLocal5 = document.getElementById("resultado_sets_sets_4_puntajeLocal").disabled=false;
+            var puntajeVisitante5 = document.getElementById("resultado_sets_sets_4_puntajeVisitante").disabled=false;
+
+        }
+
+
+    }
+
+    function mMaxL(that, value) {
+
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").checked=false;
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").value=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").checked=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").value=false;
+
+        let min = parseInt(that.getAttribute("min"));
+        let max = parseInt(that.getAttribute("max"));
+        let val = parseInt(value);
+
+        let idCampoLocal = $(that).attr("id");
+
+        if (idCampoLocal==idRL1) {
+            let puntajeVisitante1 =  document.getElementById("resultado_sets_sets_0_puntajeVisitante").value;
+            if ((puntajeVisitante1 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante1 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante1 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL2) {
+            let puntajeVisitante2 =  document.getElementById("resultado_sets_sets_1_puntajeVisitante").value;
+            if ((puntajeVisitante2 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante2 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante2 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL3) {
+            let puntajeVisitante3 =  document.getElementById("resultado_sets_sets_2_puntajeVisitante").value;
+            if ((puntajeVisitante3 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante3 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante3 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL4) {
+            let puntajeVisitante4 =  document.getElementById("resultado_sets_sets_3_puntajeVisitante").value;
+            if ((puntajeVisitante4 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante4 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante4 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL5) {
+            let puntajeVisitante5 =  document.getElementById("resultado_sets_sets_4_puntajeVisitante").value;
+            if ((puntajeVisitante5 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante5 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante5 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+    };
 
 
 
-        $('#modalAceptarNR').modal();
+    function mMaxV(that, value) {
 
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").checked=false;
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").value=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").checked=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").value=false;
 
-    });
+        let min = parseInt(that.getAttribute("min"));
+        let max = parseInt(that.getAttribute("max"));
+        let val = parseInt(value);
+
+        let idCampoVisitante = $(that).attr("id");
+
+        if (idCampoVisitante==idRV1) {
+            let puntajeLocal1 =  document.getElementById("resultado_sets_sets_0_puntajeLocal").value;
+            if ((puntajeLocal1 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal1 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal1 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV2) {
+            let puntajeLocal2 =  document.getElementById("resultado_sets_sets_1_puntajeLocal").value;
+            if ((puntajeLocal2 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal2 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal2 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV3) {
+            let puntajeLocal3 =  document.getElementById("resultado_sets_sets_2_puntajeLocal").value;
+            if ((puntajeLocal3 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal3 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal3 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV4) {
+            let puntajeLocal4 =  document.getElementById("resultado_sets_sets_3_puntajeLocal").value;
+            if ((puntajeLocal4 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal4 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal4 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV5) {
+            let puntajeLocal5 =  document.getElementById("resultado_sets_sets_4_puntajeLocal").value;
+            if ((puntajeLocal5 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal5 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal5 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+    };
+
+    function igualLocal(that,value) {
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").checked=false;
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").value=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").checked=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").value=false;
+
+        let min = parseInt(that.getAttribute("min"));
+        let max = parseInt(that.getAttribute("max"));
+        let val = parseInt(value);
+
+        let idCampoLocal = $(that).attr("id");
+
+        if (idCampoLocal==idRL1) {
+            let puntajeVisitante1 =  document.getElementById("resultado_sets_sets_0_puntajeVisitante").value;
+            if ((puntajeVisitante1 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante1 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante1 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL2) {
+            let puntajeVisitante2 =  document.getElementById("resultado_sets_sets_1_puntajeVisitante").value;
+            if ((puntajeVisitante2 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante2 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante2 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL3) {
+            let puntajeVisitante3 =  document.getElementById("resultado_sets_sets_2_puntajeVisitante").value;
+            if ((puntajeVisitante3 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante3 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante3 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL4) {
+            let puntajeVisitante4 =  document.getElementById("resultado_sets_sets_3_puntajeVisitante").value;
+            if ((puntajeVisitante4 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante4 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante4 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoLocal==idRL5) {
+            let puntajeVisitante5 =  document.getElementById("resultado_sets_sets_4_puntajeVisitante").value;
+            if ((puntajeVisitante5 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeVisitante5 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeVisitante5 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+    };
+
+    function igualVisitante(that,value) {
+
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").checked=false;
+        var checkBoxSetLocal = document.getElementById("resultado_sets_ausenteLocal_0").value=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").checked=false;
+        var checkBoxSetVisitante = document.getElementById("resultado_sets_ausenteVisitante_0").value=false;
+
+        let min = parseInt(that.getAttribute("min"));
+        let max = parseInt(that.getAttribute("max"));
+        let val = parseInt(value);
+
+        let idCampoVisitante = $(that).attr("id");
+
+        if (idCampoVisitante==idRV1) {
+            let puntajeLocal1 =  document.getElementById("resultado_sets_sets_0_puntajeLocal").value;
+            if ((puntajeLocal1 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal1 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal1 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV2) {
+            let puntajeLocal2 =  document.getElementById("resultado_sets_sets_1_puntajeLocal").value;
+            if ((puntajeLocal2 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal2 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal2 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV3) {
+            let puntajeLocal3 =  document.getElementById("resultado_sets_sets_2_puntajeLocal").value;
+            if ((puntajeLocal3 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal3 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal3 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV4) {
+            let puntajeLocal4 =  document.getElementById("resultado_sets_sets_3_puntajeLocal").value;
+            if ((puntajeLocal4 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal4 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal4 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+        if (idCampoVisitante==idRV5) {
+            let puntajeLocal5 =  document.getElementById("resultado_sets_sets_4_puntajeLocal").value;
+            if ((puntajeLocal5 == max) && (val >= max)){
+                let val2 = max-1;
+                return  val2;
+            } else { if((puntajeLocal5 == min) && (val == min)){
+                let val2 = val+1;
+                return  val2;
+            } else { if(puntajeLocal5 == val){
+                let val2 = val+1;
+                return val2;
+            }}}
+            if ( (val < min) || isNaN(val)) {
+                return min;
+            }else if (val>max){
+                return max;
+            } else {
+                return val;
+            }}
+    };
+
 
 
 
