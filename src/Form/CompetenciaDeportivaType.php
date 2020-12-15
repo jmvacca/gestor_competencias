@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\CompetenciaDeportiva;
+use App\Entity\Deporte;
 use App\Entity\Disponibilidad;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -13,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CompetenciaDeportivaType extends AbstractType
@@ -26,11 +30,6 @@ class CompetenciaDeportivaType extends AbstractType
                     'required' => false,
                      'invalid_message' => 'Valor Inválido! - Debe tener nombre de al menos %num% caracteres',
                     'invalid_message_parameters' => array('%num%' => 20),
-                ])
-            ->add('deporte', EntityType::class,
-                [
-                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control','id' => 'deporte'],
-                    'class' => 'App\Entity\Deporte',
                 ])
             ->add('modalidad', EntityType::class,
                 [
@@ -98,6 +97,46 @@ class CompetenciaDeportivaType extends AbstractType
                     'by_reference' => false
                 ]
             )
+            ->add('deporte', EntityType::class,
+                [
+                    'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control','id' => 'deporte'],
+                    'class' => 'App\Entity\Deporte',
+                    'placeholder' => '',
+                ])
+        ;
+        $formModifier = function (FormInterface $form, Deporte $deporte = null) {
+            $lugares = null === $deporte ? [] : $deporte->getLugares();
+
+            $form->add('lugar', EntityType::class, [
+                'class' => 'App\Entity\LugarDeRealizacion',
+                'placeholder' => '',
+                'mapped' => false,
+                'choices' => $lugares,
+            ]);
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                // this would be your entity, i.e. SportMeetup
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getDeporte());
+            }
+        );
+
+        $builder->get('deporte')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $deporte = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier($event->getForm()->getParent(), $deporte);
+            }
+        );
             //->add('fechaBaja')
             //->add('horaBaja')
             //->add('estado')
