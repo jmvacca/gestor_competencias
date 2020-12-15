@@ -108,12 +108,12 @@ class CompetenciaDeportivaController extends AbstractController
     public function show(CompetenciaDeportiva $competenciaDeportiva)
     {
 
-        $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
-        $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        //$repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
+        //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante(0)));
         $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $cantidadParticipantes = sizeof($lista_participantes);
-        $cantidadFechas= sizeof($fechas);
+        //$cantidadFechas= sizeof($fechas);
 
 
 
@@ -123,7 +123,8 @@ class CompetenciaDeportivaController extends AbstractController
             $participantesBool = 1;
         }
 
-        $nroFecha = $this->fechaActual($fechas);
+        $nroFecha = $competenciaDeportiva->fechaActual();
+        //$nroFecha = $this->fechaActual($fechas);
 
 
         return $this->render('competencia_deportiva/show.html.twig', [
@@ -265,8 +266,9 @@ class CompetenciaDeportivaController extends AbstractController
     public function borrarFixtureActual(CompetenciaDeportiva $competenciaDeportiva)
     {
         $em = $this->getDoctrine()->getManager();
-        $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
-        $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        //$repositorio = $this->getDoctrine()->getRepository(Fecha::class);
+        //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        $fechas = $competenciaDeportiva->getFecha();
 
         foreach ($fechas as $fecha) {
 
@@ -282,47 +284,13 @@ class CompetenciaDeportivaController extends AbstractController
     }
 
     /**
-     * @param $fechas
-     * @return int
-     * Retorna el valor de la fecha actual sin resultados.<br>
-     * En caso de no haber fechas creadas, retorna -1.<br>
-     * En caso de que no haya fechas sin resultados retorna -2.<br>
-     *
-     */
-    private function fechaActual($fechas){
-        if(empty($fechas)){
-            $nroFecha = -1;
-        }else{
-            $partidos_sin_resultado = true;
-            foreach ($fechas as $fecha){
-
-                $partidos = $fecha->getPartidos();
-                foreach ($partidos as $partido){
-                    if ($partido->getResultado() and !($partido->getResultado()->isEmpty())){
-                        $partidos_sin_resultado = false;
-                        break;
-                    }
-                }
-                if($partidos_sin_resultado){
-                    $nroFecha = $fecha->getNumero();
-                    break;
-                }else{
-
-                    $nroFecha = -2;
-                    $partidos_sin_resultado=true;
-                }
-            }
-        }
-        return $nroFecha;
-    }
-
-    /**
      * @Route("/{id}/fixture/mostrar", name="competencia_deportiva_fixture_index")
      */
     public function indexFixtureLiga(CompetenciaDeportiva $competenciaDeportiva){
-        $repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
+        //$repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
         $formaPuntuacion = $competenciaDeportiva->getFormaPuntuacion();
-        $fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        $fechas = $competenciaDeportiva->getFecha();
 
 
 
@@ -446,7 +414,7 @@ class CompetenciaDeportivaController extends AbstractController
 
             $repositorio = $em->getRepository(Estado::class);
 
-            if($this->fechaActual($competenciaDeportiva->getFecha())==-2){
+            if($competenciaDeportiva->fechaActual()==-2){
 
                 $competenciaDeportiva->setEstado($repositorio->find(4));
             }else{
@@ -504,7 +472,7 @@ class CompetenciaDeportivaController extends AbstractController
                 $resultadoPuntuacion->setAusenteLocal(false);
             }
             $repositorio = $em->getRepository(Estado::class);
-            if($this->fechaActual($competenciaDeportiva->getFecha())==-2){
+            if($competenciaDeportiva->fechaActual() == -2){
 
                 $competenciaDeportiva->setEstado($repositorio->find(4));
             }else{
@@ -585,7 +553,7 @@ class CompetenciaDeportivaController extends AbstractController
             }
 
             $repositorio = $em->getRepository(Estado::class);
-            if($this->fechaActual($competenciaDeportiva->getFecha())==-2){
+            if($competenciaDeportiva->fechaActual()==-2){
 
                 $competenciaDeportiva->setEstado($repositorio->find(4));
             }else{

@@ -395,4 +395,40 @@ class CompetenciaDeportiva
 
         return $this;
     }
+
+    /**
+     * @return int
+     * Retorna el valor de la fecha actual sin resultados.<br>
+     * En caso de no haber fechas creadas, retorna -1.<br>
+     * En caso de que no haya fechas sin resultados retorna -2.<br>
+     *
+     */
+    public function fechaActual()
+    {
+        $fechas = $this->getFecha();
+        if($fechas->isEmpty()){
+            $nroFecha = -1;
+        }else{
+            $partidos_sin_resultado = true;
+            foreach ($fechas as $fecha){
+
+                $partidos = $fecha->getPartidos();
+                foreach ($partidos as $partido){
+                    if ($partido->getResultado() and !($partido->getResultado()->isEmpty())){
+                        $partidos_sin_resultado = false;
+                        break;
+                    }
+                }
+                if($partidos_sin_resultado){
+                    $nroFecha = $fecha->getNumero();
+                    break;
+                }else{
+
+                    $nroFecha = -2;
+                    $partidos_sin_resultado=true;
+                }
+            }
+        }
+        return $nroFecha;
+    }
 }
