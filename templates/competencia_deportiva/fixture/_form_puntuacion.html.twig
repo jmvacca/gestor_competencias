@@ -39,6 +39,7 @@
 
 
 
+
 {{ form_end(form) }}
 {% block javascripts %}
 
@@ -46,10 +47,13 @@
 <script type="text/javascript">
 
     console.log('JavaScript Gestionar Resultado Puntuacion Funcionando');
-    var puntosWO = {{ puntajeWO }};
-    var ausenteLocal = {{ ausenteLocal }};
-    var ausenteVisitante = {{ ausenteVisitante }};
-    var permiteEmpate = {{ permiteEmpate }};
+    var puntosWO = {{ competencia.puntosPorNoPresentarse }};
+    var ausenteLocal = isNaN({{ resultado.ausenteLocal }}) ? 0:1;
+    var ausenteVisitante =  isNaN({{ resultado.ausenteVisitante }}) ? 0:1;
+    var permiteEmpate = isNaN({{ competencia.permiteEmpate }}) ? 0:1;
+
+    /*var permiteEmpate = ;*/
+
     console.log('Puntos WO: ' +puntosWO);
     console.log('Ausente Local: ' +ausenteLocal);
     console.log('Ausente Visitante: ' +ausenteVisitante);
