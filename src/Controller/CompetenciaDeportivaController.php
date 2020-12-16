@@ -298,6 +298,7 @@ class CompetenciaDeportivaController extends AbstractController
             [
                 'fechas' => $fechas,
                 'id_competencia' => $competenciaDeportiva->getId(),
+                'competencia' => $competenciaDeportiva,
                 'formaPuntuacion' => $formaPuntuacion,
                 'cantidadSets'    => $competenciaDeportiva-> getCantidadMaximaSet(),
 

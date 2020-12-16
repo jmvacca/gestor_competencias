@@ -4,6 +4,28 @@
 
 {% block body %}
 <div class="container">
+
+
+                <table class="table table-striped table-bordered table-hover" id="">
+                    <tbody>
+                    <tr>
+                        <th>Nombre: </th>
+                        <td>{{ competencia.nombre }}</td>
+                        <th>Deporte:</th>
+                        <td>{{ competencia.deporte}}</td>
+
+
+                    </tr>
+                    <tr>
+                        <th>Modalidad:</th>
+                        <td>{{ competencia.modalidad }}</td>
+                        <th>Estado:</th>
+                        <td>{{ competencia.estado}} </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
     <p></p>
     <div class="row">
         <div class="col-7" >
@@ -220,9 +242,6 @@
         <script type="text/javascript">
             console.log('JavaScript Listar Fechas Funcionando');
 
-            console.log('{{ formaPuntuacion }}');
-            console.log('Cantidad Maxima Sets: ' +'{{ cantidadSets }}');
-
             var table1;
 
            if ('{{ formaPuntuacion }}'=='TIPO_SETS') {
@@ -315,6 +334,46 @@
 
                    });
                } else {
+
+                   table1 = $('#myTableFixture').DataTable({
+
+                       'destroy': true,
+                       "language": {
+                           "decimal":        "",
+                           "emptyTable":     "NO HAY FECHAS NI PARTIDOS PARA MOSTRAR",
+                           "info":           "Mostrando PARTIDOS del _START_ al _END_ de _TOTAL_ PARTIDOS",
+                           "infoEmpty":      "Mostrando 0 de 0 de 0 PARTIDOS",
+                           "infoFiltered":   "(Filtrado de un total de _MAX_ PARTIDOS)",
+                           "infoPostFix":    "",
+                           "thousands":      ",",
+                           "lengthMenu":     "MOSTRAR _MENU_ PARTIDOS",
+                           "loadingRecords": "Cargando...",
+                           "processing":     "Procesando...",
+                           "search":         "Fecha Numero:",
+                           "zeroRecords":    "NO SE ENCONTRAR FECHAS NI PARTIDOS ...",
+                           "paginate": {
+                               "first":      "Primero",
+                               "last":       "Ultimo",
+                               "next":       "Siguiente",
+                               "previous":   "Anterior"
+                           },
+                           "aria": {
+                               "sortAscending":  ": Columna Ascendente",
+                               "sortDescending": ": Columna Descendente",
+                           }
+
+                       },
+
+                       columnDefs: [
+                           { orderable: false, targets: [3,7] },
+                           {searchable: false, targets:[1,2,3,4,5,6,7]},
+
+                       ],
+                       dom:'tip',
+                       searching: true,
+                       retrieve: false,
+                       lengthChange: true,
+                   });
 
 
 
