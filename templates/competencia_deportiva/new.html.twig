@@ -11,13 +11,14 @@
 {% endblock %}
 
 
+
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
         console.log('JavaScript Nueva Competencia Funcionando');
         document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
         var modalidadBool = false;
-        var cantidadDisponibilidades = 0;
+        var cantidadDisponibilidades = 1;
         var selectModalidad = document.getElementById('competencia_deportiva_modalidad');
         selectModalidad.addEventListener('change',
             function() {
@@ -57,7 +58,7 @@
             });
             $addDisponibilidadButton.on('click', function(e) {
 
-                cantidadDisponibilidades++;
+                //cantidadDisponibilidades++;
                 e.preventDefault();
 
                 // add a new disponibilidad form (see next code block)
@@ -71,7 +72,7 @@
             var prototype = $coleccionDisponibilidades.data('prototype');
             var index = $coleccionDisponibilidades.data('index');
             var newForm = prototype;
-            newForm = newForm.replace(/__name__/, index);
+            newForm = newForm.replace(/__name__/g, index);
 
             $coleccionDisponibilidades.data('index', index+1);
             //var $newFormTr = $('<tr></tr>').append(newForm);
@@ -82,7 +83,8 @@
             $card.append($cardBody);
             addDisponibilidadFormDeleteLink($card);
             $addDisponibilidadButton.before($card);
-            cantidadDisponibilidades++;
+            //$coleccionDisponibilidades.append($card);
+            //cantidadDisponibilidades++;
         }
         /**
          * @param $card
@@ -90,12 +92,12 @@
         function addDisponibilidadFormDeleteLink($card) {
             var $removeFormButton = $('<button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash"></i> ELIMINAR</button>');
             var $cardFooter = $('<div class="card-footer"></div>').append($removeFormButton);
-            cantidadDisponibilidades--;
+            //cantidadDisponibilidades--;
             $removeFormButton.on('click', function(e) {
                 // remove the tr for the tag form
                 $(e.target).parents('#card-disponibilidad').slideUp(1000, function (){
                     $(this).remove();
-                    cantidadDisponibilidades--;
+                    //cantidadDisponibilidades--;
                 });
             });
             $card.append($cardFooter);
@@ -349,7 +351,7 @@
             } else { if(modalidadBool == false){
                     $('#modalidadNSOC').modal();
             } else {
-
+                console.log('Disponibilidades: ' + $coleccionDisponibilidades.value);
                 let template2 = '';
                 template2 +=
 
@@ -387,36 +389,12 @@
             } else {
                 return val;
             }
-        };
-
+        }
 
         /*$("#buttonAceptarCompetencia").on("click", function (e) {
             console.log('presionaste el boton para guardar competencia');
         })*/
 
-        var $deporte = $('#competencia_deportiva_deporte');
-        // When sport gets selected ...
-        $deporte.change(function() {
-            // ... retrieve the corresponding form.
-            var $form = $(this).closest('form');
-            // Simulate form data, but only include the selected sport value.
-            var data = {};
-            data[$deporte.attr('name')] = $deporte.val();
-            // Submit data via AJAX to the form's action path.
-            $.ajax({
-                url : $form.attr('action'),
-                type: $form.attr('method'),
-                data : data,
-                success: function(html) {
-                    // Replace current position field ...
-                    $('#competencia_deportiva_disponibilidades___name___lugar').replaceWith(
-                        // ... with the returned one from the AJAX response.
-                        $(html).find('#competencia_deportiva_disponibilidades___name___lugar')
-                    );
-                    // Position field now displays the appropriate positions.
-                }
-            });
-        });
 
     </script>
 

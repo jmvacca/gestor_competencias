@@ -101,47 +101,12 @@ class CompetenciaDeportivaType extends AbstractType
                 [
                     'attr' => ['name' => 'Deporte','title' => 'Deporte', 'class' => 'form-control','id' => 'deporte'],
                     'class' => 'App\Entity\Deporte',
-                    'placeholder' => '',
                 ])
         ;
-        $formModifier = function (FormInterface $form, Deporte $deporte = null) {
-            $lugares = null === $deporte ? [] : $deporte->getLugares();
-
-            $form->add('lugar', EntityType::class, [
-                'class' => 'App\Entity\LugarDeRealizacion',
-                'placeholder' => '',
-                'mapped' => false,
-                'choices' => $lugares,
-            ]);
-        };
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($formModifier) {
-                // this would be your entity, i.e. SportMeetup
-                $data = $event->getData();
-
-                $formModifier($event->getForm(), $data->getDeporte());
-            }
-        );
-
-        $builder->get('deporte')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($formModifier) {
-                // It's important here to fetch $event->getForm()->getData(), as
-                // $event->getData() will get you the client data (that is, the ID)
-                $deporte = $event->getForm()->getData();
-
-                // since we've added the listener to the child, we'll have to pass on
-                // the parent to the callback functions!
-                $formModifier($event->getForm()->getParent(), $deporte);
-            }
-        );
             //->add('fechaBaja')
             //->add('horaBaja')
             //->add('estado')
             //->add('usuario')
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

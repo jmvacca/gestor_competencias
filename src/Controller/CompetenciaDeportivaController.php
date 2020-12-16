@@ -71,21 +71,9 @@ class CompetenciaDeportivaController extends AbstractController
                 $repositorio = $entityManager->getRepository(get_class(new Usuario()));
                 $competenciaDeportiva->setUsuario($repositorio->find(1));
             }
-
-
-            /*
-             * dump($competenciaDeportiva);
-             */
-
             $nombreMayusculas = $competenciaDeportiva -> getNombre();
             $nombreMayusculas = strtoupper($nombreMayusculas);
             $competenciaDeportiva -> setNombre($nombreMayusculas);
-
-            /*
-             * dump($nombreMayusculas);
-            dump($competenciaDeportiva);
-            die()
-            */
 
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();

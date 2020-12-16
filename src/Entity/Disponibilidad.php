@@ -4,10 +4,10 @@ namespace App\Entity;
 
 use App\Repository\DisponibilidadRepository;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\String_;
 
 /**
  * @ORM\Entity(repositoryClass=DisponibilidadRepository::class)
+ *
  */
 class Disponibilidad
 {

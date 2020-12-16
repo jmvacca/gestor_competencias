@@ -342,25 +342,21 @@ class CompetenciaDeportiva
         return $this;
     }
 
-    /**
-     * @return Collection|Disponibilidad[]
-     */
-    public function getDisponibilidades(): Collection
+
+    public function getDisponibilidades()
     {
         return $this->disponibilidades;
     }
 
-    public function addDisponibilidade(Disponibilidad $disponibilidade): self
+    public function addDisponibilidade(Disponibilidad $disponibilidade)
     {
         if (!$this->disponibilidades->contains($disponibilidade)) {
-            $this->disponibilidades -> add ($disponibilidade);
+            $this->disponibilidades->add($disponibilidade);
             $disponibilidade->setCompetenciaDeportiva($this);
         }
-
-        return $this;
     }
 
-    public function removeDisponibilidade(Disponibilidad $disponibilidade): self
+    public function removeDisponibilidade(Disponibilidad $disponibilidade)
     {
         if ($this->disponibilidades->removeElement($disponibilidade)) {
             // set the owning side to null (unless already changed)
@@ -368,8 +364,6 @@ class CompetenciaDeportiva
                 $disponibilidade->setCompetenciaDeportiva(null);
             }
         }
-
-        return $this;
     }
 
     public function getUsuario(): ?Usuario
