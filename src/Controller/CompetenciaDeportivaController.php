@@ -9,23 +9,21 @@ use App\Entity\Fecha;
 use App\Entity\LugarDeRealizacion;
 use App\Entity\Participante;
 use App\Entity\Partido;
-use App\Entity\Resultado;
 use App\Entity\ResultadoFinal;
 use App\Entity\ResultadoPuntuacion;
 use App\Entity\ResultadoSets;
 use App\Entity\Set;
 use App\Entity\Usuario;
 use App\Form\CompetenciaDeportivaType;
+use App\Form\ParticipanteType;
 use App\Form\ResultadoFinalType;
 use App\Form\ResultadoPuntuacionType;
 use App\Form\ResultadoSetsType;
-use App\Form\ResultadoType;
-use App\Repository\CompetenciaDeportivaRepository;
+use App\Repository\ParticipanteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -73,21 +71,9 @@ class CompetenciaDeportivaController extends AbstractController
                 $repositorio = $entityManager->getRepository(get_class(new Usuario()));
                 $competenciaDeportiva->setUsuario($repositorio->find(1));
             }
-
-
-            /*
-             * dump($competenciaDeportiva);
-             */
-
             $nombreMayusculas = $competenciaDeportiva -> getNombre();
             $nombreMayusculas = strtoupper($nombreMayusculas);
             $competenciaDeportiva -> setNombre($nombreMayusculas);
-
-            /*
-             * dump($nombreMayusculas);
-            dump($competenciaDeportiva);
-            die()
-            */
 
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
@@ -104,13 +90,12 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id}", name="competencia_deportiva_show", methods={"GET"})
      */
-
     public function show(CompetenciaDeportiva $competenciaDeportiva)
     {
 
         //$repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
         //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
-        $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante(0)));
+        $repositorio = $this->getDoctrine()->getRepository(Participante::class);
         $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $cantidadParticipantes = sizeof($lista_participantes);
         //$cantidadFechas= sizeof($fechas);
@@ -309,7 +294,7 @@ class CompetenciaDeportivaController extends AbstractController
     /**
      * @Route("/{id_competencia}/fixture/{id_partido}/resultado", name="competencia_deportiva_fixture_partido_resultado_gestionar", methods={"GET","POST"})
      */
-    public function gestionarResultado($id_partido, $id_competencia, Request $request){
+    public function gestionarResultado($id_partido, $id_competencia){
         $em = $this->getDoctrine()->getManager();
 
         $repositorio = $em->getRepository(CompetenciaDeportiva::class);
@@ -452,7 +437,6 @@ class CompetenciaDeportivaController extends AbstractController
         $competenciaDeportiva = $repositorio->find($id_competencia);
         $repositorio = $em->getRepository(Partido::class);
         $partido = $repositorio->find($id_partido);
-        $resultado = $partido->getResultado();
 
 
 
@@ -506,7 +490,6 @@ class CompetenciaDeportivaController extends AbstractController
 
         $repositorio = $em->getRepository(Partido::class);
         $partido = $repositorio->find($id_partido);
-        $resultado = $partido->getResultado();
 
 
 
@@ -573,30 +556,133 @@ class CompetenciaDeportivaController extends AbstractController
             ]);
     }
 
-/*
     /**
-     * @Route("/verificarParticipantes", options={"expose"=true}, name="verificarParticipantes")
+     * @package Participante Controller
+     * Tiene los metodos necesarios para gestionar un participante.
      */
-    /*
-        public function verificarParticipantes(Request $request)  {
 
-        if($request->isXmlHttpRequest()){
+    /**
+     * @Route("/participantes/{id_competencia}", name="participante_index", methods={"GET"})
+     */
+    public function participante_index(ParticipanteRepository $participanteRepository, $id_competencia)
+    {
 
-            $repositorio = $this->getDoctrine()->getRepository(get_class(new Participante(0)));
-            $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
+        $repositorio = $this->getDoctrine()->getRepository(CompetenciaDeportiva::class);
+        $competenciaDeportiva = $repositorio->find($id_competencia);
 
-            if (empty($lista_participantes)){
-                $participantes == FALSE;
-            } else {
-                $participantes == TRUE;
+        $estado = $competenciaDeportiva->getEstado();
+        return $this->render('participante/index.html.twig', [
+
+            'participantes' => $participanteRepository->findByCompetencia($id_competencia),
+            'estado' => $estado,
+            'id_competencia' => $id_competencia,
+
+        ]);
+    }
+
+    /**
+     * @Route("/participantes/new/{id_competencia}", name="participante_new", methods={"GET","POST"})
+     */
+    public function participante_new(Request $request, $id_competencia)
+    {
+        $participante = new Participante();
+        $form = $this->createForm(ParticipanteType::class, $participante);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $imagenFile = $form->get('imagen')->getData();
+
+            if($imagenFile){
+                $originalFilename = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $newFilename = $originalFilename.'-'.uniqid().'.'.$imagenFile->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imagenFile->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $participante->setImagenFileName($newFilename);
             }
 
-            return new JsonResponse(['participantes'=>$participantes]);
-            } else {
-                throw new \Exception('Me estas tratando de hackear?');
-                }
 
+            $nombreMayusculas = $participante -> getNombre();
+            $nombreMayusculas = strtoupper($nombreMayusculas);
+            $participante -> setNombre($nombreMayusculas);
+
+            $emailMayusculas = $participante -> getEmail();
+            $emailMayusculas = strtoupper($emailMayusculas);
+            $participante -> setEmail($emailMayusculas);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $repositorio = $entityManager->getRepository(CompetenciaDeportiva::class);
+            $competenciaDeportiva = $repositorio->find($id_competencia);
+            $competenciaDeportiva->addParticipante($participante);
+
+            $this->borrarFixtureActual($competenciaDeportiva);
+            $repositorio = $entityManager->getRepository(Estado::class);
+            $competenciaDeportiva->setEstado($repositorio->find(1));
+
+            $entityManager->persist($competenciaDeportiva);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('participante_index', ['id_competencia' => $id_competencia]);
         }
-    */
+
+        return $this->render('participante/new.html.twig', [
+            'participante' => $participante,
+            'form' => $form->createView(),
+            'id_competencia' => $id_competencia,
+        ]);
+    }
+
+    /**
+     * @Route("/participantes/{id}", name="participante_show", methods={"GET"})
+     */
+    public function participante_show(Participante $participante)
+    {
+        return $this->render('participante/show.html.twig', [
+            'participante' => $participante,
+        ]);
+    }
+
+    /**
+     * @Route("/participantes/{id}/edit", name="participante_edit", methods={"GET","POST"})
+     */
+    public function participante_edit(Request $request, Participante $participante)
+    {
+        $form = $this->createForm(ParticipanteType::class, $participante);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('participante_index');
+        }
+
+        return $this->render('participante/edit.html.twig', [
+            'participante' => $participante,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/participantes/{id}", name="participante_delete", methods={"DELETE"})
+     */
+    public function participante_delete(Request $request, Participante $participante)
+    {
+        if ($this->isCsrfTokenValid('delete'.$participante->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($participante);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('participante_index');
+    }
 
 }
