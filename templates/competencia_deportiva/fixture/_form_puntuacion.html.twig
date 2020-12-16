@@ -52,12 +52,12 @@
     var ausenteVisitante =  isNaN({{ resultado.ausenteVisitante }}) ? 0:1;
     var permiteEmpate = isNaN({{ competencia.permiteEmpate }}) ? 0:1;
 
-    /*var permiteEmpate = ;*/
-
+    {#
     console.log('Puntos WO: ' +puntosWO);
     console.log('Ausente Local: ' +ausenteLocal);
     console.log('Ausente Visitante: ' +ausenteVisitante);
     console.log('Permite Empate: ' +permiteEmpate);
+    #}
 
     if (ausenteLocal==1){
 
