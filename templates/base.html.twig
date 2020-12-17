@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}    Bienvenido!     {% endblock %}</title>
+        {% block favicon %}
+        <link rel="shortcut icon" href="{{ asset('images/favicon.ico?v=2') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('images/favicon.ico?v=2') }}" type="image/x-icon">
+        {% endblock %}
 
         {% block stylesheets %}
 
@@ -22,7 +26,11 @@
 
         {% endblock %}
 
+
     </head>
+
+
+
     <body style="background-color:#FEFAF7";>
     <header>
         <!-- TP Diseño De Sistemas 2020 Grupo 2A -->
