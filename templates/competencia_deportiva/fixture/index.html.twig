@@ -178,9 +178,8 @@
                 {% for partido in fecha.partidos %}
                     <tr>
                         <th>{{fecha.numero}}</th>
-
                         <td >{{partido.participanteLocal}} / {{ partido.participanteVisitante}}</td>
-
+                        {% if (partido.resultado != null) %}
                         {% for set in partido.resultado.sets %}
                             {% if ((partido.resultado.ausenteLocal == 1) or (partido.resultado.ausenteVisitante == 1))%}
                                 {% if (partido.resultado.ausenteLocal == 1) %}
@@ -192,7 +191,11 @@
                             <td>{{  set.puntajeLocal }} / {{  set.puntajeVisitante }}</td>
                             {% endif %}
                         {% endfor %}
-
+                {% else %}
+                    {% for i in range (1,cantidadSets) %}
+                        <td>   </td>
+                    {% endfor %}
+                {% endif %}
                         <td>{{partido.lugar}}</td>
                         <td>
                             <button type="button" id="" class="btn btn-warning btn-block" onclick=location.href="{{ path('competencia_deportiva_fixture_partido_resultado_gestionar', {'id_competencia': id_competencia, 'id_partido': partido.id}) }}"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-eyeglasses" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

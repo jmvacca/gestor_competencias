@@ -4,7 +4,6 @@
     <div class="col">
         {{ form_label(form.nombre,'Nombre de la competencia:') }}
         {{ form_widget(form.nombre) }}
-
     </div>
     <div class="col">
         {{ form_label(form.deporte,'Deporte:') }}
@@ -28,9 +27,7 @@
         {{ form_label(form.modalidad,'Modalidad:') }}
         {{ form_widget(form.modalidad)}}
     </div>
-
     <div class="col-2 modalidad">
-
         <div class="modal fade modalModalidadcfg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content" id="modal">
@@ -41,7 +38,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-
                         <div class="container">
                             <div id="ocultar">
                                 <div class="row">
@@ -82,7 +78,6 @@
                                 </div>
                                 <hr>
                              </div>
-
                             <div class="row">
                                 <div class="col-6">
                                     <p>Forma de puntuacion: </p>
@@ -95,19 +90,15 @@
                                     </div>
                                 </div>
                                 <div class="col-4">
-
                                     {{ form_widget(form.cantidadMaximaSet) }}
                                     {{ form_errors(form.cantidadMaximaSet) }}
-
                                 </div>
-
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="radio">
                                         <input type="radio" name="fpuntuacion" onclick="funcion2();" id="puntuacion"> {{ form_label(form.puntosPorNoPresentarse,'Tantos por WO:') }}
                                     </div>
-
                                 </div>
                                 <div class="col-4">
                                     {{ form_widget(form.puntosPorNoPresentarse) }}
@@ -121,10 +112,9 @@
                                     </div>
                                 </div>
                             </div>
-
- </div>
+                        </div>
                         <hr>
-<div class="row">
+                        <div class="row">
                             <div class="col-6">
                                 <button type="bu" id="buttonAM1" class="btn btn-success btn-block">Guardar</button>
                             </div>
@@ -136,61 +126,44 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 <div class="modal fade" id="modalidadNSOC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-danger" role="alert">
                     "POR FAVOR CONFIGURE LA MODALIDAD DE LA COMPETENCIA"
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-4">
                     </div>
-
                     <div class="col-4">
                         <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>
 <div class="modal fade" id="nombreNoSel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-danger" role="alert">
                     "POR FAVOR, INGRESE EL NOMBRE DE LA COMPETENCIA"
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-4">
                     </div>
-
                     <div class="col-4">
                         <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>
@@ -198,27 +171,19 @@
 <div class="modal fade" id="disponibilidadNoSet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-danger" role="alert">
                     "POR FAVOR, AÑADA UNA DISPONIBILIDAD"
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-4">
                     </div>
-
                     <div class="col-4">
                         <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>
@@ -226,80 +191,56 @@
 <div class="modal fade" id="modalcam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-warning" role="alert">ADVERTENCIA! MODALIDAD NO CONFIGURADA, PRESIONE 'GUARDAR' PARA CONFIGURAR MODALIDAD.
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-4">
                     </div>
-
                     <div class="col-4">
                         <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>
 <div class="modal fade" id="alertmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-success" role="alert">
                     MODALIDAD CONFIGURADA EXITOSAMENTE.
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-4">
                     </div>
-
                     <div class="col-4">
                         <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>
 <div class="modal fade" id="alertmodal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-danger" role="alert">
                     POR FAVOR COMPLETE TODOS LOS CAMPOS REQUERIDOS DE LA CONFIGUARCION PARA GUARDAR.
                 </div>
-
                 <hr>
                 <div class="row">
                     <div class="col-4">
                     </div>
-
                     <div class="col-4">
                         <button text="center" type="button" class="btn btn-primary btn-block" data-dismiss="modal">Okey</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>
@@ -316,16 +257,10 @@
 
 <div class="row">
     <div class="col-5">
-
-
     </div>
     <div class="col-4">
-
-
     </div>
 </div>
-
-
 
 
 <!-- Botones Aceptar y Cancelar -->
@@ -342,40 +277,27 @@
 <div class="modal fade" id="modalAceptarNC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-
             <div class="modal-body">
-
                 <div class="alert alert-info" role="alert">
                     <div id="bodyAceptarNC"> </div>
                     <h4> ¿SEGURO QUE DESEA ACEPTAR Y CREAR LA NUEVA COMPETENCIA? </h4>
-
                 </div>
                 <hr>
                 <div id="BodyDatosCompetencia">
                 </div>
                 <hr>
                 <div class="row">
-
-
+                    {{ form_row(form._token) }}
                     <div class="col-2">
                     </div>
                     <div class="col-4">
-
                         <button type="submit" class="btn btn-outline-success btn-block" id="bac">{{ button_label|default('ACEPTAR') }}</button>
-
                     </div>
-
-
-
                     <div class="col-4">
                         <button type="button" class="btn btn-outline-danger btn-block" data-dismiss="modal">CANCELAR</button>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 </div>

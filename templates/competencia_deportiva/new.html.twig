@@ -18,7 +18,7 @@
         console.log('JavaScript Nueva Competencia Funcionando');
         document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
         var modalidadBool = false;
-        var cantidadDisponibilidades = 1;
+        var cantidadDisponibilidades = 0;
         var selectModalidad = document.getElementById('competencia_deportiva_modalidad');
         selectModalidad.addEventListener('change',
             function() {
@@ -58,7 +58,7 @@
             });
             $addDisponibilidadButton.on('click', function(e) {
 
-                //cantidadDisponibilidades++;
+                cantidadDisponibilidades++;
                 e.preventDefault();
 
                 // add a new disponibilidad form (see next code block)
@@ -84,7 +84,7 @@
             addDisponibilidadFormDeleteLink($card);
             $addDisponibilidadButton.before($card);
             //$coleccionDisponibilidades.append($card);
-            //cantidadDisponibilidades++;
+            cantidadDisponibilidades++;
         }
         /**
          * @param $card
@@ -92,12 +92,12 @@
         function addDisponibilidadFormDeleteLink($card) {
             var $removeFormButton = $('<button type="button" class="btn btn-danger btn-lg"> <i class="fa fa-trash"></i> ELIMINAR</button>');
             var $cardFooter = $('<div class="card-footer"></div>').append($removeFormButton);
-            //cantidadDisponibilidades--;
+            cantidadDisponibilidades--;
             $removeFormButton.on('click', function(e) {
                 // remove the tr for the tag form
                 $(e.target).parents('#card-disponibilidad').slideUp(1000, function (){
                     $(this).remove();
-                    //cantidadDisponibilidades--;
+                    cantidadDisponibilidades--;
                 });
             });
             $card.append($cardFooter);
@@ -366,9 +366,6 @@
 
                     $('#modalAceptarNC').modal();
 
-
-
-
                 }
 
             }
@@ -390,9 +387,6 @@
                 return val;
             }
         }
-
-
-
 
     </script>
 

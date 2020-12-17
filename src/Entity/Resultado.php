@@ -48,7 +48,7 @@ class Resultado
     private $partido;
 
     /**
-     * @ORM\OneToMany(targetEntity=HistorialResultado::class, mappedBy="resultado", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=HistorialResultado::class, mappedBy="resultado", orphanRemoval=true, cascade="persist")
      */
     private $historial;
 

@@ -35,7 +35,7 @@ class HistorialResultado
     private $fecha;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $empate;
 
@@ -66,7 +66,7 @@ class HistorialResultado
     private $resultado;
 
     /**
-     * @ORM\OneToMany(targetEntity=Set::class, mappedBy="historialResultado")
+     * @ORM\OneToMany(targetEntity=Set::class, mappedBy="historialResultado", orphanRemoval=true, cascade="persist")
      */
     private $sets;
 
@@ -199,7 +199,7 @@ class HistorialResultado
     public function addSet(Set $set): self
     {
         if (!$this->sets->contains($set)) {
-            $this->sets[] = $set;
+            $this->sets->add($set);
             $set->setHistorialResultado($this);
         }
 

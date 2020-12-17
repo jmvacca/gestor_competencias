@@ -40,9 +40,8 @@ class CompetenciaDeportivaType extends AbstractType
                 [
                     'choices' =>
                         [
-                            'Si' => true,
                             'No' => false,
-
+                            'Si' => true,
                         ],
                     'placeholder' => false,
                     'expanded' => false,

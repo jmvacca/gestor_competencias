@@ -6,6 +6,7 @@ use App\Entity\CompetenciaDeportiva;
 use App\Entity\Disponibilidad;
 use App\Entity\Estado;
 use App\Entity\Fecha;
+use App\Entity\HistorialResultado;
 use App\Entity\LugarDeRealizacion;
 use App\Entity\Participante;
 use App\Entity\Partido;
@@ -25,6 +26,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/competencias")
@@ -75,6 +77,14 @@ class CompetenciaDeportivaController extends AbstractController
             $nombreMayusculas = strtoupper($nombreMayusculas);
             $competenciaDeportiva -> setNombre($nombreMayusculas);
 
+            if ($competenciaDeportiva->getCantidadMaximaSet()){
+                $competenciaDeportiva->setFormaPuntuacion('TIPO_SETS');
+            }elseif ($competenciaDeportiva->getPuntosPorNoPresentarse()){
+                $competenciaDeportiva->setFormaPuntuacion('TIPO_PUNTUACION');
+            }else{
+                $competenciaDeportiva->setFormaPuntuacion('TIPO_FINAL');
+            }
+
             $entityManager->persist($competenciaDeportiva);
             $entityManager->flush();
 
@@ -93,14 +103,9 @@ class CompetenciaDeportivaController extends AbstractController
     public function show(CompetenciaDeportiva $competenciaDeportiva)
     {
 
-        //$repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
-        //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $repositorio = $this->getDoctrine()->getRepository(Participante::class);
         $lista_participantes = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $cantidadParticipantes = sizeof($lista_participantes);
-        //$cantidadFechas= sizeof($fechas);
-
-
 
         if (empty($lista_participantes)){
             $participantesBool = 0;
@@ -121,7 +126,6 @@ class CompetenciaDeportivaController extends AbstractController
 
         ]);
     }
-
 
     /**
      * @Route("/{id}/edit", name="competencia_deportiva_edit", methods={"GET","POST"})
@@ -166,7 +170,6 @@ class CompetenciaDeportivaController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $this->borrarFixtureActual($competenciaDeportiva);
         $estado = $competenciaDeportiva->getEstado();
-
 
         if($estado->getId() == 1 or $estado->getId() == 2){
             $this->generarFixtureLiga($competenciaDeportiva);
@@ -251,18 +254,9 @@ class CompetenciaDeportivaController extends AbstractController
     public function borrarFixtureActual(CompetenciaDeportiva $competenciaDeportiva)
     {
         $em = $this->getDoctrine()->getManager();
-        //$repositorio = $this->getDoctrine()->getRepository(Fecha::class);
-        //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $fechas = $competenciaDeportiva->getFecha();
 
         foreach ($fechas as $fecha) {
-
-            /*$partidos = $fecha -> getPartidos();
-            foreach ($partidos as $partido) {
-                $em->remove($partido);
-                $em->flush();
-            }*/
-
             $em->remove($fecha);
             $em->flush();
         }
@@ -272,12 +266,8 @@ class CompetenciaDeportivaController extends AbstractController
      * @Route("/{id}/fixture/mostrar", name="competencia_deportiva_fixture_index")
      */
     public function indexFixtureLiga(CompetenciaDeportiva $competenciaDeportiva){
-        //$repositorio = $this->getDoctrine()->getRepository(get_class(new Fecha(0)));
         $formaPuntuacion = $competenciaDeportiva->getFormaPuntuacion();
-        //$fechas = $repositorio->findByCompetencia($competenciaDeportiva->getId());
         $fechas = $competenciaDeportiva->getFecha();
-
-
 
         return $this->render('competencia_deportiva/fixture/index.html.twig',
             [
@@ -286,8 +276,6 @@ class CompetenciaDeportivaController extends AbstractController
                 'competencia' => $competenciaDeportiva,
                 'formaPuntuacion' => $formaPuntuacion,
                 'cantidadSets'    => $competenciaDeportiva-> getCantidadMaximaSet(),
-
-
             ]);
     }
 
@@ -370,7 +358,6 @@ class CompetenciaDeportivaController extends AbstractController
         $sets = $resultado -> getSets();
         $cantidadSets = sizeof($sets);
 
-
         if ($ausenteLocal == 0 ) {
             $ausenteLocal = 0;
         }
@@ -378,25 +365,42 @@ class CompetenciaDeportivaController extends AbstractController
             $ausenteVisitante = 0;
         }
 
-
-
-        //$repositorio = $em->getRepository(ResultadoSets::class);
-        //$resultadoSets = $repositorio->find($resultadoSets->getId());
-
         $form = $this->createForm(ResultadoSetsType::class, $resultadoSets);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $historialResultado = new HistorialResultado();
+            $resultadoSets->addHistorial($historialResultado);
+            $contador = 1;
+            while($contador <= sizeof($resultadoSets->getSets()) ){
+                $historialSet = new Set($contador);
+                $historialResultado->addSet($historialSet);
+                $contador++;
+            }
+
             if ($form->get('ausenteLocal')->getData() == true) {
                 $resultadoSets->setAusenteLocal(true);
                 $resultadoSets->setAusenteVisitante(false);
             } elseif ($form->get('ausenteVisitante')->getData() == true) {
+                $resultadoSets->setAusenteLocal(false);
                 $resultadoSets->setAusenteVisitante(true);
-                $resultadoSets->setAusenteLocal(false);
             } else {
-                $resultadoSets->setAusenteVisitante(false);
                 $resultadoSets->setAusenteLocal(false);
+                $resultadoSets->setAusenteVisitante(false);
             }
+
+            $historialResultado->setAusenteLocal($resultadoSets->getAusenteLocal());
+            $historialResultado->setAusenteVisitante($resultadoSets->getAusenteVisitante());
+
+            $contador = 0;
+            $resultadoSets_array = $resultadoSets->getSets()->toArray();
+            foreach ($historialResultado->getSets() as $historialSet){
+                $historialSet->setPuntajeLocal(($resultadoSets_array[$contador])->getPuntajeLocal());
+                $historialSet->setPuntajeVisitante(($resultadoSets_array[$contador])->getPuntajeVisitante());
+                $contador++;
+            }
+            $historialResultado->setFecha(new \DateTime());
 
             $repositorio = $em->getRepository(Estado::class);
 
@@ -406,6 +410,7 @@ class CompetenciaDeportivaController extends AbstractController
             }else{
                 $competenciaDeportiva->setEstado($repositorio->find(3));
             }
+
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('competencia_deportiva_fixture_index',
                 [
@@ -438,24 +443,33 @@ class CompetenciaDeportivaController extends AbstractController
         $repositorio = $em->getRepository(Partido::class);
         $partido = $repositorio->find($id_partido);
 
-
-
-
         $form = $this->createForm(ResultadoPuntuacionType::class, $resultadoPuntuacion);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $historialResultado = new HistorialResultado();
+            $resultadoPuntuacion->addHistorial($historialResultado);
+
             if ($form->get('ausenteLocal')->getData() == true) {
                 $resultadoPuntuacion->setAusenteLocal(true);
                 $resultadoPuntuacion->setAusenteVisitante(false);
             } elseif ($form->get('ausenteVisitante')->getData() == true) {
+                $resultadoPuntuacion->setAusenteLocal(false);
                 $resultadoPuntuacion->setAusenteVisitante(true);
-                $resultadoPuntuacion->setAusenteLocal(false);
             } else {
-                $resultadoPuntuacion->setAusenteVisitante(false);
                 $resultadoPuntuacion->setAusenteLocal(false);
+                $resultadoPuntuacion->setAusenteVisitante(false);
             }
+            $historialResultado->setAusenteLocal($resultadoPuntuacion->getAusenteLocal());
+            $historialResultado->setAusenteVisitante($resultadoPuntuacion->getResultadoVisitante());
+
+            $historialResultado->setResultadoLocal($resultadoPuntuacion->getResultadoLocal());
+            $historialResultado->setResultadoVisitante($resultadoPuntuacion->getResultadoVisitante());
+
+            $historialResultado->setFecha(new \DateTime('yyyy-MM-dd H:i:s'));
+
             $repositorio = $em->getRepository(Estado::class);
             if($competenciaDeportiva->fechaActual() == -2){
 
@@ -473,9 +487,6 @@ class CompetenciaDeportivaController extends AbstractController
                 'partido' => $partido,
                 'resultado' => $resultadoPuntuacion,
                 'competencia' => $competenciaDeportiva,
-
-
-
             ]);
     }
 
@@ -491,22 +502,21 @@ class CompetenciaDeportivaController extends AbstractController
         $repositorio = $em->getRepository(Partido::class);
         $partido = $repositorio->find($id_partido);
 
-
-
-
-
         $form = $this->createForm(ResultadoFinalType::class, $resultadoFinal);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $historialResultado = new HistorialResultado();
+            $resultadoFinal->addHistorial($historialResultado);
+
             if ($form->get('ausenteLocal')->getData() == true) {
                 $resultadoFinal->setAusenteLocal(true);
                 $resultadoFinal->setAusenteVisitante(false);
                 $resultadoFinal->setGanadorLocal(false);
                 $resultadoFinal->setGanadorVisitante(true);
                 $resultadoFinal->setEmpate(false);
-
             } elseif ($form->get('ausenteVisitante')->getData() == true) {
                 $resultadoFinal->setAusenteLocal(false);
                 $resultadoFinal->setAusenteVisitante(true);
@@ -519,7 +529,6 @@ class CompetenciaDeportivaController extends AbstractController
                 $resultadoFinal->setGanadorLocal(true);
                 $resultadoFinal->setGanadorVisitante(false);
                 $resultadoFinal->setEmpate(false);
-
             } elseif (($form->get('ganadorVisitante')->getData() == true)) {
                 $resultadoFinal->setAusenteLocal(false);
                 $resultadoFinal->setAusenteVisitante(false);
@@ -527,7 +536,6 @@ class CompetenciaDeportivaController extends AbstractController
                 $resultadoFinal->setGanadorVisitante(true);
                 $resultadoFinal->setEmpate(false);
             }
-
             if ($form->get('empate')->getData() == true){
                 $resultadoFinal->setAusenteLocal(false);
                 $resultadoFinal->setAusenteVisitante(false);
@@ -535,6 +543,14 @@ class CompetenciaDeportivaController extends AbstractController
                 $resultadoFinal->setGanadorVisitante(false);
                 $resultadoFinal->setEmpate(true);
             }
+
+            $historialResultado->setEmpate($resultadoFinal->getEmpate());
+            $historialResultado->setGanadorLocal($resultadoFinal->getGanadorLocal());
+            $historialResultado->setGanadorVisitante($resultadoFinal->getGanadorVisitante());
+            $historialResultado->setAusenteLocal($resultadoFinal->getAusenteLocal());
+            $historialResultado->setAusenteVisitante($resultadoFinal->getAusenteVisitante());
+
+            $historialResultado->setFecha(new \DateTime('yyyy-MM-dd H:i:s'));
 
             $repositorio = $em->getRepository(Estado::class);
             if($competenciaDeportiva->fechaActual()==-2){
