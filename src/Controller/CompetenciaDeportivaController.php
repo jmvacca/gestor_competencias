@@ -638,16 +638,23 @@ class CompetenciaDeportivaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $repositorio = $entityManager->getRepository(CompetenciaDeportiva::class);
             $competenciaDeportiva = $repositorio->find($id_competencia);
-            $competenciaDeportiva->addParticipante($participante);
+            $listaParticipante = $competenciaDeportiva->getParticipante();
 
-            $this->borrarFixtureActual($competenciaDeportiva);
-            $repositorio = $entityManager->getRepository(Estado::class);
-            $competenciaDeportiva->setEstado($repositorio->find(1));
+            $contiene = false;
+            foreach ($listaParticipante as $p){
+                if (($p->getNombre() == $participante->getNombre()) or ($p->getEmail() == $participante->getEmail())) $contiene = true;
+            }
+            if(!$contiene){
+                $competenciaDeportiva->addParticipante($participante);
+                $this->borrarFixtureActual($competenciaDeportiva);
+                $repositorio = $entityManager->getRepository(Estado::class);
+                $competenciaDeportiva->setEstado($repositorio->find(1));
 
-            $entityManager->persist($competenciaDeportiva);
-            $entityManager->flush();
-
+                $entityManager->persist($competenciaDeportiva);
+                $entityManager->flush();
+            }
             return $this->redirectToRoute('participante_index', ['id_competencia' => $id_competencia]);
+
         }
 
         return $this->render('participante/new.html.twig', [

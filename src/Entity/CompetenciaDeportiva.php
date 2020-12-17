@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CompetenciaDeportivaRepository::class)
@@ -91,6 +92,9 @@ class CompetenciaDeportiva
     private $deporte;
 
     /**
+     *
+     * @Assert\Unique
+     *
      * @ORM\OneToMany(targetEntity=Participante::class, mappedBy="competenciaDeportiva", orphanRemoval=true , cascade={"persist"})
      */
     private $participante;
@@ -320,14 +324,14 @@ class CompetenciaDeportiva
         return $this->participante;
     }
 
-    public function addParticipante(Participante $participante): self
+    public function addParticipante(Participante $participante)
     {
         if (!$this->participante->contains($participante)) {
             $this->participante->add($participante);
             $participante->setCompetenciaDeportiva($this);
+        }else{
+            return false;
         }
-
-        return $this;
     }
 
     public function removeParticipante(Participante $participante): self

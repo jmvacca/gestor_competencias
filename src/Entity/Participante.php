@@ -8,10 +8,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipanteRepository::class)
- * @UniqueEntity(fields="email",
- *     message="Correo electronico ya en uso.")
- * @UniqueEntity(fields="nombre",
- *     message="Nombre ya en uso.")
  *
  */
 class Participante
@@ -24,12 +20,12 @@ class Participante
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180)
      *
      */
     private $email;
