@@ -17,6 +17,9 @@
     <script type="text/javascript">
         console.log('JavaScript Nueva Competencia Funcionando');
         document.getElementById('competencia_deportiva_puntosPorNoPresentarse').disabled = true;
+        document.getElementById('competencia_deportiva_puntosEmpate').value = null;
+        document.getElementById('competencia_deportiva_puntosEmpate').disabled = true;
+
         var modalidadBool = false;
         var cantidadDisponibilidades = 0;
         var selectModalidad = document.getElementById('competencia_deportiva_modalidad');
@@ -228,14 +231,18 @@
             e.preventDefault();
             var select = document.getElementById('competencia_deportiva_modalidad');
             var modalidadS = [select.selectedIndex];
+            var puntuacionWO = document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value;
             var puntosEmpate = document.getElementById('competencia_deportiva_puntosEmpate').value;
             var puntosPorPresentarce = document.getElementById('competencia_deportiva_puntosPorPresentarse').value;
             var puntosPartidoGanado = document.getElementById('competencia_deportiva_puntosPartidoGanado').value;
-            var datosModalidadCompletos=false;
+            var datosModalidadCompletos = false;
+            var datosPPpresentarseValido=false;
+            var datosPPganadoValido=false;
             var radioBool = document.getElementById("puntuacion").checked;
-            console.log('PWO: ' +radioBool);
-            var puntuacionWO = document.getElementById("competencia_deportiva_puntosPorNoPresentarse").value;
-            console.log('PuntuacionWO: ' +puntuacionWO);
+
+
+
+
 
             if(modalidadS==0){
                                 if (selectPermiteEmpate.value==0){
@@ -271,21 +278,40 @@
                                     }
                                 }
 
-
-
                                 if (datosModalidadCompletos==true){
+                                    if (puntosEmpate < puntosPartidoGanado) {
+                                        datosPPganadoValido = true;
+                                    }
+                                    if (puntosEmpate <= puntosPartidoGanado) {
+                                        datosPPganadoValido = true;
+                                    }
+                                    if (puntosPorPresentarce < puntosPartidoGanado) {
+                                        datosPPpresentarseValido = true;
+                                    }
 
-                                    $('div.modalModalidadcfg').modal('hide');
-                                    modalidadBool = true;
-                                    $('#alertmodal').modal();
-                                    console.log('Modalidad Seleccionada y Configurada, Estado: ' + modalidadBool);
+                                    if (datosPPpresentarseValido==true){
+
+                                        if (datosPPganadoValido==true){
+
+                                            $('div.modalModalidadcfg').modal('hide');
+                                            modalidadBool = true;
+                                            $('#alertmodal').modal();
+
+
+                                        } else {
+                                            $('#alertmodalPPG').modal();
+                                        }
+
+                                    } else {
+                                        $('#alertmodalPPP').modal();
+                                    }
 
                                 } else {
                                     $('#alertmodal2').modal({
                                         backdrop:'static',
                                         keyboard: false,
                                     });
-                                    console.log('Por Favor Complerte la Configuracion... ');
+
                                 }
             } else {
 
