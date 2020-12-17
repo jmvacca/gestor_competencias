@@ -82,10 +82,14 @@
                                 <td>WIN</td>
                                 <td>vs</td>
                                 <td>LOSE</td>
-                            {% else %}
+                            {% elseif (partido.resultado.ganadorVisitante==1) %}
                                 <td>LOSE</td>
                                 <td>vs</td>
                                 <td>WIN</td>
+                            {% else %}
+                                <td></td>
+                                <td>vs</td>
+                                <td></td>
                             {% endif %}
                         {% else %}
                             <td></td>
