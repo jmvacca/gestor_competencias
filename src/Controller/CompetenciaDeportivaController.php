@@ -468,7 +468,7 @@ class CompetenciaDeportivaController extends AbstractController
             $historialResultado->setResultadoLocal($resultadoPuntuacion->getResultadoLocal());
             $historialResultado->setResultadoVisitante($resultadoPuntuacion->getResultadoVisitante());
 
-            $historialResultado->setFecha(new \DateTime('yyyy-MM-dd H:i:s'));
+            $historialResultado->setFecha(new \DateTime());
 
             $repositorio = $em->getRepository(Estado::class);
             if($competenciaDeportiva->fechaActual() == -2){
@@ -550,7 +550,7 @@ class CompetenciaDeportivaController extends AbstractController
             $historialResultado->setAusenteLocal($resultadoFinal->getAusenteLocal());
             $historialResultado->setAusenteVisitante($resultadoFinal->getAusenteVisitante());
 
-            $historialResultado->setFecha(new \DateTime('yyyy-MM-dd H:i:s'));
+            $historialResultado->setFecha(new \DateTime());
 
             $repositorio = $em->getRepository(Estado::class);
             if($competenciaDeportiva->fechaActual()==-2){
